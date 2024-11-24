@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from "vite";
 
 import tsconfigPaths from "vite-tsconfig-paths";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
+import { createHtmlPlugin } from "vite-plugin-html";
 import vitePluginSingleSpa from "vite-plugin-single-spa";
 
 // https://vite.dev/config/
@@ -10,6 +11,7 @@ export default defineConfig(({ mode }) => {
 
     const serverPort = Number(process.env.VITE_SERVER_PORT);
     const spaEntryPoints = "src/app/spa.tsx";
+    const isSPA = mode === "spa";
 
     return {
         plugins: [
@@ -18,6 +20,14 @@ export default defineConfig(({ mode }) => {
             vitePluginSingleSpa({
                 serverPort,
                 spaEntryPoints,
+            }),
+            createHtmlPlugin({
+                minify: true,
+                inject: {
+                    data: {
+                        isSPA,
+                    },
+                },
             }),
         ],
     };
