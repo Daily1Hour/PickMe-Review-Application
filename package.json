@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:spa": "vite --mode spa",
+    "dev:mfa": "vite --mode mfa",
     "build": "tsc && vite build",
-    "build:spa": "tsc -b && vite build --mode spa",
+    "build:mfa": "tsc -b && vite build --mode mfa",
     "preview": "vite preview",
-    "preview:spa": "vite preview --mode spa"
+    "preview:mfa": "vite preview --mode mfa"
   },
   "devDependencies": {
     "@types/node": "^22.9.3",

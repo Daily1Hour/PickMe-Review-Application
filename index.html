@@ -7,10 +7,10 @@
   </head>
   <body>
     <div id="root"></div>
-    <% if (isSPA) { %>
-      <script type="module" src="/src/app/spa.tsx"></script>
-      <% } else { %>
-      <script type="module" src="/src/app/main.tsx"></script>
-      <% } %>
+    <% if (isMFA) { %>
+    <script type="module" src="/src/app/mfa.tsx"></script>
+    <% } else { %>
+    <script type="module" src="/src/app/main.tsx"></script>
+    <% } %>
   </body>
 </html>
