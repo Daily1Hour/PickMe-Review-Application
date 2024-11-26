@@ -5,11 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:mfa": "vite --mode mfa",
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "build:mfa": "tsc -b && vite build --mode mfa",
     "preview": "vite preview",
-    "preview:mfa": "vite preview --mode mfa"
+    "start": "npm run build:mfa && npm run preview"
   },
   "devDependencies": {
     "@types/node": "^22.9.3",

@@ -2,7 +2,6 @@ import { defineConfig, loadEnv } from "vite";
 
 import tsconfigPaths from "vite-tsconfig-paths";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
-import { createHtmlPlugin } from "vite-plugin-html";
 import vitePluginSingleSpa from "vite-plugin-single-spa";
 
 // https://vite.dev/config/
@@ -23,15 +22,6 @@ export default defineConfig(({ mode }) => {
                     serverPort,
                     spaEntryPoints,
                 }),
-            createHtmlPlugin({
-                // EJS 템플릿 엔진을 사용하여 HTML 파일 생성
-                minify: true,
-                inject: {
-                    data: {
-                        isMFA,
-                    },
-                },
-            }),
         ],
         server: {
             port: serverPort,
