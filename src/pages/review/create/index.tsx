@@ -1,7 +1,8 @@
 import React from "react";
+import InterviewDetail from "./components/InterviewDetail";
 
 const CreateReviewPage = () => {
-    return <div>CreateReviewPage</div>;
+    return <InterviewDetail />;
 };
 
 export default CreateReviewPage;
