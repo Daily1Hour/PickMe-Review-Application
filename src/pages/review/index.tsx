@@ -1,7 +1,12 @@
-import React from "react";
+import Sidebar from "./ui/sidebar";
 
 const ReviewPage = () => {
-    return <div>index</div>;
+    console.log();
+    return (
+        <>
+            <Sidebar />
+        </>
+    );
 };
 
 export default ReviewPage;
