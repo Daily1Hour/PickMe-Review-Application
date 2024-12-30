@@ -5,7 +5,7 @@ const InterviewProcess = () => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
-                <Fieldset.Legend>면접 진행 과정</Fieldset.Legend>
+                <Fieldset.Legend fontSize="2xl">면접 진행 과정</Fieldset.Legend>
             </Stack>
 
             <Fieldset.Content>

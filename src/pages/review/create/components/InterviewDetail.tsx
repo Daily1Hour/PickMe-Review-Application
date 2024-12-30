@@ -5,8 +5,7 @@ const InterviewDetail = () => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
-                <Fieldset.Legend>면접 정보</Fieldset.Legend>
-                <Fieldset.HelperText></Fieldset.HelperText>
+                <Fieldset.Legend fontSize="2xl">면접 정보</Fieldset.Legend>
             </Stack>
 
             <Fieldset.Content>

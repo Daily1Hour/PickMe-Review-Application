@@ -6,7 +6,7 @@ const Preparation = () => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
-                <Fieldset.Legend>사전 준비</Fieldset.Legend>
+                <Fieldset.Legend fontSize="2xl">사전 준비</Fieldset.Legend>
             </Stack>
 
             <Fieldset.Content>
