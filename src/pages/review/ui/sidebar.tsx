@@ -11,9 +11,12 @@ import {
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 
-const Sidebar = () => {
-    const [selectedItem, setSelectedItem] = useState("면접 회고 1");
+interface SidebarProps {
+    selectedItem: string;
+    setSelectedItem: (item: string) => void;
+}
 
+const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
 
     // 메뉴 항목
@@ -120,22 +123,6 @@ const Sidebar = () => {
                     </VStack>
                 </Box>
             )}
-
-            {/* Main Content */}
-            <Box flex="1" bg="gray.100" padding="20px">
-                <Text
-                    fontSize="2xl"
-                    fontWeight="bold"
-                    marginBottom="10px"
-                    textAlign="center"
-                >
-                    {selectedItem}
-                </Text>
-                <Text textAlign="center">
-                    This is the detailed content for{" "}
-                    <strong>{selectedItem}</strong>.
-                </Text>
-            </Box>
         </Flex>
     );
 };
