@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
-import { Field } from "@/widgets/chakra-ui/field";
+import { Field } from "@/shared/chakra-ui/field";
 
 const Preparation = () => {
     return (

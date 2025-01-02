@@ -7,7 +7,7 @@ import {
     Textarea,
     Box,
 } from "@chakra-ui/react";
-import { Field } from "@/widgets/chakra-ui/field";
+import { Field } from "@/shared/chakra-ui/field";
 
 const QuestionsAnswers = () => {
     type FieldData = {

@@ -20,7 +20,7 @@ const CreateReviewPage = () => {
             justifyContent="flex-start" // 수평 정렬
             gap="100px" // 자식 요소들 사이에 20px 간격
         >
-            <Heading textAlign="center" size="3xl" marginBottom="30px">
+            <Heading textAlign="center" size="3xl" marginTop="50px">
                 면접 회고 작성
             </Heading>
 
