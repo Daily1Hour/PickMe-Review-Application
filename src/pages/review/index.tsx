@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box } from "@chakra-ui/react";
-import Sidebar from "./ui/sidebar";
+import Sidebar from "../../features/side";
 import FirstRender from "./ui/firstRender";
 import ClickList from "./ui/clickList";
 
