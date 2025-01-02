@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Box, Heading, Button } from "@chakra-ui/react";
 
-import InterviewDetail from "./components/InterviewDetail";
-import Preparation from "./components/Preparation";
-import InterviewProcess from "./components/InterviewProcess";
-import QuestionsAnswers from "./components/QuestionsAnswers";
+import InterviewDetail from "./ui/InterviewDetail";
+import Preparation from "./ui/Preparation";
+import InterviewProcess from "./ui/InterviewProcess";
+import QuestionsAnswers from "./ui/QuestionsAnswers";
 
 const CreateReviewPage = () => {
     return (

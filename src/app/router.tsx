@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import ReviewPage from "@/pages/review";
-import CreateReviewPage from "@/pages/review/create";
+import CreateReviewPage from "@/features/create";
 
 const router = createBrowserRouter([
     {
