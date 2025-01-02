@@ -1,37 +1,49 @@
-import React from "react";
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
 
-const Preparation = () => {
+const Communication = () => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
-                <Fieldset.Legend fontSize="2xl">사전 준비</Fieldset.Legend>
+                <Fieldset.Legend fontSize="2xl">의사소통</Fieldset.Legend>
             </Stack>
 
             <Fieldset.Content>
                 <Field
                     orientation="horizontal"
-                    label="잘한 점"
+                    label="언어적"
                     paddingBottom="10px"
                 >
                     <Input
-                        placeholder="잘한 점"
+                        placeholder="말투, 발음 등"
                         variant="flushed"
-                        name="strengths"
+                        name="verbal"
                         size="lg"
                     />
                 </Field>
 
                 <Field
                     orientation="horizontal"
-                    label="개선할 점"
+                    label="비언어적"
                     paddingBottom="10px"
                 >
                     <Input
-                        name="improvements"
+                        name="nonVerbal"
                         variant="flushed"
-                        placeholder="개선할 점"
+                        placeholder="제스처, 표정 등"
+                        size="lg"
+                    />
+                </Field>
+
+                <Field
+                    orientation="horizontal"
+                    label="상호작용"
+                    paddingBottom="10px"
+                >
+                    <Input
+                        name="interaction"
+                        variant="flushed"
+                        placeholder="면접관과의 상호작용(대화의 흐름 등)"
                         size="lg"
                     />
                 </Field>
@@ -40,4 +52,4 @@ const Preparation = () => {
     );
 };
 
-export default Preparation;
+export default Communication;

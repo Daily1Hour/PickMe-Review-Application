@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
+import { getSideData } from "../api/sideApi";
 
 interface SidebarProps {
     selectedItem: string;
@@ -18,19 +19,34 @@ interface SidebarProps {
 
 const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
-
-    // 메뉴 항목
-    const menuItems = [
-        "면접 회고 1",
-        "면접 회고 2",
-        "면접 회고 3",
-        "면접 회고 4",
-        "면접 회고 5",
-    ];
-
+    const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
+        [],
+    );
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
     const [filteredItems, setFilteredItems] = useState(menuItems); // 필터링된 메뉴 항목
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getSideData();
+            console.log(data); // 콘솔 로그가 호출될 것입니다.
+            const formattedMenuItems = data.interviewReviews.map(
+                (item: any) => ({
+                    id: item.reviewId,
+                    label: `${item.interviewDetail.companyName} | ${item.interviewDetail.category}`,
+                }),
+            );
+            console.log(formattedMenuItems);
+            setMenuItems(formattedMenuItems);
+        };
+
+        fetchData(); // getSideData 호출
+    }, []); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
+
+    // menuItems 상태가 변경되면 filteredItems 상태도 업데이트
+    useEffect(() => {
+        setFilteredItems(menuItems); // menuItems가 업데이트될 때 filteredItems도 갱신
+    }, [menuItems]);
 
     // 검색창 토글 함수
     const toggleSearch = () => {
@@ -39,7 +55,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
 
     useEffect(() => {
         const filtered = menuItems.filter((item) =>
-            item.toLowerCase().includes(searchQuery.toLowerCase()),
+            item.label.toLowerCase().includes(searchQuery.toLowerCase()),
         );
         setFilteredItems(filtered);
     }, [searchQuery]); // searchQuery가 변경될 때마다 실행됨
@@ -109,14 +125,14 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
                         ) : (
                             filteredItems.map((item) => (
                                 <Button
-                                    key={item}
+                                    key={item.id}
                                     variant="ghost"
                                     colorScheme="teal"
                                     mb="10px"
-                                    onClick={() => setSelectedItem(item)}
+                                    onClick={() => setSelectedItem(item.label)}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
                                 >
-                                    {item}
+                                    {item.label}
                                 </Button>
                             ))
                         )}
