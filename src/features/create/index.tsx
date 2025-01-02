@@ -6,6 +6,7 @@ import InterviewProcess from "./ui/InterviewProcess";
 import QuestionsAnswers from "./ui/QuestionsAnswers";
 import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
+import NextPreparation from "./ui/NextPreparation";
 
 const CreateReviewPage = () => {
     return (
@@ -31,6 +32,7 @@ const CreateReviewPage = () => {
             <QuestionsAnswers />
             <Communication />
             <InterviewAnalysis />
+            <NextPreparation />
             <Button colorPalette="green">저장</Button>
         </Box>
     );
