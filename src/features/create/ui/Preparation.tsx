@@ -1,4 +1,3 @@
-import React from "react";
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
 
