@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Box, Heading, Button } from "@chakra-ui/react";
 
 import InterviewDetail from "./ui/InterviewDetail";
@@ -6,6 +5,7 @@ import Preparation from "./ui/Preparation";
 import InterviewProcess from "./ui/InterviewProcess";
 import QuestionsAnswers from "./ui/QuestionsAnswers";
 import Communication from "./ui/Communication";
+import InterviewAnalysis from "./ui/InterviewAnalysis";
 
 const CreateReviewPage = () => {
     return (
@@ -30,6 +30,7 @@ const CreateReviewPage = () => {
             <InterviewProcess />
             <QuestionsAnswers />
             <Communication />
+            <InterviewAnalysis />
             <Button colorPalette="green">저장</Button>
         </Box>
     );
