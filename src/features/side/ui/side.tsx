@@ -11,13 +11,19 @@ import {
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
+import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
     selectedItem: string;
     setSelectedItem: (item: string) => void;
+    setIsCreatingReview: Dispatch<SetStateAction<boolean>>;
 }
 
-const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
+const Sidebar = ({
+    selectedItem,
+    setSelectedItem,
+    setIsCreatingReview,
+}: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
         [],
@@ -131,7 +137,10 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
                                     variant="ghost"
                                     colorScheme="teal"
                                     mb="10px"
-                                    onClick={() => setSelectedItem(item.id)}
+                                    onClick={() => {
+                                        setIsCreatingReview(false); // 상태 업데이트
+                                        setSelectedItem(item.id);
+                                    }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
                                 >
                                     {item.label}

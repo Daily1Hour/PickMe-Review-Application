@@ -14,6 +14,7 @@ const ReviewPage = () => {
             <Sidebar
                 selectedItem={selectedItem}
                 setSelectedItem={setSelectedItem}
+                setIsCreatingReview={setIsCreatingReview}
             />
 
             <Box
