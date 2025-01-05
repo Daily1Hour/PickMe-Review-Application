@@ -1,19 +1,22 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import { ReviewDetailDTO } from "../api/reviewDTOList";
+import { PreparationDTO, ReviewDetailDTO } from "../api/reviewDTOList";
 
 interface Props {
-    inputData: (
+    inputData?: (
         pFieldName: keyof ReviewDetailDTO,
         cFieldName: string,
         value: string,
     ) => void;
+    currentData?: PreparationDTO;
+    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
 }
 
-const Preparation = ({ inputData }: Props) => {
+const Preparation = ({ inputData, currentData, isReadOnly = false }: Props) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
-        inputData("preparation", event.target.name, event.target.value);
+        if (inputData)
+            inputData("preparation", event.target.name, event.target.value);
     };
 
     return (
@@ -34,6 +37,8 @@ const Preparation = ({ inputData }: Props) => {
                         name="strengths"
                         size="lg"
                         onChange={handleInputChange}
+                        value={currentData?.strengths || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -48,6 +53,8 @@ const Preparation = ({ inputData }: Props) => {
                         placeholder="개선할 점"
                         size="lg"
                         onChange={handleInputChange}
+                        value={currentData?.improvements || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
             </Fieldset.Content>

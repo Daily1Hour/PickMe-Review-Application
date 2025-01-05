@@ -8,10 +8,7 @@ import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
 import { useState } from "react";
-import {
-    PostInterviewReviewsDTO,
-    PostReviewDetailDTO,
-} from "./api/reviewDTOList";
+import { PostInterviewReviewsDTO, ReviewDetailDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import { reviewPostApi } from "./api/reviewPostApi";
 
@@ -30,7 +27,7 @@ const CreateReviewPage = () => {
     };
 
     const handleReviewDetail = (
-        pFieldName: keyof PostReviewDetailDTO,
+        pFieldName: keyof ReviewDetailDTO,
         cFieldName: string,
         value: string,
         index?: number,

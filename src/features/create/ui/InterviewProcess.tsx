@@ -1,19 +1,30 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import { ReviewDetailDTO } from "../api/reviewDTOList";
+import { InterviewProcessDTO, ReviewDetailDTO } from "../api/reviewDTOList";
 
 interface Props {
-    inputData: (
+    inputData?: (
         pFieldName: keyof ReviewDetailDTO,
         cFieldName: string,
         value: string,
     ) => void;
+    currentData?: InterviewProcessDTO;
+    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
 }
 
-const InterviewProcess = ({ inputData }: Props) => {
+const InterviewProcess = ({
+    inputData,
+    currentData,
+    isReadOnly = false,
+}: Props) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
-        inputData("interviewProcess", event.target.name, event.target.value);
+        if (inputData)
+            inputData(
+                "interviewProcess",
+                event.target.name,
+                event.target.value,
+            );
     };
 
     return (
@@ -34,6 +45,8 @@ const InterviewProcess = ({ inputData }: Props) => {
                         name="format"
                         size="lg"
                         onChange={handleInputChange}
+                        value={currentData?.format || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -48,6 +61,8 @@ const InterviewProcess = ({ inputData }: Props) => {
                         placeholder="면접 분위기"
                         size="lg"
                         onChange={handleInputChange}
+                        value={currentData?.mood || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -62,6 +77,8 @@ const InterviewProcess = ({ inputData }: Props) => {
                         placeholder="면접관 정보"
                         size="lg"
                         onChange={handleInputChange}
+                        value={currentData?.panel || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -76,6 +93,8 @@ const InterviewProcess = ({ inputData }: Props) => {
                         placeholder="면접관 : 면접자 비율"
                         size="lg"
                         onChange={handleInputChange}
+                        value={currentData?.interviewRatio || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
             </Fieldset.Content>
