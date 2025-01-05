@@ -78,6 +78,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
             {/* Sidebar */}
             {isSidebarVisible && (
                 <Box
+                    position="fixed" // 화면에 고정
                     w="250px"
                     bg="gray.200" // 밝은 회색 배경
                     color="black" // 글자는 검정색
@@ -85,6 +86,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
                     display="flex"
                     flexDirection="column"
                     gap="10px"
+                    height="100vh" // 화면을 가득 채움
                 >
                     {/* Sidebar Header */}
 
