@@ -13,6 +13,7 @@ import {
     PostReviewDetailDTO,
 } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
+import { reviewPostApi } from "./api/reviewPostApi";
 
 const CreateReviewPage = () => {
     const [formData, setFormData] =
@@ -88,6 +89,7 @@ const CreateReviewPage = () => {
     const handleSave = () => {
         console.log("Collected Data:", formData);
         // 데이터 전송 로직 작성 (예: API 호출)
+        console.log(reviewPostApi(formData));
     };
 
     return (
