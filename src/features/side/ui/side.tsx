@@ -29,7 +29,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getSideData();
-            console.log(data); // 콘솔 로그가 호출될 것입니다.
+            console.log(data); // 콘솔 로그가 호출
             const formattedMenuItems = data.interviewReviews.map(
                 (item: any) => ({
                     id: item.reviewId,
@@ -129,7 +129,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
                                     variant="ghost"
                                     colorScheme="teal"
                                     mb="10px"
-                                    onClick={() => setSelectedItem(item.label)}
+                                    onClick={() => setSelectedItem(item.id)}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
                                 >
                                     {item.label}
