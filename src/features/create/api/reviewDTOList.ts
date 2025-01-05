@@ -1,50 +1,50 @@
 export interface PostInterviewReviewsDTO {
-    interviewDetail: PostInterviewDetailDTO;
-    reviewDetail: PostReviewDetailDTO;
+    interviewDetail: InterviewDetailDTO;
+    reviewDetail: ReviewDetailDTO;
 }
 
-export interface PostInterviewDetailDTO {
+export interface InterviewDetailDTO {
     companyName: string;
     position: string;
     interviewDateTime: string;
     category: string;
 }
 
-export interface PostReviewDetailDTO {
-    preparation: PostPreparationDTO;
-    interviewProcess: PostInterviewProcessDTO;
-    questionsAnswers: PostQuestionsAnswersDTO[];
-    communication: PostCommunicationDTO;
-    interviewAnalysis: PostInterviewAnalysisDTO;
-    nextPreparation: PostNextPreparationDTO;
+export interface ReviewDetailDTO {
+    preparation: PreparationDTO;
+    interviewProcess: InterviewProcessDTO;
+    questionsAnswers: QuestionsAnswersDTO[];
+    communication: CommunicationDTO;
+    interviewAnalysis: InterviewAnalysisDTO;
+    nextPreparation: NextPreparationDTO;
 }
 
-export interface PostPreparationDTO {
+export interface PreparationDTO {
     strengths: string;
     improvements: string;
 }
 
-export interface PostInterviewProcessDTO {
+export interface InterviewProcessDTO {
     format: string;
     mood: string;
     panel: string;
     interviewRatio: string;
 }
 
-export interface PostQuestionsAnswersDTO {
+export interface QuestionsAnswersDTO {
     type: string;
     question: string;
     answer: string;
     feedback: string;
 }
 
-export interface PostCommunicationDTO {
+export interface CommunicationDTO {
     verbal: string;
     nonVerbal: string;
     interaction: string;
 }
 
-export interface PostInterviewAnalysisDTO {
+export interface InterviewAnalysisDTO {
     strengths: string;
     improvements: string;
     feedback: string;
@@ -52,7 +52,7 @@ export interface PostInterviewAnalysisDTO {
     interviewResultAnalysis: string;
 }
 
-export interface PostNextPreparationDTO {
+export interface NextPreparationDTO {
     technical: string;
     expression: string;
     additionalPractice: string;

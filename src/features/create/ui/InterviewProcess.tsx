@@ -1,10 +1,10 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import { PostReviewDetailDTO } from "../api/reviewDTOList";
+import { ReviewDetailDTO } from "../api/reviewDTOList";
 
 interface Props {
     inputData: (
-        pFieldName: keyof PostReviewDetailDTO,
+        pFieldName: keyof ReviewDetailDTO,
         cFieldName: string,
         value: string,
     ) => void;

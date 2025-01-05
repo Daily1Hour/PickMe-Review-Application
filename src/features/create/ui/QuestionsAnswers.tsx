@@ -8,14 +8,11 @@ import {
     Box,
 } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import {
-    PostQuestionsAnswersDTO,
-    PostReviewDetailDTO,
-} from "../api/reviewDTOList";
+import { QuestionsAnswersDTO, ReviewDetailDTO } from "../api/reviewDTOList";
 
 interface Props {
     inputData: (
-        pFieldName: keyof PostReviewDetailDTO,
+        pFieldName: keyof ReviewDetailDTO,
         cFieldName: string,
         value: string,
         index?: number,
@@ -35,7 +32,7 @@ const QuestionsAnswers = ({ inputData }: Props) => {
         feedback: string;
     };
 
-    const [fields, setFields] = useState<PostQuestionsAnswersDTO[]>([
+    const [fields, setFields] = useState<QuestionsAnswersDTO[]>([
         { type: "", question: "", answer: "", feedback: "" },
     ]);
 
