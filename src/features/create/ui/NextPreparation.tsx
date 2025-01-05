@@ -1,7 +1,21 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
+import { PostReviewDetailDTO } from "../api/reviewDTOList";
 
-const NextPreparation = () => {
+interface Props {
+    inputData: (
+        pFieldName: keyof PostReviewDetailDTO,
+        cFieldName: string,
+        value: string,
+    ) => void;
+}
+
+const NextPreparation = ({ inputData }: Props) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
+        inputData("nextPreparation", event.target.name, event.target.value);
+    };
+
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -21,6 +35,7 @@ const NextPreparation = () => {
                         variant="flushed"
                         name="technical"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -34,6 +49,7 @@ const NextPreparation = () => {
                         variant="flushed"
                         placeholder="ex. 답변의 표현, 제스처, 표정 등"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -47,6 +63,7 @@ const NextPreparation = () => {
                         variant="flushed"
                         placeholder="추가적으로 연습이 필요한 부분"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
             </Fieldset.Content>

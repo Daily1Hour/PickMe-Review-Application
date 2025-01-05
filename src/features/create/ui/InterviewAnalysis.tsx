@@ -1,7 +1,21 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
+import { PostReviewDetailDTO } from "../api/reviewDTOList";
 
-const InterviewAnalysis = () => {
+interface Props {
+    inputData: (
+        pFieldName: keyof PostReviewDetailDTO,
+        cFieldName: string,
+        value: string,
+    ) => void;
+}
+
+const InterviewAnalysis = ({ inputData }: Props) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
+        inputData("interviewAnalysis", event.target.name, event.target.value);
+    };
+
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -21,6 +35,7 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         name="strengths"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -34,6 +49,7 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         placeholder="면접에서 개선할 점"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -47,6 +63,7 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         placeholder="면접에 대한 피드백"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -60,6 +77,7 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         placeholder="면접 난이도"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -73,6 +91,7 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         placeholder="ex. 추가질문에 대한 대비 부족이 약점"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
             </Fieldset.Content>

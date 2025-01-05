@@ -1,7 +1,16 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
 
-const InterviewDetail = () => {
+interface Props {
+    inputData: (fieldName: string, value: string) => void;
+}
+
+const InterviewDetail = ({ inputData }: Props) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
+        inputData(event.target.name, event.target.value);
+    };
+
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -19,6 +28,7 @@ const InterviewDetail = () => {
                         variant="flushed"
                         name="companyName"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -32,6 +42,7 @@ const InterviewDetail = () => {
                         variant="flushed"
                         placeholder="지원 직무"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -46,6 +57,7 @@ const InterviewDetail = () => {
                         variant="flushed"
                         placeholder="면접 날짜"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -59,6 +71,7 @@ const InterviewDetail = () => {
                         variant="flushed"
                         placeholder="면접 유형"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
             </Fieldset.Content>

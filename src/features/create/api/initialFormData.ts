@@ -1,7 +1,7 @@
 // initialFormData.ts
-import { postInterviewReviewsDTO } from "./reviewDTOList"; // DTO 타입이 정의된 파일 경로
+import { PostInterviewReviewsDTO } from "./reviewDTOList"; // DTO 타입이 정의된 파일 경로
 
-export const initialFormData: postInterviewReviewsDTO = {
+export const initialFormData: PostInterviewReviewsDTO = {
     interviewDetail: {
         companyName: "",
         position: "",

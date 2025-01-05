@@ -1,7 +1,21 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
+import { PostReviewDetailDTO } from "../api/reviewDTOList";
 
-const InterviewProcess = () => {
+interface Props {
+    inputData: (
+        pFieldName: keyof PostReviewDetailDTO,
+        cFieldName: string,
+        value: string,
+    ) => void;
+}
+
+const InterviewProcess = ({ inputData }: Props) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
+        inputData("interviewProcess", event.target.name, event.target.value);
+    };
+
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -19,6 +33,7 @@ const InterviewProcess = () => {
                         variant="flushed"
                         name="format"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -32,6 +47,7 @@ const InterviewProcess = () => {
                         variant="flushed"
                         placeholder="면접 분위기"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -45,6 +61,7 @@ const InterviewProcess = () => {
                         variant="flushed"
                         placeholder="면접관 정보"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
 
@@ -58,6 +75,7 @@ const InterviewProcess = () => {
                         variant="flushed"
                         placeholder="면접관 : 면접자 비율"
                         size="lg"
+                        onChange={handleInputChange}
                     />
                 </Field>
             </Fieldset.Content>

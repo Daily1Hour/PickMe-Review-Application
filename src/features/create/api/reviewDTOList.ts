@@ -1,4 +1,4 @@
-export interface postInterviewReviewsDTO {
+export interface PostInterviewReviewsDTO {
     interviewDetail: PostInterviewDetailDTO;
     reviewDetail: PostReviewDetailDTO;
 }
