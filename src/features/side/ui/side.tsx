@@ -66,7 +66,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
             <IconButton
                 aria-label="Toggle Sidebar"
                 onClick={() => setSidebarVisible(!isSidebarVisible)}
-                position="absolute"
+                position="fixed"
                 top="15px"
                 left="20px"
                 zIndex="10"
