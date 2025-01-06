@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import Sidebar from "../../features/side";
 import FirstRender from "./ui/firstRender";
@@ -11,13 +11,14 @@ const ReviewPage = () => {
         isCreatingReview: false,
     });
 
+    useEffect(() => {
+        // 페이지 렌더링 시 스크롤을 맨 위로 이동
+        window.scrollTo(0, 0);
+    }, [state]); // state가 변경될 때마다 실행
+
     return (
         <div style={{ display: "flex" }}>
-            <Sidebar
-                //selectedItem={selectedItem}
-                //setSelectedItem={setSelectedItem}
-                setState={setState}
-            />
+            <Sidebar setState={setState} />
 
             <Box
                 flex="1"
