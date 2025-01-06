@@ -7,12 +7,19 @@ import QuestionsAnswers from "./ui/QuestionsAnswers";
 import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostInterviewReviewsDTO, ReviewDetailDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import { reviewPostApi } from "./api/reviewPostApi";
+import { Dispatch, SetStateAction } from "react";
 
-const CreateReviewPage = () => {
+interface Props {
+    state: Dispatch<
+        SetStateAction<{ reviewId: string; isCreatingReview: boolean }>
+    >;
+}
+
+const CreateReviewPage = ({ state }: Props) => {
     const [formData, setFormData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
 
@@ -83,10 +90,16 @@ const CreateReviewPage = () => {
         });
     };
 
-    const handleSave = () => {
-        console.log("Collected Data:", formData);
-        // 데이터 전송 로직 작성 (예: API 호출)
-        console.log(reviewPostApi(formData));
+    const handleSave = async () => {
+        // console.log("Collected Data:", formData);
+        // // 데이터 전송 로직 작성 (예: API 호출)
+        // console.log(reviewPostApi(formData));
+        const createReview = await reviewPostApi(formData);
+        console.log(createReview.data.interviewDetailId);
+        state({
+            reviewId: createReview.data.interviewDetailId,
+            isCreatingReview: false,
+        });
     };
 
     return (
@@ -95,7 +108,10 @@ const CreateReviewPage = () => {
                 면접 회고 작성
             </Heading>
 
-            <InterviewDetail inputData={handleInterviewDetail} />
+            <InterviewDetail
+                inputData={handleInterviewDetail}
+                formData={formData}
+            />
             <Preparation inputData={handleReviewDetail} />
             <InterviewProcess inputData={handleReviewDetail} />
             <QuestionsAnswers inputData={handleReviewDetail} />

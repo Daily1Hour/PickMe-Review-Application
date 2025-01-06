@@ -3,7 +3,9 @@ import { useNavigate } from "react-router";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-    state: Dispatch<SetStateAction<boolean>>; // 상태 업데이트 함수 타입// 상태 업데이트 함수 타입
+    state: Dispatch<
+        SetStateAction<{ reviewId: string; isCreatingReview: boolean }>
+    >;
 }
 
 const FirstRender = ({ state }: Props) => {
@@ -11,7 +13,7 @@ const FirstRender = ({ state }: Props) => {
 
     // 버튼 클릭 시 호출되는 함수
     const handleCreateReviewClick = () => {
-        state(true); // "/create-review" 페이지로 이동
+        state({ reviewId: "", isCreatingReview: true }); // "/create-review" 페이지로 이동
     };
 
     return (

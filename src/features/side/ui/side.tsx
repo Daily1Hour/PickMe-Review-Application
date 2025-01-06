@@ -14,16 +14,14 @@ import { getSideData } from "../api/sideApi";
 import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
-    selectedItem: string;
-    setSelectedItem: (item: string) => void;
-    setIsCreatingReview: Dispatch<SetStateAction<boolean>>;
+    //selectedItem: string;
+    //setSelectedItem: (item: string) => void;
+    setState: Dispatch<
+        SetStateAction<{ reviewId: string; isCreatingReview: boolean }>
+    >;
 }
 
-const Sidebar = ({
-    selectedItem,
-    setSelectedItem,
-    setIsCreatingReview,
-}: SidebarProps) => {
+const Sidebar = ({ setState }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
         [],
@@ -138,8 +136,11 @@ const Sidebar = ({
                                     colorScheme="teal"
                                     mb="10px"
                                     onClick={() => {
-                                        setIsCreatingReview(false); // 상태 업데이트
-                                        setSelectedItem(item.id);
+                                        setState({
+                                            reviewId: item.id,
+                                            isCreatingReview: false,
+                                        }); // 상태 업데이트
+                                        //setSelectedItem(item.id);
                                     }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
                                 >
