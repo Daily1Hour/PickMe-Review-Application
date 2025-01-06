@@ -1,5 +1,4 @@
 import { Text, Button } from "@chakra-ui/react";
-import { useNavigate } from "react-router";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
@@ -9,8 +8,6 @@ interface Props {
 }
 
 const FirstRender = ({ state }: Props) => {
-    const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
-
     // 버튼 클릭 시 호출되는 함수
     const handleCreateReviewClick = () => {
         state({ reviewId: "", isCreatingReview: true }); // "/create-review" 페이지로 이동

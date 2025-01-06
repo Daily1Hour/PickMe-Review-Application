@@ -1,4 +1,4 @@
-import { Box, Heading, Button } from "@chakra-ui/react";
+import { Heading, Button } from "@chakra-ui/react";
 
 import InterviewDetail from "./ui/InterviewDetail";
 import Preparation from "./ui/Preparation";
@@ -7,7 +7,7 @@ import QuestionsAnswers from "./ui/QuestionsAnswers";
 import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PostInterviewReviewsDTO, ReviewDetailDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import { reviewPostApi } from "./api/reviewPostApi";

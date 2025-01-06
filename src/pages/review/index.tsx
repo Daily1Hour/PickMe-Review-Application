@@ -6,13 +6,11 @@ import ClickList from "./ui/clickList";
 import CreateReviewPage from "@/features/create";
 
 const ReviewPage = () => {
-    const [selectedItem, setSelectedItem] = useState<string>("");
-    const [isCreatingReview, setIsCreatingReview] = useState<boolean>(false);
     const [state, setState] = useState({
         reviewId: "",
         isCreatingReview: false,
     });
-    console.log(state);
+
     return (
         <div style={{ display: "flex" }}>
             <Sidebar
