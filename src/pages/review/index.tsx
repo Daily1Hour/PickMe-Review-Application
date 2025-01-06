@@ -18,7 +18,7 @@ const ReviewPage = () => {
 
     return (
         <div style={{ display: "flex" }}>
-            <Sidebar setState={setState} />
+            <Sidebar state={state} setState={setState} />
 
             <Box
                 flex="1"

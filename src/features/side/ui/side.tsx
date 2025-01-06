@@ -14,14 +14,13 @@ import { getSideData } from "../api/sideApi";
 import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
-    //selectedItem: string;
-    //setSelectedItem: (item: string) => void;
+    state: { reviewId: string; isCreatingReview: boolean };
     setState: Dispatch<
         SetStateAction<{ reviewId: string; isCreatingReview: boolean }>
     >;
 }
 
-const Sidebar = ({ setState }: SidebarProps) => {
+const Sidebar = ({ state, setState }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
         [],
@@ -40,12 +39,12 @@ const Sidebar = ({ setState }: SidebarProps) => {
                     label: `${item.interviewDetail.companyName} | ${item.interviewDetail.category}`,
                 }),
             );
-            console.log(formattedMenuItems);
+            //console.log(formattedMenuItems);
             setMenuItems(formattedMenuItems);
         };
 
         fetchData(); // getSideData 호출
-    }, []); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
+    }, [state]); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
 
     // menuItems 상태가 변경되면 filteredItems 상태도 업데이트
     useEffect(() => {
@@ -91,6 +90,7 @@ const Sidebar = ({ setState }: SidebarProps) => {
                     flexDirection="column"
                     gap="10px"
                     height="100vh" // 화면을 가득 채움
+                    overflowY="auto" // 스크롤 기능 추가
                 >
                     {/* Sidebar Header */}
 
