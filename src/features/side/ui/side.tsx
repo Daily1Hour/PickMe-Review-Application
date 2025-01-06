@@ -28,6 +28,9 @@ const Sidebar = ({ state, setState }: SidebarProps) => {
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
     const [filteredItems, setFilteredItems] = useState(menuItems); // 필터링된 메뉴 항목
+    const [selectedReviewId, setSelectedReviewId] = useState<string | null>(
+        null,
+    ); // 선택된 리뷰 아이디 상태
 
     useEffect(() => {
         const fetchData = async () => {
@@ -132,15 +135,23 @@ const Sidebar = ({ state, setState }: SidebarProps) => {
                             filteredItems.map((item) => (
                                 <Button
                                     key={item.id}
-                                    variant="ghost"
-                                    colorScheme="teal"
+                                    variant={
+                                        selectedReviewId === item.id
+                                            ? "solid"
+                                            : "ghost"
+                                    }
+                                    colorScheme={
+                                        selectedReviewId === item.id
+                                            ? "teal"
+                                            : "gray"
+                                    }
                                     mb="10px"
                                     onClick={() => {
                                         setState({
                                             reviewId: item.id,
                                             isCreatingReview: false,
                                         }); // 상태 업데이트
-                                        //setSelectedItem(item.id);
+                                        setSelectedReviewId(item.id);
                                     }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
                                 >
