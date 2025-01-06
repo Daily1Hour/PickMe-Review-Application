@@ -1,4 +1,4 @@
-import { Text, Button } from "@chakra-ui/react";
+import { Text, Button, Box } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
@@ -15,7 +15,15 @@ const FirstRender = ({ state }: Props) => {
 
     return (
         // 처음 렌더링 될 때
-        <>
+        <Box
+            flex="1"
+            padding="20px"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            height="100vh" // 화면 전체 높이를 채움
+        >
             <Text
                 fontSize="2xl"
                 fontWeight="bold"
@@ -35,7 +43,7 @@ const FirstRender = ({ state }: Props) => {
             >
                 면접 회고 작성하기
             </Button>
-        </>
+        </Box>
     );
 };
 
