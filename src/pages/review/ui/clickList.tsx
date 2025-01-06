@@ -53,7 +53,10 @@ const ClickList = ({ selectedItem }: Props) => {
                 currentData={reviewDetailData.interviewProcess}
                 isReadOnly={true}
             />
-            {/* <QuestionsAnswers inputData={handleReviewDetail} /> */}
+            <QuestionsAnswers
+                currentData={reviewDetailData.questionsAnswers}
+                isReadOnly={true}
+            />
             <Communication
                 currentData={reviewDetailData.communication}
                 isReadOnly={true}

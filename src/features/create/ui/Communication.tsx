@@ -1,6 +1,10 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import { CommunicationDTO, ReviewDetailDTO } from "../api/reviewDTOList";
+import {
+    CommunicationDTO,
+    PostInterviewReviewsDTO,
+    ReviewDetailDTO,
+} from "../api/reviewDTOList";
 
 interface Props {
     inputData?: (
@@ -10,12 +14,14 @@ interface Props {
     ) => void;
     currentData?: CommunicationDTO;
     isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
+    formData?: PostInterviewReviewsDTO;
 }
 
 const Communication = ({
     inputData,
     currentData,
     isReadOnly = false,
+    formData,
 }: Props) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
@@ -41,7 +47,11 @@ const Communication = ({
                         name="verbal"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.verbal || ""}
+                        value={
+                            currentData?.verbal ||
+                            formData?.reviewDetail.communication.verbal ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>
@@ -57,7 +67,11 @@ const Communication = ({
                         placeholder="제스처, 표정 등"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.nonVerbal || ""}
+                        value={
+                            currentData?.nonVerbal ||
+                            formData?.reviewDetail.communication.nonVerbal ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>
@@ -73,7 +87,11 @@ const Communication = ({
                         placeholder="면접관과의 상호작용(대화의 흐름 등)"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.interaction || ""}
+                        value={
+                            currentData?.interaction ||
+                            formData?.reviewDetail.communication.interaction ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>

@@ -112,12 +112,24 @@ const CreateReviewPage = ({ state }: Props) => {
                 inputData={handleInterviewDetail}
                 formData={formData}
             />
-            <Preparation inputData={handleReviewDetail} />
-            <InterviewProcess inputData={handleReviewDetail} />
-            <QuestionsAnswers inputData={handleReviewDetail} />
-            <Communication inputData={handleReviewDetail} />
-            <InterviewAnalysis inputData={handleReviewDetail} />
-            <NextPreparation inputData={handleReviewDetail} />
+            <Preparation inputData={handleReviewDetail} formData={formData} />
+            <InterviewProcess
+                inputData={handleReviewDetail}
+                formData={formData}
+            />
+            <QuestionsAnswers
+                inputData={handleReviewDetail}
+                //formData={formData}
+            />
+            <Communication inputData={handleReviewDetail} formData={formData} />
+            <InterviewAnalysis
+                inputData={handleReviewDetail}
+                formData={formData}
+            />
+            <NextPreparation
+                inputData={handleReviewDetail}
+                formData={formData}
+            />
             <Button colorPalette="green" onClick={handleSave}>
                 저장
             </Button>

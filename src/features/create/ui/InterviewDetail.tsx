@@ -1,17 +1,22 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import { InterviewDetailDTO } from "../api/reviewDTOList";
+import {
+    InterviewDetailDTO,
+    PostInterviewReviewsDTO,
+} from "../api/reviewDTOList";
 
 interface Props {
     inputData?: (fieldName: string, value: string) => void;
     currentData?: InterviewDetailDTO;
     isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
+    formData?: PostInterviewReviewsDTO;
 }
 
 const InterviewDetail = ({
     inputData,
     currentData,
     isReadOnly = false,
+    formData,
 }: Props) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
@@ -19,7 +24,7 @@ const InterviewDetail = ({
             inputData(event.target.name, event.target.value);
         }
     };
-    console.log("currentData", currentData);
+    console.log("currentData", currentData, isReadOnly);
 
     return (
         <Fieldset.Root size="lg" maxW="100%">
@@ -39,7 +44,11 @@ const InterviewDetail = ({
                         name="companyName"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.companyName || ""}
+                        value={
+                            currentData?.companyName ||
+                            formData?.interviewDetail.companyName ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>
@@ -55,7 +64,11 @@ const InterviewDetail = ({
                         placeholder="지원 직무"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.position || ""}
+                        value={
+                            currentData?.position ||
+                            formData?.interviewDetail.position ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>
@@ -72,7 +85,11 @@ const InterviewDetail = ({
                         placeholder="면접 날짜"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.interviewDateTime || ""}
+                        value={
+                            currentData?.interviewDateTime ||
+                            formData?.interviewDetail.interviewDateTime ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>
@@ -88,7 +105,11 @@ const InterviewDetail = ({
                         placeholder="면접 유형"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.category || ""}
+                        value={
+                            currentData?.category ||
+                            formData?.interviewDetail.category ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>

@@ -1,6 +1,10 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import { PreparationDTO, ReviewDetailDTO } from "../api/reviewDTOList";
+import {
+    PostInterviewReviewsDTO,
+    PreparationDTO,
+    ReviewDetailDTO,
+} from "../api/reviewDTOList";
 
 interface Props {
     inputData?: (
@@ -10,9 +14,15 @@ interface Props {
     ) => void;
     currentData?: PreparationDTO;
     isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
+    formData?: PostInterviewReviewsDTO;
 }
 
-const Preparation = ({ inputData, currentData, isReadOnly = false }: Props) => {
+const Preparation = ({
+    inputData,
+    currentData,
+    isReadOnly = false,
+    formData,
+}: Props) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
         if (inputData)
@@ -37,7 +47,11 @@ const Preparation = ({ inputData, currentData, isReadOnly = false }: Props) => {
                         name="strengths"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.strengths || ""}
+                        value={
+                            currentData?.strengths ||
+                            formData?.reviewDetail.preparation.strengths ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>
@@ -53,7 +67,11 @@ const Preparation = ({ inputData, currentData, isReadOnly = false }: Props) => {
                         placeholder="개선할 점"
                         size="lg"
                         onChange={handleInputChange}
-                        value={currentData?.improvements || ""}
+                        value={
+                            currentData?.improvements ||
+                            formData?.reviewDetail.preparation.improvements ||
+                            ""
+                        }
                         readOnly={isReadOnly}
                     />
                 </Field>

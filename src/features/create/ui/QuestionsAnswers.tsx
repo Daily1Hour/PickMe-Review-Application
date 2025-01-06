@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Input,
     Stack,
@@ -11,20 +11,21 @@ import { Field } from "@/shared/chakra-ui/field";
 import { QuestionsAnswersDTO, ReviewDetailDTO } from "../api/reviewDTOList";
 
 interface Props {
-    inputData: (
+    inputData?: (
         pFieldName: keyof ReviewDetailDTO,
         cFieldName: string,
         value: string,
         index?: number,
     ) => void;
+    currentData?: QuestionsAnswersDTO[];
+    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
 }
 
-const QuestionsAnswers = ({ inputData }: Props) => {
-    // const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
-    //     inputData("questionsAnswers", event.target.name, event.target.value);
-    // };
-
+const QuestionsAnswers = ({
+    inputData,
+    currentData,
+    isReadOnly = false,
+}: Props) => {
     type FieldData = {
         type: string;
         question: string;
@@ -35,6 +36,13 @@ const QuestionsAnswers = ({ inputData }: Props) => {
     const [fields, setFields] = useState<QuestionsAnswersDTO[]>([
         { type: "", question: "", answer: "", feedback: "" },
     ]);
+
+    useEffect(() => {
+        if (currentData) {
+            // currentData가 있을 경우 이를 fields 상태로 설정
+            setFields(currentData);
+        }
+    }, [currentData]);
 
     const handleInputChange = (
         index: number,
@@ -57,23 +65,25 @@ const QuestionsAnswers = ({ inputData }: Props) => {
             event.target.name as keyof FieldData,
             event.target.value,
         );
-        inputData(
-            "questionsAnswers",
-            event.target.name,
-            event.target.value,
-            index,
-        );
+        if (inputData)
+            inputData(
+                "questionsAnswers",
+                event.target.name,
+                event.target.value,
+                index,
+            );
     };
 
     const handleAddField = () => {
-        setFields([
-            ...fields,
-            { type: "", question: "", answer: "", feedback: "" },
-        ]);
+        if (!currentData)
+            setFields([
+                ...fields,
+                { type: "", question: "", answer: "", feedback: "" },
+            ]);
     };
 
     const handleDeleteField = (index: number) => {
-        setFields(fields.filter((_, i) => i !== index));
+        if (!currentData) setFields(fields.filter((_, i) => i !== index));
     };
 
     return (
@@ -88,7 +98,7 @@ const QuestionsAnswers = ({ inputData }: Props) => {
                 {fields.map((field, index) => (
                     <Stack key={index} marginBottom="10px">
                         {/* 0번째 인덱스는 삭제 버튼 숨김 */}
-                        {index !== 0 && (
+                        {index !== 0 && !currentData && (
                             <Box
                                 display="flex"
                                 justifyContent="flex-end"
@@ -115,6 +125,7 @@ const QuestionsAnswers = ({ inputData }: Props) => {
                                 size="lg"
                                 value={field.type}
                                 onChange={(e) => handleInput(e, index)}
+                                readOnly={isReadOnly}
                             />
                         </Field>
 
@@ -131,6 +142,7 @@ const QuestionsAnswers = ({ inputData }: Props) => {
                                 size="sm"
                                 value={field.question}
                                 onChange={(e) => handleInput(e, index)}
+                                readOnly={isReadOnly}
                             />
                         </Field>
 
@@ -147,6 +159,7 @@ const QuestionsAnswers = ({ inputData }: Props) => {
                                 size="sm"
                                 value={field.answer}
                                 onChange={(e) => handleInput(e, index)}
+                                readOnly={isReadOnly}
                             />
                         </Field>
 
@@ -163,22 +176,25 @@ const QuestionsAnswers = ({ inputData }: Props) => {
                                 size="sm"
                                 value={field.feedback}
                                 onChange={(e) => handleInput(e, index)}
+                                readOnly={isReadOnly}
                             />
                         </Field>
                     </Stack>
                 ))}
 
-                <Box display="flex" justifyContent="center">
-                    <Button
-                        colorScheme="teal"
-                        onClick={handleAddField}
-                        size="sm"
-                        width="100px"
-                        colorPalette="blue"
-                    >
-                        추가
-                    </Button>
-                </Box>
+                {!currentData && (
+                    <Box display="flex" justifyContent="center">
+                        <Button
+                            colorScheme="teal"
+                            onClick={handleAddField}
+                            size="sm"
+                            width="100px"
+                            colorPalette="blue"
+                        >
+                            추가
+                        </Button>
+                    </Box>
+                )}
             </Fieldset.Content>
         </Fieldset.Root>
     );
