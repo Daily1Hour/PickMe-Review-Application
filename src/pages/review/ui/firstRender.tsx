@@ -2,15 +2,13 @@ import { Text, Button, Box } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-    state: Dispatch<
-        SetStateAction<{ reviewId: string; isCreatingReview: boolean }>
-    >;
+    onCreate: (reviewId: string | null) => void;
 }
 
-const FirstRender = ({ state }: Props) => {
+const FirstRender = ({ onCreate }: Props) => {
     // 버튼 클릭 시 호출되는 함수
     const handleCreateReviewClick = () => {
-        state({ reviewId: "", isCreatingReview: true }); // "/create-review" 페이지로 이동
+        onCreate("create");
     };
 
     return (

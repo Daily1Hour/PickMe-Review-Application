@@ -14,12 +14,10 @@ import { reviewPostApi } from "./api/reviewPostApi";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-    state: Dispatch<
-        SetStateAction<{ reviewId: string; isCreatingReview: boolean }>
-    >;
+    reviewId: string | null;
 }
 
-const CreateReviewPage = ({ state }: Props) => {
+const CreateReviewPage = ({ reviewId }: Props) => {
     const [formData, setFormData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
 
@@ -96,10 +94,10 @@ const CreateReviewPage = ({ state }: Props) => {
         // console.log(reviewPostApi(formData));
         const createReview = await reviewPostApi(formData);
         console.log(createReview.data.interviewDetailId);
-        state({
-            reviewId: createReview.data.interviewDetailId,
-            isCreatingReview: false,
-        });
+        // state({
+        //     reviewId: createReview.data.interviewDetailId,
+        //     isCreatingReview: false,
+        // });
     };
 
     return (

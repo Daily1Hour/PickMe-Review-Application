@@ -6,19 +6,18 @@ import ClickList from "./ui/clickList";
 import CreateReviewPage from "@/features/create";
 
 const ReviewPage = () => {
-    const [state, setState] = useState({
-        reviewId: "",
-        isCreatingReview: false,
-    });
+    const [selectedId, setSelectedId] = useState<string | null>(null);
+    const handleSidebarSelect = async (reviewId: string | null) =>
+        setSelectedId(reviewId);
 
     useEffect(() => {
         // 페이지 렌더링 시 스크롤을 맨 위로 이동
         window.scrollTo(0, 0);
-    }, [state]); // state가 변경될 때마다 실행
-
+    }, [selectedId]); // state가 변경될 때마다 실행
+    console.log(selectedId);
     return (
         <div style={{ display: "flex" }}>
-            <Sidebar state={state} setState={setState} />
+            <Sidebar onSelect={handleSidebarSelect} />
 
             <Box
                 flex="1"
@@ -32,12 +31,10 @@ const ReviewPage = () => {
                 justifyContent="flex-start" // 수평 정렬
                 gap="100px" // 자식 요소들 사이에 20px 간격
             >
-                {state.isCreatingReview ? (
-                    <CreateReviewPage state={setState} />
-                ) : state.reviewId === "" ? (
-                    <FirstRender state={setState} />
+                {selectedId ? (
+                    <CreateReviewPage reviewId={selectedId} />
                 ) : (
-                    <ClickList selectedItem={state.reviewId} />
+                    <FirstRender onCreate={handleSidebarSelect} />
                 )}
             </Box>
         </div>

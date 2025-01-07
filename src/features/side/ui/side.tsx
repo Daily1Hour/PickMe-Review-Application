@@ -14,13 +14,10 @@ import { getSideData } from "../api/sideApi";
 import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
-    state: { reviewId: string; isCreatingReview: boolean };
-    setState: Dispatch<
-        SetStateAction<{ reviewId: string; isCreatingReview: boolean }>
-    >;
+    onSelect: (reviewId: string | null) => void;
 }
 
-const Sidebar = ({ state, setState }: SidebarProps) => {
+const Sidebar = ({ onSelect }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
         [],
@@ -47,7 +44,7 @@ const Sidebar = ({ state, setState }: SidebarProps) => {
         };
 
         fetchData(); // getSideData 호출
-    }, [state]); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
+    }, []); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
 
     // menuItems 상태가 변경되면 filteredItems 상태도 업데이트
     useEffect(() => {
@@ -108,7 +105,7 @@ const Sidebar = ({ state, setState }: SidebarProps) => {
                         onClick={toggleSearch} // 클릭 시 검색창 토글
                         position="absolute"
                         top="15px"
-                        left="195px"
+                        left="180px"
                     >
                         <LuSearch />
                     </IconButton>
@@ -147,10 +144,7 @@ const Sidebar = ({ state, setState }: SidebarProps) => {
                                     }
                                     mb="10px"
                                     onClick={() => {
-                                        setState({
-                                            reviewId: item.id,
-                                            isCreatingReview: false,
-                                        }); // 상태 업데이트
+                                        onSelect(item.id);
                                         setSelectedReviewId(item.id);
                                     }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
