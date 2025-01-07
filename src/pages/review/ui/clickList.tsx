@@ -1,18 +1,18 @@
 import { Heading, Button } from "@chakra-ui/react";
 import { getReviewApi } from "../api/getReviewApi";
 import { useEffect, useState } from "react";
-import InterviewDetail from "@/features/create/ui/InterviewDetail";
-import { initialFormData } from "@/features/create/api/initialFormData";
+import InterviewDetail from "@/features/review/ui/InterviewDetail";
+import { initialFormData } from "@/features/review/api/initialFormData";
 import {
     InterviewDetailDTO,
     ReviewDetailDTO,
-} from "@/features/create/api/reviewDTOList";
-import Preparation from "@/features/create/ui/Preparation";
-import InterviewProcess from "@/features/create/ui/InterviewProcess";
-import QuestionsAnswers from "@/features/create/ui/QuestionsAnswers";
-import Communication from "@/features/create/ui/Communication";
-import InterviewAnalysis from "@/features/create/ui/InterviewAnalysis";
-import NextPreparation from "@/features/create/ui/NextPreparation";
+} from "@/features/review/api/reviewDTOList";
+import Preparation from "@/features/review/ui/Preparation";
+import InterviewProcess from "@/features/review/ui/InterviewProcess";
+import QuestionsAnswers from "@/features/review/ui/QuestionsAnswers";
+import Communication from "@/features/review/ui/Communication";
+import InterviewAnalysis from "@/features/review/ui/InterviewAnalysis";
+import NextPreparation from "@/features/review/ui/NextPreparation";
 
 interface Props {
     selectedItem: string;

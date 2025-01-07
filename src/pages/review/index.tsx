@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import Sidebar from "../../features/side";
 import FirstRender from "./ui/firstRender";
-import ReviewPage from "@/features/create";
+import ReviewPage from "@/features/review";
 
 const Review = () => {
     const [selectedId, setSelectedId] = useState<string | null | undefined>(
