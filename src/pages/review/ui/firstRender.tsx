@@ -8,7 +8,7 @@ interface Props {
 const FirstRender = ({ onCreate }: Props) => {
     // 버튼 클릭 시 호출되는 함수
     const handleCreateReviewClick = () => {
-        onCreate("create");
+        onCreate(null);
     };
 
     return (

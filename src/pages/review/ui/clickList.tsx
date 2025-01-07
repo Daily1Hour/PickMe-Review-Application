@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import { Heading, Button } from "@chakra-ui/react";
 import { getReviewApi } from "../api/getReviewApi";
 import { useEffect, useState } from "react";
 import InterviewDetail from "@/features/create/ui/InterviewDetail";
@@ -24,6 +24,7 @@ const ClickList = ({ selectedItem }: Props) => {
     const [reviewDetailData, setReviewDetailData] = useState<ReviewDetailDTO>(
         initialFormData.reviewDetail,
     );
+    const [readState, setReadState] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
             const getdata = await getReviewApi(selectedItem);
@@ -35,6 +36,10 @@ const ClickList = ({ selectedItem }: Props) => {
         fetchData(); // getSideData 호출
     }, [selectedItem]);
 
+    const handleReadState = () => {
+        setReadState(!readState);
+    };
+
     return (
         // 사이드바에서 목록 클릭 시
         <>
@@ -43,32 +48,35 @@ const ClickList = ({ selectedItem }: Props) => {
             </Heading>
             <InterviewDetail
                 currentData={interviewDetailData}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <Preparation
                 currentData={reviewDetailData.preparation}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <InterviewProcess
                 currentData={reviewDetailData.interviewProcess}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <QuestionsAnswers
                 currentData={reviewDetailData.questionsAnswers}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <Communication
                 currentData={reviewDetailData.communication}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <InterviewAnalysis
                 currentData={reviewDetailData.interviewAnalysis}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <NextPreparation
                 currentData={reviewDetailData.nextPreparation}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
+            <Button colorPalette="green" onClick={handleReadState}>
+                수정
+            </Button>
         </>
     );
 };
