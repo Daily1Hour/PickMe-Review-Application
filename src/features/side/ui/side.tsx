@@ -11,10 +11,9 @@ import {
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
-import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
-    reviewId: string | null | undefined;
+    reviewId: string | null;
     onSelect: (reviewId: string | null) => void;
 }
 
@@ -45,6 +44,7 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
         };
 
         fetchData(); // getSideData 호출
+        setSelectedReviewId(reviewId);
     }, [reviewId]); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
 
     // menuItems 상태가 변경되면 filteredItems 상태도 업데이트
