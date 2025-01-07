@@ -14,10 +14,11 @@ import { getSideData } from "../api/sideApi";
 import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
+    reviewId: string | null | undefined;
     onSelect: (reviewId: string | null) => void;
 }
 
-const Sidebar = ({ onSelect }: SidebarProps) => {
+const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
         [],
@@ -44,7 +45,7 @@ const Sidebar = ({ onSelect }: SidebarProps) => {
         };
 
         fetchData(); // getSideData 호출
-    }, []); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
+    }, [reviewId]); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
 
     // menuItems 상태가 변경되면 filteredItems 상태도 업데이트
     useEffect(() => {

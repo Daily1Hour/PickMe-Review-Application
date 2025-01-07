@@ -20,9 +20,10 @@ import { getReviewApi } from "@/pages/review/api/getReviewApi";
 
 interface Props {
     reviewId: string | null;
+    onSelect: (reviewId: string | null) => void;
 }
 
-const CreateReviewPage = ({ reviewId }: Props) => {
+const CreateReviewPage = ({ reviewId, onSelect }: Props) => {
     const [formData, setFormData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
 
@@ -106,8 +107,11 @@ const CreateReviewPage = ({ reviewId }: Props) => {
     };
 
     const handleSave = async () => {
-        const createReview = await reviewPostApi(formData);
-        console.log(createReview.data.interviewDetailId);
+        if (!reviewId) {
+            const createReview = await reviewPostApi(formData);
+            console.log(createReview.data.interviewDetailId);
+            onSelect(createReview.data.interviewDetailId);
+        }
     };
     return (
         <>

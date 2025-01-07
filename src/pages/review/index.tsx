@@ -19,7 +19,7 @@ const ReviewPage = () => {
 
     return (
         <div style={{ display: "flex" }}>
-            <Sidebar onSelect={handleSidebarSelect} />
+            <Sidebar reviewId={selectedId} onSelect={handleSidebarSelect} />
 
             <Box
                 flex="1"
@@ -36,7 +36,10 @@ const ReviewPage = () => {
                 {selectedId === undefined ? (
                     <FirstRender onCreate={handleSidebarSelect} />
                 ) : (
-                    <CreateReviewPage reviewId={selectedId} />
+                    <CreateReviewPage
+                        reviewId={selectedId}
+                        onSelect={handleSidebarSelect}
+                    />
                 )}
             </Box>
         </div>
