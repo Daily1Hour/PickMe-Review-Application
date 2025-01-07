@@ -13,7 +13,7 @@ import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
 
 interface SidebarProps {
-    reviewId: string | null;
+    reviewId: string | null | undefined;
     onSelect: (reviewId: string | null) => void;
 }
 
@@ -25,9 +25,9 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
     const [filteredItems, setFilteredItems] = useState(menuItems); // 필터링된 메뉴 항목
-    const [selectedReviewId, setSelectedReviewId] = useState<string | null>(
-        null,
-    ); // 선택된 리뷰 아이디 상태
+    const [selectedReviewId, setSelectedReviewId] = useState<
+        string | null | undefined
+    >(null); // 선택된 리뷰 아이디 상태
 
     useEffect(() => {
         const fetchData = async () => {

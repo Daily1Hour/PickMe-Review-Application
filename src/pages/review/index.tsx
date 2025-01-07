@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import Sidebar from "../../features/side";
 import FirstRender from "./ui/firstRender";
-import ClickList from "./ui/clickList";
 import CreateReviewPage from "@/features/create";
 
 const ReviewPage = () => {
