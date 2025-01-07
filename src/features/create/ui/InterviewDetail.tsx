@@ -8,15 +8,21 @@ import { initialFormData } from "../api/initialFormData";
 import { useEffect, useState } from "react";
 
 interface Props {
+    updateFormData: (fieldName: string, value: string) => void;
     Data: InterviewDetailDTO;
 }
 
-const InterviewDetail = ({ Data }: Props) => {
+const InterviewDetail = ({ updateFormData, Data }: Props) => {
     const [formData, setFormData] = useState(initialFormData.interviewDetail);
     useEffect(() => {
         setFormData(Data);
     }, [Data]);
     console.log(formData.companyName);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const updatedFormData = { ...formData, companyName: e.target.value };
+        setFormData(updatedFormData); // 로컬 상태 업데이트
+        updateFormData(e.target.name, e.target.value); // 부모 상태 업데이트
+    };
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -35,12 +41,7 @@ const InterviewDetail = ({ Data }: Props) => {
                         name="companyName"
                         size="lg"
                         value={formData.companyName} // 초기값 설정
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                companyName: e.target.value,
-                            })
-                        }
+                        onChange={handleChange}
                     />
                 </Field>
 

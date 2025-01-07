@@ -26,38 +26,104 @@ const CreateReviewPage = ({ reviewId }: Props) => {
     const [selectedData, setSelectedData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
 
+    const [formData, setFormData] =
+        useState<PostInterviewReviewsDTO>(initialFormData);
+
     useEffect(() => {
         if (reviewId !== null) {
             const getData = async () => {
                 const data = await getReviewApi(reviewId);
-                setSelectedData(data.interviewReviews[0]);
+                setFormData(data.interviewReviews[0]);
             };
             getData();
         } else {
-            setSelectedData(initialFormData);
+            setFormData(initialFormData);
         }
     }, [reviewId]);
 
+    const handleInterviewDetail = (fieldName: string, value: string) => {
+        setFormData((prev) => ({
+            ...prev,
+            interviewDetail: {
+                ...prev.interviewDetail,
+                [fieldName]: value, // PostInterviewDetailDTO의 필드에 대해서만 업데이트
+            },
+        }));
+    };
+
+    const handleReviewDetail = (
+        pFieldName: keyof ReviewDetailDTO,
+        cFieldName: string,
+        value: string,
+        index?: number,
+    ) => {
+        setFormData((prev) => {
+            if (pFieldName === "questionsAnswers") {
+                // 인덱스가 주어졌다면 해당 인덱스의 항목을 수정
+                if (index !== undefined) {
+                    const updatedQuestionsAnswers = [
+                        ...prev.reviewDetail.questionsAnswers,
+                    ];
+                    updatedQuestionsAnswers[index] = {
+                        ...updatedQuestionsAnswers[index],
+                        [cFieldName]: value, // 특정 필드만 업데이트
+                    };
+                    return {
+                        ...prev,
+                        reviewDetail: {
+                            ...prev.reviewDetail,
+                            questionsAnswers: updatedQuestionsAnswers,
+                        },
+                    };
+                }
+                // 인덱스가 주어지지 않았다면 새 항목을 추가
+                return {
+                    ...prev,
+                    reviewDetail: {
+                        ...prev.reviewDetail,
+                        questionsAnswers: [
+                            ...prev.reviewDetail.questionsAnswers,
+                            {
+                                type: "",
+                                question: "",
+                                answer: "",
+                                feedback: "",
+                            },
+                        ],
+                    },
+                };
+            }
+
+            // 'preparation', 'interviewProcess', 등 다른 필드일 경우
+            return {
+                ...prev,
+                reviewDetail: {
+                    ...prev.reviewDetail,
+                    [pFieldName]: {
+                        ...prev.reviewDetail[pFieldName],
+                        [cFieldName]: value, // 해당 필드 업데이트
+                    },
+                },
+            };
+        });
+    };
+
     const handleSave = async () => {
-        // console.log("Collected Data:", formData);
-        // // 데이터 전송 로직 작성 (예: API 호출)
-        // console.log(reviewPostApi(formData));
         const createReview = await reviewPostApi(formData);
         console.log(createReview.data.interviewDetailId);
-        // state({
-        //     reviewId: createReview.data.interviewDetailId,
-        //     isCreatingReview: false,
-        // });
     };
     return (
         <>
             <Heading textAlign="center" size="3xl" marginTop="50px">
                 {reviewId
-                    ? selectedData.interviewDetail.companyName
+                    ? formData.interviewDetail.companyName
                     : "면접 회고 작성"}
             </Heading>
 
-            <InterviewDetail Data={selectedData.interviewDetail} />
+            <InterviewDetail
+                updateFormData={handleInterviewDetail}
+                Data={formData.interviewDetail}
+            />
             <Preparation inputData={handleReviewDetail} formData={formData} />
             <InterviewProcess
                 inputData={handleReviewDetail}
@@ -77,7 +143,7 @@ const CreateReviewPage = ({ reviewId }: Props) => {
                 formData={formData}
             />
             <Button colorPalette="green" onClick={handleSave}>
-                저장
+                {reviewId ? "수정" : "저장"}
             </Button>
         </>
     );
