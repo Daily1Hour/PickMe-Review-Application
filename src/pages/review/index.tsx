@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import Sidebar from "../../features/side";
 import FirstRender from "./ui/firstRender";
-import CreateReviewPage from "@/features/create";
+import ReviewPage from "@/features/create";
 
-const ReviewPage = () => {
+const Review = () => {
     const [selectedId, setSelectedId] = useState<string | null | undefined>(
         undefined,
     );
@@ -35,7 +35,7 @@ const ReviewPage = () => {
                 {selectedId === undefined ? (
                     <FirstRender onCreate={handleSidebarSelect} />
                 ) : (
-                    <CreateReviewPage
+                    <ReviewPage
                         reviewId={selectedId}
                         onSelect={handleSidebarSelect}
                     />
@@ -45,4 +45,4 @@ const ReviewPage = () => {
     );
 };
 
-export default ReviewPage;
+export default Review;

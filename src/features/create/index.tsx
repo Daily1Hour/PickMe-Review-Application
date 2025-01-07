@@ -8,14 +8,10 @@ import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
 import { useEffect, useState } from "react";
-import {
-    GetInterviewReviewsDTO,
-    PostInterviewReviewsDTO,
-    ReviewDetailDTO,
-} from "./api/reviewDTOList";
-import { getInitialFormData, initialFormData } from "./api/initialFormData";
+import { PostInterviewReviewsDTO, ReviewDetailDTO } from "./api/reviewDTOList";
+import { initialFormData } from "./api/initialFormData";
 import { reviewPostApi } from "./api/reviewPostApi";
-import { Dispatch, SetStateAction } from "react";
+
 import { getReviewApi } from "@/pages/review/api/getReviewApi";
 
 interface Props {
@@ -23,7 +19,7 @@ interface Props {
     onSelect: (reviewId: string | null) => void;
 }
 
-const CreateReviewPage = ({ reviewId, onSelect }: Props) => {
+const ReviewPage = ({ reviewId, onSelect }: Props) => {
     const [formData, setFormData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
 
@@ -153,4 +149,4 @@ const CreateReviewPage = ({ reviewId, onSelect }: Props) => {
     );
 };
 
-export default CreateReviewPage;
+export default ReviewPage;
