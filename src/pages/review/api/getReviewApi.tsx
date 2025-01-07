@@ -11,7 +11,9 @@ const client = axios.create({
     },
 });
 
-export const getSideData = async () => {
-    const response = await client.get("/interview");
+export const getReviewApi = async (reviewId: string) => {
+    const response = await client.get("/interview", {
+        params: { reviewId: reviewId },
+    });
     return response.data;
 };

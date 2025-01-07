@@ -1,7 +1,32 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
+import { InterviewAnalysisDTO, ReviewDetailDTO } from "../api/reviewDTOList";
 
-const InterviewAnalysis = () => {
+interface Props {
+    inputData?: (
+        pFieldName: keyof ReviewDetailDTO,
+        cFieldName: string,
+        value: string,
+    ) => void;
+    currentData?: InterviewAnalysisDTO;
+    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
+}
+
+const InterviewAnalysis = ({
+    inputData,
+    currentData,
+    isReadOnly = false,
+}: Props) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
+        if (inputData)
+            inputData(
+                "interviewAnalysis",
+                event.target.name,
+                event.target.value,
+            );
+    };
+
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -21,6 +46,9 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         name="strengths"
                         size="lg"
+                        onChange={handleInputChange}
+                        value={currentData?.strengths || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -34,6 +62,9 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         placeholder="면접에서 개선할 점"
                         size="lg"
+                        onChange={handleInputChange}
+                        value={currentData?.improvements || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -47,6 +78,9 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         placeholder="면접에 대한 피드백"
                         size="lg"
+                        onChange={handleInputChange}
+                        value={currentData?.feedback || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -60,6 +94,9 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         placeholder="면접 난이도"
                         size="lg"
+                        onChange={handleInputChange}
+                        value={currentData?.difficulty || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -73,6 +110,9 @@ const InterviewAnalysis = () => {
                         variant="flushed"
                         placeholder="ex. 추가질문에 대한 대비 부족이 약점"
                         size="lg"
+                        onChange={handleInputChange}
+                        value={currentData?.interviewResultAnalysis || ""}
+                        readOnly={isReadOnly}
                     />
                 </Field>
             </Fieldset.Content>

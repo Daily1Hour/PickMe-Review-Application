@@ -8,8 +8,23 @@ import {
     Box,
 } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
+import { QuestionsAnswersDTO, ReviewDetailDTO } from "../api/reviewDTOList";
 
-const QuestionsAnswers = () => {
+interface Props {
+    inputData: (
+        pFieldName: keyof ReviewDetailDTO,
+        cFieldName: string,
+        value: string,
+        index?: number,
+    ) => void;
+}
+
+const QuestionsAnswers = ({ inputData }: Props) => {
+    // const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
+    //     inputData("questionsAnswers", event.target.name, event.target.value);
+    // };
+
     type FieldData = {
         type: string;
         question: string;
@@ -17,9 +32,38 @@ const QuestionsAnswers = () => {
         feedback: string;
     };
 
-    const [fields, setFields] = useState<FieldData[]>([
+    const [fields, setFields] = useState<QuestionsAnswersDTO[]>([
         { type: "", question: "", answer: "", feedback: "" },
     ]);
+
+    const handleInputChange = (
+        index: number,
+        name: keyof FieldData,
+        value: string,
+    ) => {
+        // 로컬 상태에서 해당 인덱스의 값을 업데이트
+        const updatedFields = [...fields];
+        updatedFields[index][name] = value;
+        setFields(updatedFields);
+    };
+
+    const handleInput = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        index: number,
+    ) => {
+        // 이벤트 발생 시 `inputData`로 부모 상태를 업데이트
+        handleInputChange(
+            index,
+            event.target.name as keyof FieldData,
+            event.target.value,
+        );
+        inputData(
+            "questionsAnswers",
+            event.target.name,
+            event.target.value,
+            index,
+        );
+    };
 
     const handleAddField = () => {
         setFields([
@@ -30,16 +74,6 @@ const QuestionsAnswers = () => {
 
     const handleDeleteField = (index: number) => {
         setFields(fields.filter((_, i) => i !== index));
-    };
-
-    const handleInputChange = (
-        index: number,
-        name: keyof FieldData,
-        value: string,
-    ) => {
-        const updatedFields = [...fields];
-        updatedFields[index][name] = value;
-        setFields(updatedFields);
     };
 
     return (
@@ -80,13 +114,7 @@ const QuestionsAnswers = () => {
                                 name="type"
                                 size="lg"
                                 value={field.type}
-                                onChange={(e) =>
-                                    handleInputChange(
-                                        index,
-                                        "type",
-                                        e.target.value,
-                                    )
-                                }
+                                onChange={(e) => handleInput(e, index)}
                             />
                         </Field>
 
@@ -102,13 +130,7 @@ const QuestionsAnswers = () => {
                                 placeholder="면접 질문"
                                 size="sm"
                                 value={field.question}
-                                onChange={(e) =>
-                                    handleInputChange(
-                                        index,
-                                        "question",
-                                        e.target.value,
-                                    )
-                                }
+                                onChange={(e) => handleInput(e, index)}
                             />
                         </Field>
 
@@ -124,13 +146,7 @@ const QuestionsAnswers = () => {
                                 placeholder="답변"
                                 size="sm"
                                 value={field.answer}
-                                onChange={(e) =>
-                                    handleInputChange(
-                                        index,
-                                        "answer",
-                                        e.target.value,
-                                    )
-                                }
+                                onChange={(e) => handleInput(e, index)}
                             />
                         </Field>
 
@@ -146,13 +162,7 @@ const QuestionsAnswers = () => {
                                 placeholder="피드백"
                                 size="sm"
                                 value={field.feedback}
-                                onChange={(e) =>
-                                    handleInputChange(
-                                        index,
-                                        "feedback",
-                                        e.target.value,
-                                    )
-                                }
+                                onChange={(e) => handleInput(e, index)}
                             />
                         </Field>
                     </Stack>

@@ -11,13 +11,19 @@ import {
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
+import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
     selectedItem: string;
     setSelectedItem: (item: string) => void;
+    setIsCreatingReview: Dispatch<SetStateAction<boolean>>;
 }
 
-const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
+const Sidebar = ({
+    selectedItem,
+    setSelectedItem,
+    setIsCreatingReview,
+}: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
         [],
@@ -29,7 +35,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getSideData();
-            console.log(data); // 콘솔 로그가 호출될 것입니다.
+            console.log(data); // 콘솔 로그가 호출
             const formattedMenuItems = data.interviewReviews.map(
                 (item: any) => ({
                     id: item.reviewId,
@@ -66,7 +72,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
             <IconButton
                 aria-label="Toggle Sidebar"
                 onClick={() => setSidebarVisible(!isSidebarVisible)}
-                position="absolute"
+                position="fixed"
                 top="15px"
                 left="20px"
                 zIndex="10"
@@ -78,6 +84,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
             {/* Sidebar */}
             {isSidebarVisible && (
                 <Box
+                    position="fixed" // 화면에 고정
                     w="250px"
                     bg="gray.200" // 밝은 회색 배경
                     color="black" // 글자는 검정색
@@ -85,6 +92,7 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
                     display="flex"
                     flexDirection="column"
                     gap="10px"
+                    height="100vh" // 화면을 가득 채움
                 >
                     {/* Sidebar Header */}
 
@@ -129,7 +137,10 @@ const Sidebar = ({ selectedItem, setSelectedItem }: SidebarProps) => {
                                     variant="ghost"
                                     colorScheme="teal"
                                     mb="10px"
-                                    onClick={() => setSelectedItem(item.label)}
+                                    onClick={() => {
+                                        setIsCreatingReview(false); // 상태 업데이트
+                                        setSelectedItem(item.id);
+                                    }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
                                 >
                                     {item.label}
