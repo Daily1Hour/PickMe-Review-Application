@@ -4,28 +4,19 @@ import {
     InterviewDetailDTO,
     PostInterviewReviewsDTO,
 } from "../api/reviewDTOList";
+import { initialFormData } from "../api/initialFormData";
+import { useEffect, useState } from "react";
 
 interface Props {
-    inputData?: (fieldName: string, value: string) => void;
-    currentData?: InterviewDetailDTO;
-    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
-    formData?: PostInterviewReviewsDTO;
+    Data: InterviewDetailDTO;
 }
 
-const InterviewDetail = ({
-    inputData,
-    currentData,
-    isReadOnly = false,
-    formData,
-}: Props) => {
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
-        if (inputData) {
-            inputData(event.target.name, event.target.value);
-        }
-    };
-    console.log("currentData", currentData, isReadOnly);
-
+const InterviewDetail = ({ Data }: Props) => {
+    const [formData, setFormData] = useState(initialFormData.interviewDetail);
+    useEffect(() => {
+        setFormData(Data);
+    }, [Data]);
+    console.log(formData.companyName);
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -43,13 +34,13 @@ const InterviewDetail = ({
                         variant="flushed"
                         name="companyName"
                         size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.companyName ||
-                            formData?.interviewDetail.companyName ||
-                            ""
+                        value={formData.companyName} // 초기값 설정
+                        onChange={(e) =>
+                            setFormData({
+                                ...formData,
+                                companyName: e.target.value,
+                            })
                         }
-                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -63,13 +54,13 @@ const InterviewDetail = ({
                         variant="flushed"
                         placeholder="지원 직무"
                         size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.position ||
-                            formData?.interviewDetail.position ||
-                            ""
+                        value={formData.position} // 초기값 설정
+                        onChange={(e) =>
+                            setFormData({
+                                ...formData,
+                                position: e.target.value,
+                            })
                         }
-                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -84,13 +75,13 @@ const InterviewDetail = ({
                         variant="flushed"
                         placeholder="면접 날짜"
                         size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.interviewDateTime ||
-                            formData?.interviewDetail.interviewDateTime ||
-                            ""
+                        value={formData.interviewDateTime} // 초기값 설정
+                        onChange={(e) =>
+                            setFormData({
+                                ...formData,
+                                interviewDateTime: e.target.value,
+                            })
                         }
-                        readOnly={isReadOnly}
                     />
                 </Field>
 
@@ -104,13 +95,13 @@ const InterviewDetail = ({
                         variant="flushed"
                         placeholder="면접 유형"
                         size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.category ||
-                            formData?.interviewDetail.category ||
-                            ""
+                        value={formData.category} // 초기값 설정
+                        onChange={(e) =>
+                            setFormData({
+                                ...formData,
+                                category: e.target.value,
+                            })
                         }
-                        readOnly={isReadOnly}
                     />
                 </Field>
             </Fieldset.Content>

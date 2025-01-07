@@ -38,6 +38,17 @@ const CreateReviewPage = ({ reviewId }: Props) => {
         }
     }, [reviewId]);
 
+    const handleSave = async () => {
+        // console.log("Collected Data:", formData);
+        // // 데이터 전송 로직 작성 (예: API 호출)
+        // console.log(reviewPostApi(formData));
+        const createReview = await reviewPostApi(formData);
+        console.log(createReview.data.interviewDetailId);
+        // state({
+        //     reviewId: createReview.data.interviewDetailId,
+        //     isCreatingReview: false,
+        // });
+    };
     return (
         <>
             <Heading textAlign="center" size="3xl" marginTop="50px">
@@ -46,10 +57,7 @@ const CreateReviewPage = ({ reviewId }: Props) => {
                     : "면접 회고 작성"}
             </Heading>
 
-            <InterviewDetail
-                inputData={handleInterviewDetail}
-                formData={formData}
-            />
+            <InterviewDetail Data={selectedData.interviewDetail} />
             <Preparation inputData={handleReviewDetail} formData={formData} />
             <InterviewProcess
                 inputData={handleReviewDetail}
