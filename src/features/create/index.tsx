@@ -23,9 +23,6 @@ interface Props {
 }
 
 const CreateReviewPage = ({ reviewId }: Props) => {
-    const [selectedData, setSelectedData] =
-        useState<PostInterviewReviewsDTO>(initialFormData);
-
     const [formData, setFormData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
 

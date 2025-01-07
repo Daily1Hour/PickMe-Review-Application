@@ -13,16 +13,10 @@ interface Props {
 }
 
 const InterviewDetail = ({ updateFormData, Data }: Props) => {
-    const [formData, setFormData] = useState(initialFormData.interviewDetail);
-    useEffect(() => {
-        setFormData(Data);
-    }, [Data]);
-    console.log(formData.companyName);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const updatedFormData = { ...formData, companyName: e.target.value };
-        setFormData(updatedFormData); // 로컬 상태 업데이트
         updateFormData(e.target.name, e.target.value); // 부모 상태 업데이트
     };
+
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -40,7 +34,7 @@ const InterviewDetail = ({ updateFormData, Data }: Props) => {
                         variant="flushed"
                         name="companyName"
                         size="lg"
-                        value={formData.companyName} // 초기값 설정
+                        value={Data.companyName} // 초기값 설정
                         onChange={handleChange}
                     />
                 </Field>
@@ -55,13 +49,8 @@ const InterviewDetail = ({ updateFormData, Data }: Props) => {
                         variant="flushed"
                         placeholder="지원 직무"
                         size="lg"
-                        value={formData.position} // 초기값 설정
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                position: e.target.value,
-                            })
-                        }
+                        value={Data.position} // 초기값 설정
+                        onChange={handleChange}
                     />
                 </Field>
 
@@ -76,13 +65,8 @@ const InterviewDetail = ({ updateFormData, Data }: Props) => {
                         variant="flushed"
                         placeholder="면접 날짜"
                         size="lg"
-                        value={formData.interviewDateTime} // 초기값 설정
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                interviewDateTime: e.target.value,
-                            })
-                        }
+                        value={Data.interviewDateTime} // 초기값 설정
+                        onChange={handleChange}
                     />
                 </Field>
 
@@ -96,13 +80,8 @@ const InterviewDetail = ({ updateFormData, Data }: Props) => {
                         variant="flushed"
                         placeholder="면접 유형"
                         size="lg"
-                        value={formData.category} // 초기값 설정
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                category: e.target.value,
-                            })
-                        }
+                        value={Data.category} // 초기값 설정
+                        onChange={handleChange}
                     />
                 </Field>
             </Fieldset.Content>
