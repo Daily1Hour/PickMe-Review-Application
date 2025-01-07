@@ -7,26 +7,18 @@ import {
 } from "../api/reviewDTOList";
 
 interface Props {
-    inputData?: (
+    updateFormData: (
         pFieldName: keyof ReviewDetailDTO,
         cFieldName: string,
         value: string,
     ) => void;
-    currentData?: PreparationDTO;
-    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
-    formData?: PostInterviewReviewsDTO;
+    Data: PreparationDTO;
 }
 
-const Preparation = ({
-    inputData,
-    currentData,
-    isReadOnly = false,
-    formData,
-}: Props) => {
+const Preparation = ({ updateFormData, Data }: Props) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
-        if (inputData)
-            inputData("preparation", event.target.name, event.target.value);
+        updateFormData("preparation", event.target.name, event.target.value);
     };
 
     return (
@@ -47,12 +39,7 @@ const Preparation = ({
                         name="strengths"
                         size="lg"
                         onChange={handleInputChange}
-                        value={
-                            currentData?.strengths ||
-                            formData?.reviewDetail.preparation.strengths ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
+                        value={Data.strengths}
                     />
                 </Field>
 
@@ -67,12 +54,7 @@ const Preparation = ({
                         placeholder="개선할 점"
                         size="lg"
                         onChange={handleInputChange}
-                        value={
-                            currentData?.improvements ||
-                            formData?.reviewDetail.preparation.improvements ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
+                        value={Data.improvements}
                     />
                 </Field>
             </Fieldset.Content>

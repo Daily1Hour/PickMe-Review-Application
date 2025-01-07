@@ -125,7 +125,10 @@ const CreateReviewPage = ({ reviewId, onSelect }: Props) => {
                 updateFormData={handleInterviewDetail}
                 Data={formData.interviewDetail}
             />
-            <Preparation inputData={handleReviewDetail} formData={formData} />
+            <Preparation
+                updateFormData={handleReviewDetail}
+                Data={formData.reviewDetail.preparation}
+            />
             <InterviewProcess
                 inputData={handleReviewDetail}
                 formData={formData}
