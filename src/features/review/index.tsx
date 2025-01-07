@@ -10,9 +10,9 @@ import NextPreparation from "./ui/NextPreparation";
 import { useEffect, useState } from "react";
 import { PostInterviewReviewsDTO, ReviewDetailDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
-import { reviewPostApi } from "./api/reviewPostApi";
+import { postReviewApi } from "./api/postReviewApi";
 
-import { getReviewApi } from "@/pages/review/api/getReviewApi";
+import { getReviewApi } from "@/features/review/api/getReviewApi";
 
 interface Props {
     reviewId: string | null;
@@ -104,7 +104,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
 
     const handleSave = async () => {
         if (!reviewId) {
-            const createReview = await reviewPostApi(formData);
+            const createReview = await postReviewApi(formData);
             console.log(createReview.data.interviewDetailId);
             onSelect(createReview.data.interviewDetailId);
         }

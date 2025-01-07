@@ -1,5 +1,5 @@
 import { Heading, Button } from "@chakra-ui/react";
-import { getReviewApi } from "../api/getReviewApi";
+import { getReviewApi } from "../../../features/review/api/getReviewApi";
 import { useEffect, useState } from "react";
 import InterviewDetail from "@/features/review/ui/InterviewDetail";
 import { initialFormData } from "@/features/review/api/initialFormData";

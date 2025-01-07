@@ -12,7 +12,7 @@ const client = axios.create({
     },
 });
 
-export const reviewPostApi = async (data: PostInterviewReviewsDTO) => {
+export const postReviewApi = async (data: PostInterviewReviewsDTO) => {
     const response = await client.post(`/interview`, data);
     return response;
 };
