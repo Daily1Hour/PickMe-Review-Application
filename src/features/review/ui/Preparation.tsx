@@ -3,11 +3,11 @@ import { PreparationDTO } from "../api/reviewDTOList";
 import InputField from "./InputField";
 
 interface Props {
-    Data: PreparationDTO;
+    data: PreparationDTO;
     register: any;
 }
 
-const Preparation = ({ Data, register }: Props) => {
+const Preparation = ({ data, register }: Props) => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -18,13 +18,13 @@ const Preparation = ({ Data, register }: Props) => {
                 <InputField
                     label="잘한 점"
                     name="reviewDetail.preparation.strengths"
-                    defaultValue={Data.strengths}
+                    defaultValue={data.strengths}
                     register={register}
                 />
                 <InputField
                     label="개선할 점"
                     name="reviewDetail.preparation.improvements"
-                    defaultValue={Data.strengths}
+                    defaultValue={data.strengths}
                     register={register}
                 />
             </Fieldset.Content>

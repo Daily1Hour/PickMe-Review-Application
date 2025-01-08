@@ -126,11 +126,11 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             </Heading>
 
             <InterviewDetail
-                Data={formData.interviewDetail}
+                data={formData.interviewDetail}
                 register={register}
             />
             <Preparation
-                Data={formData.reviewDetail.preparation}
+                data={formData.reviewDetail.preparation}
                 register={register}
             />
             <InterviewProcess

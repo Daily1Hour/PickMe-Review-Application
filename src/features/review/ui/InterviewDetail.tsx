@@ -1,14 +1,13 @@
-import { Input, Stack, Fieldset } from "@chakra-ui/react";
-import { Field } from "@/shared/chakra-ui/field";
+import { Stack, Fieldset } from "@chakra-ui/react";
 import { InterviewDetailDTO } from "../api/reviewDTOList";
 import InputField from "./InputField";
 
 interface Props {
-    Data: InterviewDetailDTO;
+    data: InterviewDetailDTO;
     register: any;
 }
 
-const InterviewDetail = ({ Data, register }: Props) => {
+const InterviewDetail = ({ data, register }: Props) => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -19,26 +18,26 @@ const InterviewDetail = ({ Data, register }: Props) => {
                 <InputField
                     label="회사명"
                     name="interviewDetail.companyName"
-                    defaultValue={Data.companyName}
+                    defaultValue={data.companyName}
                     register={register}
                 />
                 <InputField
                     label="지원 직무"
                     name="interviewDetail.position"
-                    defaultValue={Data.position}
+                    defaultValue={data.position}
                     register={register}
                 />
                 <InputField
                     label="면접 날짜"
                     name="interviewDetail.interviewDateTime"
-                    defaultValue={Data.interviewDateTime}
+                    defaultValue={data.interviewDateTime}
                     type="datetime-local"
                     register={register}
                 />
                 <InputField
                     label="면접 유형"
                     name="interviewDetail.category"
-                    defaultValue={Data.category}
+                    defaultValue={data.category}
                     register={register}
                 />
             </Fieldset.Content>
