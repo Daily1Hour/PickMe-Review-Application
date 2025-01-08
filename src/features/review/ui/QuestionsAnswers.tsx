@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
-import {
-    Input,
-    Stack,
-    Fieldset,
-    Button,
-    Textarea,
-    Box,
-} from "@chakra-ui/react";
-import { Field } from "@/shared/chakra-ui/field";
-import { QuestionsAnswersDTO, ReviewDetailDTO } from "../api/reviewDTOList";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { useEffect } from "react";
+import { Stack, Fieldset, Button, Box } from "@chakra-ui/react";
+
+import { QuestionsAnswersDTO } from "../api/reviewDTOList";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import InputField from "./InputField";
+import TextAreaField from "./TextAreaField";
 
 interface Props {
     data: QuestionsAnswersDTO[];
@@ -23,7 +18,7 @@ const QuestionsAnswers = ({ data }: Props) => {
     const handleDeleteField = (index: number) => {
         remove(index);
     };
-    const { control, resetField } = useFormContext();
+    const { control, resetField, register } = useFormContext();
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -60,63 +55,55 @@ const QuestionsAnswers = ({ data }: Props) => {
                                 </Button>
                             </Box>
                         )}
-                        <Field
-                            orientation="horizontal"
-                            label="질문 유형"
-                            paddingBottom="10px"
-                        >
-                            <Input
-                                placeholder="질문 유형"
-                                variant="flushed"
-                                name="type"
-                                size="lg"
-                            />
-                        </Field>
 
-                        <Field
-                            orientation="horizontal"
-                            label="면접 질문"
-                            paddingBottom="10px"
-                        >
-                            <Textarea
-                                autoresize
-                                name="question"
-                                variant="outline"
-                                placeholder="면접 질문"
-                                size="sm"
-                            />
-                        </Field>
-
-                        <Field
-                            orientation="horizontal"
-                            label="답변"
-                            paddingBottom="10px"
-                        >
-                            <Textarea
-                                autoresize
-                                name="answer"
-                                variant="outline"
-                                placeholder="답변"
-                                size="sm"
-                            />
-                        </Field>
-
-                        <Field
-                            orientation="horizontal"
-                            label="피드백"
-                            paddingBottom="10px"
-                        >
-                            {/* <Textarea
-                                autoresize
-                                name="feedback"
-                                variant="outline"
-                                placeholder="피드백"
-                                size="sm"
-                                value={field.feedback}
-                                onChange={(e) => handleInput(e, index)}
-                                readOnly={isReadOnly}
-                            /> */}
-                        </Field>
+                        <Controller
+                            name={`reviewDetail.questionsAnswers.${index}.type`}
+                            control={control}
+                            render={({ field }) => (
+                                <InputField
+                                    label="질문 유형"
+                                    name={`reviewDetail.questionsAnswers.${index}.type`}
+                                    defaultValue={field.value.type}
+                                    register={register}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name={`reviewDetail.questionsAnswers.${index}.question`}
+                            control={control}
+                            render={({ field }) => (
+                                <InputField
+                                    label="면접 질문"
+                                    name={`reviewDetail.questionsAnswers.${index}.question`}
+                                    defaultValue={field.value.question}
+                                    register={register}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name={`reviewDetail.questionsAnswers.${index}.answer`}
+                            control={control}
+                            render={({ field }) => (
+                                <InputField
+                                    label="답변"
+                                    name={`reviewDetail.questionsAnswers.${index}.answer`}
+                                    defaultValue={field.value.answer}
+                                    register={register}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name={`reviewDetail.questionsAnswers.${index}.feedback`}
+                            control={control}
+                            render={({ field }) => (
+                                <TextAreaField
+                                    label="피드백"
+                                    name={`reviewDetail.questionsAnswers.${index}.feedback`}
+                                    defaultValue={field.value.feedback}
+                                    register={register}
+                                />
+                            )}
+                        />
                     </Stack>
                 ))}
 
