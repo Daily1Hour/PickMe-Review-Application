@@ -1,6 +1,7 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
 import { InterviewDetailDTO } from "../api/reviewDTOList";
+import InputField from "./InputField";
 
 interface Props {
     Data: InterviewDetailDTO;
@@ -15,62 +16,31 @@ const InterviewDetail = ({ Data, register }: Props) => {
             </Stack>
 
             <Fieldset.Content>
-                <Field
-                    orientation="horizontal"
+                <InputField
                     label="회사명"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        placeholder="회사명"
-                        variant="flushed"
-                        size="lg"
-                        defaultValue={Data.companyName} // 초기값 설정
-                        {...register("interviewDetail.companyName")}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="interviewDetail.companyName"
+                    defaultValue={Data.companyName}
+                    register={register}
+                />
+                <InputField
                     label="지원 직무"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        variant="flushed"
-                        placeholder="지원 직무"
-                        size="lg"
-                        defaultValue={Data.position} // 초기값 설정
-                        {...register("interviewDetail.position")}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="interviewDetail.position"
+                    defaultValue={Data.position}
+                    register={register}
+                />
+                <InputField
                     label="면접 날짜"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        type="datetime-local"
-                        variant="flushed"
-                        placeholder="면접 날짜"
-                        size="lg"
-                        defaultValue={Data.interviewDateTime} // 초기값 설정
-                        {...register("interviewDetail.interviewDateTime")}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="interviewDetail.interviewDateTime"
+                    defaultValue={Data.interviewDateTime}
+                    type="datetime-local"
+                    register={register}
+                />
+                <InputField
                     label="면접 유형"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        variant="flushed"
-                        placeholder="면접 유형"
-                        size="lg"
-                        defaultValue={Data.category} // 초기값 설정
-                        {...register("interviewDetail.category")}
-                    />
-                </Field>
+                    name="interviewDetail.category"
+                    defaultValue={Data.category}
+                    register={register}
+                />
             </Fieldset.Content>
         </Fieldset.Root>
     );
