@@ -146,8 +146,8 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
                 register={register}
             />
             <InterviewAnalysis
-                inputData={handleReviewDetail}
-                formData={formData}
+                data={formData.reviewDetail.interviewAnalysis}
+                register={register}
             />
             <NextPreparation
                 inputData={handleReviewDetail}

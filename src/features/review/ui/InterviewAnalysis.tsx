@@ -1,38 +1,13 @@
-import { Input, Stack, Fieldset } from "@chakra-ui/react";
-import { Field } from "@/shared/chakra-ui/field";
-import {
-    InterviewAnalysisDTO,
-    PostInterviewReviewsDTO,
-    ReviewDetailDTO,
-} from "../api/reviewDTOList";
+import { Stack, Fieldset } from "@chakra-ui/react";
+import { InterviewAnalysisDTO } from "../api/reviewDTOList";
+import InputField from "./InputField";
 
 interface Props {
-    inputData?: (
-        pFieldName: keyof ReviewDetailDTO,
-        cFieldName: string,
-        value: string,
-    ) => void;
-    currentData?: InterviewAnalysisDTO;
-    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
-    formData?: PostInterviewReviewsDTO;
+    data: InterviewAnalysisDTO;
+    register: any;
 }
 
-const InterviewAnalysis = ({
-    inputData,
-    currentData,
-    isReadOnly = false,
-    formData,
-}: Props) => {
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
-        if (inputData)
-            inputData(
-                "interviewAnalysis",
-                event.target.name,
-                event.target.value,
-            );
-    };
-
+const InterviewAnalysis = ({ data, register }: Props) => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -42,109 +17,36 @@ const InterviewAnalysis = ({
             </Stack>
 
             <Fieldset.Content>
-                <Field
-                    orientation="horizontal"
+                <InputField
                     label="잘한 점"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        placeholder="면접에서 잘한 점"
-                        variant="flushed"
-                        name="strengths"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.strengths ||
-                            formData?.reviewDetail.interviewAnalysis
-                                .strengths ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.interviewAnalsis.strengths"
+                    defaultValue={data.strengths}
+                    register={register}
+                />
+                <InputField
                     label="개선할 점"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="improvements"
-                        variant="flushed"
-                        placeholder="면접에서 개선할 점"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.improvements ||
-                            formData?.reviewDetail.interviewAnalysis
-                                .improvements ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.interviewAnalsis.improvements"
+                    defaultValue={data.improvements}
+                    register={register}
+                />
+                <InputField
                     label="피드백"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="feedback"
-                        variant="flushed"
-                        placeholder="면접에 대한 피드백"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.feedback ||
-                            formData?.reviewDetail.interviewAnalysis.feedback ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.interviewAnalsis.feedback"
+                    defaultValue={data.feedback}
+                    register={register}
+                />
+                <InputField
                     label="난이도"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="difficulty"
-                        variant="flushed"
-                        placeholder="면접 난이도"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.difficulty ||
-                            formData?.reviewDetail.interviewAnalysis
-                                .difficulty ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.interviewAnalsis.difficulty"
+                    defaultValue={data.difficulty}
+                    register={register}
+                />
+                <InputField
                     label="결과 분석"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="interviewResultAnalysis"
-                        variant="flushed"
-                        placeholder="ex. 추가질문에 대한 대비 부족이 약점"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.interviewResultAnalysis ||
-                            formData?.reviewDetail.interviewAnalysis
-                                .interviewResultAnalysis ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
+                    name="reviewDetail.interviewAnalsis.interviewResultAnalysis"
+                    defaultValue={data.interviewResultAnalysis}
+                    register={register}
+                />
             </Fieldset.Content>
         </Fieldset.Root>
     );
