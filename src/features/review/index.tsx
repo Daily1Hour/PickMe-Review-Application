@@ -50,7 +50,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
     const { handleSubmit } = method;
 
     const onSubmit = handleSubmit((data) => console.log(data));
-    console.log("index");
+
     return (
         <FormProvider {...method}>
             <form onSubmit={onSubmit}>

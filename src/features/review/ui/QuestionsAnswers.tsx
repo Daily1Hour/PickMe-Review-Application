@@ -9,82 +9,30 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
 import { QuestionsAnswersDTO, ReviewDetailDTO } from "../api/reviewDTOList";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 interface Props {
-    inputData?: (
-        pFieldName: keyof ReviewDetailDTO,
-        cFieldName: string,
-        value: string,
-        index?: number,
-    ) => void;
-    currentData?: QuestionsAnswersDTO[];
-    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
+    data: QuestionsAnswersDTO[];
 }
 
-const QuestionsAnswers = ({
-    inputData,
-    currentData,
-    isReadOnly = false,
-}: Props) => {
-    type FieldData = {
-        type: string;
-        question: string;
-        answer: string;
-        feedback: string;
-    };
-
-    const [fields, setFields] = useState<QuestionsAnswersDTO[]>([
-        { type: "", question: "", answer: "", feedback: "" },
-    ]);
-
-    useEffect(() => {
-        if (currentData) {
-            // currentData가 있을 경우 이를 fields 상태로 설정
-            setFields(currentData);
-        }
-    }, [currentData]);
-
-    const handleInputChange = (
-        index: number,
-        name: keyof FieldData,
-        value: string,
-    ) => {
-        // 로컬 상태에서 해당 인덱스의 값을 업데이트
-        const updatedFields = [...fields];
-        updatedFields[index][name] = value;
-        setFields(updatedFields);
-    };
-
-    const handleInput = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-        index: number,
-    ) => {
-        // 이벤트 발생 시 `inputData`로 부모 상태를 업데이트
-        handleInputChange(
-            index,
-            event.target.name as keyof FieldData,
-            event.target.value,
-        );
-        if (inputData)
-            inputData(
-                "questionsAnswers",
-                event.target.name,
-                event.target.value,
-                index,
-            );
-    };
-
+const QuestionsAnswers = ({ data }: Props) => {
     const handleAddField = () => {
-        if (!currentData)
-            setFields([
-                ...fields,
-                { type: "", question: "", answer: "", feedback: "" },
-            ]);
+        append({ type: "", question: "", answer: "", feedback: "" });
     };
 
     const handleDeleteField = (index: number) => {
-        if (!currentData) setFields(fields.filter((_, i) => i !== index));
+        remove(index);
     };
+    const { control, resetField } = useFormContext();
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "reviewDetail.questionsAnswers",
+    });
+
+    useEffect(() => {
+        resetField("reviewDetail.questionsAnswers", { defaultValue: data });
+    }, [data]);
 
     return (
         <Fieldset.Root size="lg" maxW="100%">
@@ -96,9 +44,8 @@ const QuestionsAnswers = ({
 
             <Fieldset.Content>
                 {fields.map((field, index) => (
-                    <Stack key={index} marginBottom="10px">
-                        {/* 0번째 인덱스는 삭제 버튼 숨김 */}
-                        {index !== 0 && !currentData && (
+                    <Stack key={field.id} marginBottom="10px">
+                        {index !== 0 && (
                             <Box
                                 display="flex"
                                 justifyContent="flex-end"
@@ -123,9 +70,6 @@ const QuestionsAnswers = ({
                                 variant="flushed"
                                 name="type"
                                 size="lg"
-                                value={field.type}
-                                onChange={(e) => handleInput(e, index)}
-                                readOnly={isReadOnly}
                             />
                         </Field>
 
@@ -140,9 +84,6 @@ const QuestionsAnswers = ({
                                 variant="outline"
                                 placeholder="면접 질문"
                                 size="sm"
-                                value={field.question}
-                                onChange={(e) => handleInput(e, index)}
-                                readOnly={isReadOnly}
                             />
                         </Field>
 
@@ -157,9 +98,6 @@ const QuestionsAnswers = ({
                                 variant="outline"
                                 placeholder="답변"
                                 size="sm"
-                                value={field.answer}
-                                onChange={(e) => handleInput(e, index)}
-                                readOnly={isReadOnly}
                             />
                         </Field>
 
@@ -168,7 +106,7 @@ const QuestionsAnswers = ({
                             label="피드백"
                             paddingBottom="10px"
                         >
-                            <Textarea
+                            {/* <Textarea
                                 autoresize
                                 name="feedback"
                                 variant="outline"
@@ -177,12 +115,12 @@ const QuestionsAnswers = ({
                                 value={field.feedback}
                                 onChange={(e) => handleInput(e, index)}
                                 readOnly={isReadOnly}
-                            />
+                            /> */}
                         </Field>
                     </Stack>
                 ))}
 
-                {!currentData && (
+                {
                     <Box display="flex" justifyContent="center">
                         <Button
                             colorScheme="teal"
@@ -194,7 +132,7 @@ const QuestionsAnswers = ({
                             추가
                         </Button>
                     </Box>
-                )}
+                }
             </Fieldset.Content>
         </Fieldset.Root>
     );
