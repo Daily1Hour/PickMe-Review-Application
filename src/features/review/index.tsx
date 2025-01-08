@@ -8,12 +8,12 @@ import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
 import { useEffect, useState } from "react";
-import { PostInterviewReviewsDTO, ReviewDetailDTO } from "./api/reviewDTOList";
+import { PostInterviewReviewsDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import { postReviewApi } from "./api/postReviewApi";
 
 import { getReviewApi } from "@/features/review/api/getReviewApi";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
 interface Props {
     reviewId: string | null;
@@ -36,73 +36,6 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         }
     }, [reviewId]);
 
-    const handleInterviewDetail = (fieldName: string, value: string) => {
-        setFormData((prev) => ({
-            ...prev,
-            interviewDetail: {
-                ...prev.interviewDetail,
-                [fieldName]: value, // PostInterviewDetailDTO의 필드에 대해서만 업데이트
-            },
-        }));
-    };
-
-    const handleReviewDetail = (
-        pFieldName: keyof ReviewDetailDTO,
-        cFieldName: string,
-        value: string,
-        index?: number,
-    ) => {
-        setFormData((prev) => {
-            if (pFieldName === "questionsAnswers") {
-                // 인덱스가 주어졌다면 해당 인덱스의 항목을 수정
-                if (index !== undefined) {
-                    const updatedQuestionsAnswers = [
-                        ...prev.reviewDetail.questionsAnswers,
-                    ];
-                    updatedQuestionsAnswers[index] = {
-                        ...updatedQuestionsAnswers[index],
-                        [cFieldName]: value, // 특정 필드만 업데이트
-                    };
-                    return {
-                        ...prev,
-                        reviewDetail: {
-                            ...prev.reviewDetail,
-                            questionsAnswers: updatedQuestionsAnswers,
-                        },
-                    };
-                }
-                // 인덱스가 주어지지 않았다면 새 항목을 추가
-                return {
-                    ...prev,
-                    reviewDetail: {
-                        ...prev.reviewDetail,
-                        questionsAnswers: [
-                            ...prev.reviewDetail.questionsAnswers,
-                            {
-                                type: "",
-                                question: "",
-                                answer: "",
-                                feedback: "",
-                            },
-                        ],
-                    },
-                };
-            }
-
-            // 'preparation', 'interviewProcess', 등 다른 필드일 경우
-            return {
-                ...prev,
-                reviewDetail: {
-                    ...prev.reviewDetail,
-                    [pFieldName]: {
-                        ...prev.reviewDetail[pFieldName],
-                        [cFieldName]: value, // 해당 필드 업데이트
-                    },
-                },
-            };
-        });
-    };
-
     const handleSave = async () => {
         if (!reviewId) {
             const createReview = await postReviewApi(formData);
@@ -111,52 +44,46 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         }
     };
 
-    const { register, handleSubmit } = useForm({
+    const method = useForm({
         defaultValues: initialFormData,
     });
+    const { handleSubmit } = method;
 
     const onSubmit = handleSubmit((data) => console.log(data));
     console.log("index");
     return (
-        <form onSubmit={onSubmit}>
-            <Heading textAlign="center" size="3xl" marginTop="50px">
-                {reviewId
-                    ? formData.interviewDetail.companyName
-                    : "면접 회고 작성"}
-            </Heading>
+        <FormProvider {...method}>
+            <form onSubmit={onSubmit}>
+                <Heading textAlign="center" size="3xl" marginTop="50px">
+                    {reviewId
+                        ? formData.interviewDetail.companyName
+                        : "면접 회고 작성"}
+                </Heading>
+                <InterviewDetail data={formData.interviewDetail} />
 
-            <InterviewDetail
-                data={formData.interviewDetail}
-                register={register}
-            />
-            <Preparation
-                data={formData.reviewDetail.preparation}
-                register={register}
-            />
-            <InterviewProcess
-                data={formData.reviewDetail.interviewProcess}
-                register={register}
-            />
-            <QuestionsAnswers
-                inputData={handleReviewDetail}
-                //formData={formData}
-            />
-            <Communication
-                data={formData.reviewDetail.communication}
-                register={register}
-            />
-            <InterviewAnalysis
-                data={formData.reviewDetail.interviewAnalysis}
-                register={register}
-            />
-            <NextPreparation
-                data={formData.reviewDetail.nextPreparation}
-                register={register}
-            />
-            <Button colorPalette="green" type="submit">
-                {reviewId ? "수정" : "저장"}
-            </Button>
-        </form>
+                <Preparation data={formData.reviewDetail.preparation} />
+
+                <InterviewProcess
+                    data={formData.reviewDetail.interviewProcess}
+                />
+
+                <QuestionsAnswers
+                    data={formData.reviewDetail.questionsAnswers}
+                />
+
+                <Communication data={formData.reviewDetail.communication} />
+
+                <InterviewAnalysis
+                    data={formData.reviewDetail.interviewAnalysis}
+                />
+
+                <NextPreparation data={formData.reviewDetail.nextPreparation} />
+
+                <Button colorPalette="green" type="submit">
+                    {reviewId ? "수정" : "저장"}
+                </Button>
+            </form>
+        </FormProvider>
     );
 };
 

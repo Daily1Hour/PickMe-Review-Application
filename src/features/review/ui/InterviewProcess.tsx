@@ -1,13 +1,14 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
 import { InterviewProcessDTO } from "../api/reviewDTOList";
 import InputField from "./InputField";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
     data: InterviewProcessDTO;
-    register: any;
 }
 
-const InterviewProcess = ({ data, register }: Props) => {
+const InterviewProcess = ({ data }: Props) => {
+    const { register } = useFormContext();
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>

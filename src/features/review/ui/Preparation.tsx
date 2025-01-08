@@ -1,13 +1,14 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
 import { PreparationDTO } from "../api/reviewDTOList";
 import InputField from "./InputField";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
     data: PreparationDTO;
-    register: any;
 }
 
-const Preparation = ({ data, register }: Props) => {
+const Preparation = ({ data }: Props) => {
+    const { register } = useFormContext();
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>

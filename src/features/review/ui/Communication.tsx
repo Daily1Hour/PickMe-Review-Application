@@ -1,13 +1,14 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
 import { CommunicationDTO } from "../api/reviewDTOList";
 import InputField from "./InputField";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
     data: CommunicationDTO;
-    register: any;
 }
 
-const Communication = ({ data, register }: Props) => {
+const Communication = ({ data }: Props) => {
+    const { register } = useFormContext();
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
