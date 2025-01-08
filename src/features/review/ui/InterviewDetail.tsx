@@ -1,22 +1,13 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import {
-    InterviewDetailDTO,
-    PostInterviewReviewsDTO,
-} from "../api/reviewDTOList";
-import { initialFormData } from "../api/initialFormData";
-import { useEffect, useState } from "react";
+import { InterviewDetailDTO } from "../api/reviewDTOList";
 
 interface Props {
-    updateFormData: (fieldName: string, value: string) => void;
     Data: InterviewDetailDTO;
+    register: any;
 }
 
-const InterviewDetail = ({ updateFormData, Data }: Props) => {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        updateFormData(e.target.name, e.target.value); // 부모 상태 업데이트
-    };
-
+const InterviewDetail = ({ Data, register }: Props) => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -32,10 +23,9 @@ const InterviewDetail = ({ updateFormData, Data }: Props) => {
                     <Input
                         placeholder="회사명"
                         variant="flushed"
-                        name="companyName"
                         size="lg"
-                        value={Data.companyName} // 초기값 설정
-                        onChange={handleChange}
+                        defaultValue={Data.companyName} // 초기값 설정
+                        {...register("interviewDetail.companyName")}
                     />
                 </Field>
 
@@ -45,12 +35,11 @@ const InterviewDetail = ({ updateFormData, Data }: Props) => {
                     paddingBottom="10px"
                 >
                     <Input
-                        name="position"
                         variant="flushed"
                         placeholder="지원 직무"
                         size="lg"
-                        value={Data.position} // 초기값 설정
-                        onChange={handleChange}
+                        defaultValue={Data.position} // 초기값 설정
+                        {...register("interviewDetail.position")}
                     />
                 </Field>
 
@@ -60,13 +49,12 @@ const InterviewDetail = ({ updateFormData, Data }: Props) => {
                     paddingBottom="10px"
                 >
                     <Input
-                        name="interviewDateTime"
                         type="datetime-local"
                         variant="flushed"
                         placeholder="면접 날짜"
                         size="lg"
-                        value={Data.interviewDateTime} // 초기값 설정
-                        onChange={handleChange}
+                        defaultValue={Data.interviewDateTime} // 초기값 설정
+                        {...register("interviewDetail.interviewDateTime")}
                     />
                 </Field>
 
@@ -76,12 +64,11 @@ const InterviewDetail = ({ updateFormData, Data }: Props) => {
                     paddingBottom="10px"
                 >
                     <Input
-                        name="category"
                         variant="flushed"
                         placeholder="면접 유형"
                         size="lg"
-                        value={Data.category} // 초기값 설정
-                        onChange={handleChange}
+                        defaultValue={Data.category} // 초기값 설정
+                        {...register("interviewDetail.category")}
                     />
                 </Field>
             </Fieldset.Content>

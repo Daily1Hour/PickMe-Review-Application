@@ -13,6 +13,7 @@ import { initialFormData } from "./api/initialFormData";
 import { postReviewApi } from "./api/postReviewApi";
 
 import { getReviewApi } from "@/features/review/api/getReviewApi";
+import { useForm } from "react-hook-form";
 
 interface Props {
     reviewId: string | null;
@@ -109,8 +110,15 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             onSelect(createReview.data.interviewDetailId);
         }
     };
+
+    const { register, handleSubmit } = useForm({
+        defaultValues: initialFormData,
+    });
+
+    const onSubmit = handleSubmit((data) => console.log(data));
+    console.log("index");
     return (
-        <>
+        <form onSubmit={onSubmit}>
             <Heading textAlign="center" size="3xl" marginTop="50px">
                 {reviewId
                     ? formData.interviewDetail.companyName
@@ -118,8 +126,8 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             </Heading>
 
             <InterviewDetail
-                updateFormData={handleInterviewDetail}
                 Data={formData.interviewDetail}
+                register={register}
             />
             <Preparation
                 updateFormData={handleReviewDetail}
@@ -142,10 +150,10 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
                 inputData={handleReviewDetail}
                 formData={formData}
             />
-            <Button colorPalette="green" onClick={handleSave}>
+            <Button colorPalette="green" type="submit">
                 {reviewId ? "수정" : "저장"}
             </Button>
-        </>
+        </form>
     );
 };
 
