@@ -150,8 +150,8 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
                 register={register}
             />
             <NextPreparation
-                inputData={handleReviewDetail}
-                formData={formData}
+                data={formData.reviewDetail.nextPreparation}
+                register={register}
             />
             <Button colorPalette="green" type="submit">
                 {reviewId ? "수정" : "저장"}
