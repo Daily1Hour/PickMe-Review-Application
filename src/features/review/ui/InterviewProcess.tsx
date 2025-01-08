@@ -1,5 +1,4 @@
-import { Input, Stack, Fieldset } from "@chakra-ui/react";
-import { Field } from "@/shared/chakra-ui/field";
+import { Stack, Fieldset } from "@chakra-ui/react";
 import { InterviewProcessDTO } from "../api/reviewDTOList";
 import InputField from "./InputField";
 
