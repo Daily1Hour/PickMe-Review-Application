@@ -141,7 +141,10 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
                 inputData={handleReviewDetail}
                 //formData={formData}
             />
-            <Communication inputData={handleReviewDetail} formData={formData} />
+            <Communication
+                data={formData.reviewDetail.communication}
+                register={register}
+            />
             <InterviewAnalysis
                 inputData={handleReviewDetail}
                 formData={formData}

@@ -1,34 +1,13 @@
-import { Input, Stack, Fieldset } from "@chakra-ui/react";
-import { Field } from "@/shared/chakra-ui/field";
-import {
-    CommunicationDTO,
-    PostInterviewReviewsDTO,
-    ReviewDetailDTO,
-} from "../api/reviewDTOList";
+import { Stack, Fieldset } from "@chakra-ui/react";
+import { CommunicationDTO } from "../api/reviewDTOList";
+import InputField from "./InputField";
 
 interface Props {
-    inputData?: (
-        pFieldName: keyof ReviewDetailDTO,
-        cFieldName: string,
-        value: string,
-    ) => void;
-    currentData?: CommunicationDTO;
-    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
-    formData?: PostInterviewReviewsDTO;
+    data: CommunicationDTO;
+    register: any;
 }
 
-const Communication = ({
-    inputData,
-    currentData,
-    isReadOnly = false,
-    formData,
-}: Props) => {
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
-        if (inputData)
-            inputData("communication", event.target.name, event.target.value);
-    };
-
+const Communication = ({ data, register }: Props) => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -36,65 +15,24 @@ const Communication = ({
             </Stack>
 
             <Fieldset.Content>
-                <Field
-                    orientation="horizontal"
+                <InputField
                     label="언어적"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        placeholder="말투, 발음 등"
-                        variant="flushed"
-                        name="verbal"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.verbal ||
-                            formData?.reviewDetail.communication.verbal ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.communication.verbal"
+                    defaultValue={data.verbal}
+                    register={register}
+                />
+                <InputField
                     label="비언어적"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="nonVerbal"
-                        variant="flushed"
-                        placeholder="제스처, 표정 등"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.nonVerbal ||
-                            formData?.reviewDetail.communication.nonVerbal ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.communication.nonVerbal"
+                    defaultValue={data.nonVerbal}
+                    register={register}
+                />
+                <InputField
                     label="상호작용"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="interaction"
-                        variant="flushed"
-                        placeholder="면접관과의 상호작용(대화의 흐름 등)"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.interaction ||
-                            formData?.reviewDetail.communication.interaction ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
+                    name="reviewDetail.communication.interaction"
+                    defaultValue={data.interaction}
+                    register={register}
+                />
             </Fieldset.Content>
         </Fieldset.Root>
     );
