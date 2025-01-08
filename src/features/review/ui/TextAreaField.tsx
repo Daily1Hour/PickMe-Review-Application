@@ -1,20 +1,13 @@
 import { Field } from "@/shared/chakra-ui/field";
 import { Textarea } from "@chakra-ui/react";
-import React from "react";
 
 interface TextAreaFieldProps {
     label: string;
-    name: string;
     defaultValue: string;
-    register: any;
+    field: any;
 }
 
-const TextAreaField = ({
-    label,
-    name,
-    defaultValue,
-    register,
-}: TextAreaFieldProps) => {
+const TextAreaField = ({ label, defaultValue, field }: TextAreaFieldProps) => {
     return (
         <Field orientation="horizontal" label={label} paddingBottom="10px">
             <Textarea
@@ -23,7 +16,7 @@ const TextAreaField = ({
                 placeholder={label}
                 size="sm"
                 defaultValue={defaultValue} // 초기값 설정
-                {...register(name)}
+                {...field}
             />
         </Field>
     );

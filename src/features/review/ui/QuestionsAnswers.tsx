@@ -72,11 +72,10 @@ const QuestionsAnswers = ({ data }: Props) => {
                             name={`reviewDetail.questionsAnswers.${index}.question`}
                             control={control}
                             render={({ field }) => (
-                                <InputField
+                                <TextAreaField
                                     label="면접 질문"
-                                    name={`reviewDetail.questionsAnswers.${index}.question`}
                                     defaultValue={field.value.question}
-                                    register={register}
+                                    field={field}
                                 />
                             )}
                         />
@@ -84,11 +83,10 @@ const QuestionsAnswers = ({ data }: Props) => {
                             name={`reviewDetail.questionsAnswers.${index}.answer`}
                             control={control}
                             render={({ field }) => (
-                                <InputField
+                                <TextAreaField
                                     label="답변"
-                                    name={`reviewDetail.questionsAnswers.${index}.answer`}
                                     defaultValue={field.value.answer}
-                                    register={register}
+                                    field={field}
                                 />
                             )}
                         />
@@ -98,9 +96,8 @@ const QuestionsAnswers = ({ data }: Props) => {
                             render={({ field }) => (
                                 <TextAreaField
                                     label="피드백"
-                                    name={`reviewDetail.questionsAnswers.${index}.feedback`}
                                     defaultValue={field.value.feedback}
-                                    register={register}
+                                    field={field}
                                 />
                             )}
                         />
