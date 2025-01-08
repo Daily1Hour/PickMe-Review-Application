@@ -1,38 +1,14 @@
 import { Input, Stack, Fieldset } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import {
-    InterviewProcessDTO,
-    PostInterviewReviewsDTO,
-    ReviewDetailDTO,
-} from "../api/reviewDTOList";
+import { InterviewProcessDTO } from "../api/reviewDTOList";
+import InputField from "./InputField";
 
 interface Props {
-    inputData?: (
-        pFieldName: keyof ReviewDetailDTO,
-        cFieldName: string,
-        value: string,
-    ) => void;
-    currentData?: InterviewProcessDTO;
-    isReadOnly?: boolean; // 읽기 전용 설정을 위한 prop
-    formData?: PostInterviewReviewsDTO;
+    data: InterviewProcessDTO;
+    register: any;
 }
 
-const InterviewProcess = ({
-    inputData,
-    currentData,
-    isReadOnly = false,
-    formData,
-}: Props) => {
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // event.target.name을 사용하여 fieldName을 유추하고, event.target.value를 value로 전달
-        if (inputData)
-            inputData(
-                "interviewProcess",
-                event.target.name,
-                event.target.value,
-            );
-    };
-    //console.log("currentData", currentData, isReadOnly);
+const InterviewProcess = ({ data, register }: Props) => {
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -40,86 +16,30 @@ const InterviewProcess = ({
             </Stack>
 
             <Fieldset.Content>
-                <Field
-                    orientation="horizontal"
+                <InputField
                     label="면접 방식"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        placeholder="면접 방식"
-                        variant="flushed"
-                        name="format"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.format ||
-                            formData?.reviewDetail.interviewProcess.format ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.interviewProcess.format"
+                    defaultValue={data.format}
+                    register={register}
+                />
+                <InputField
                     label="면접 분위기"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="mood"
-                        variant="flushed"
-                        placeholder="면접 분위기"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.mood ||
-                            formData?.reviewDetail.interviewProcess.mood ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.interviewProcess.mood"
+                    defaultValue={data.mood}
+                    register={register}
+                />
+                <InputField
                     label="면접관 정보"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="panel"
-                        variant="flushed"
-                        placeholder="면접관 정보"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.panel ||
-                            formData?.reviewDetail.interviewProcess.panel ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
-
-                <Field
-                    orientation="horizontal"
+                    name="reviewDetail.interviewProcess.panel"
+                    defaultValue={data.panel}
+                    register={register}
+                />
+                <InputField
                     label="면접관 : 면접자 비율"
-                    paddingBottom="10px"
-                >
-                    <Input
-                        name="interviewRatio"
-                        variant="flushed"
-                        placeholder="면접관 : 면접자 비율"
-                        size="lg"
-                        onChange={handleInputChange}
-                        value={
-                            currentData?.interviewRatio ||
-                            formData?.reviewDetail.interviewProcess
-                                .interviewRatio ||
-                            ""
-                        }
-                        readOnly={isReadOnly}
-                    />
-                </Field>
+                    name="reviewDetail.interviewProcess.interviewRatio"
+                    defaultValue={data.interviewRatio}
+                    register={register}
+                />
             </Fieldset.Content>
         </Fieldset.Root>
     );
