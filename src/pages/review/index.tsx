@@ -43,6 +43,7 @@ const Review = () => {
                 ) : (
                     <ReviewPage
                         reviewId={selectedId.reviewId}
+                        state={selectedId.state}
                         onSelect={handleSidebarSelect}
                     />
                 )}

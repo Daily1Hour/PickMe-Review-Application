@@ -19,10 +19,11 @@ import { DeleteReviewApi } from "./api/DeleteReviewApi";
 
 interface Props {
     reviewId: string | null;
+    state: string;
     onSelect: (reviewId: string | null | undefined, state: string) => void;
 }
 
-const ReviewPage = ({ reviewId, onSelect }: Props) => {
+const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
     const [formData, setFormData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
 
@@ -36,7 +37,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             };
             getData();
         }
-    }, [reviewId]);
+    }, [reviewId, state]);
 
     const methods = useForm({
         defaultValues: initialFormData,
