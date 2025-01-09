@@ -14,6 +14,7 @@ import { postReviewApi } from "./api/postReviewApi";
 
 import { getReviewApi } from "@/features/review/api/getReviewApi";
 import { FormProvider, useForm } from "react-hook-form";
+import { updateReviewApi } from "./api/updateReviewApi";
 
 interface Props {
     reviewId: string | null;
@@ -33,11 +34,9 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
                 reset(data.interviewReviews[0]);
             };
             getData();
-        } else {
-            //setFormData(initialFormData);
         }
     }, [reviewId]);
-    //console.log(formData);
+
     const methods = useForm({
         defaultValues: initialFormData,
     });
@@ -45,10 +44,17 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
     const { handleSubmit, reset } = methods;
 
     const onSubmit = handleSubmit(async (data) => {
-        console.log(data);
-        const createReview = await postReviewApi(data);
-        console.log(createReview.data, createReview.data.interviewDetailId);
-        onSelect(createReview.data.interviewDetailId);
+        if (reviewId) {
+            console.log(data);
+            const updateReview = await updateReviewApi(data, reviewId);
+            console.log(updateReview.data, updateReview.data.interviewDetailId);
+            onSelect(updateReview.data.interviewDetailId);
+        } else {
+            console.log(data);
+            const createReview = await postReviewApi(data);
+            console.log(createReview.data, createReview.data.interviewDetailId);
+            onSelect(createReview.data.interviewDetailId);
+        }
     });
 
     return (
