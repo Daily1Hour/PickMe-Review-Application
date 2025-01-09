@@ -1,5 +1,4 @@
 import { Text, Button, Box } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
 
 interface Props {
     onCreate: (reviewId: string | null, state: string) => void;
