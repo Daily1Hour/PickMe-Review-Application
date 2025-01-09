@@ -19,7 +19,7 @@ import { DeleteReviewApi } from "./api/DeleteReviewApi";
 
 interface Props {
     reviewId: string | null;
-    onSelect: (reviewId: string | null) => void;
+    onSelect: (reviewId: string | null | undefined, state: string) => void;
 }
 
 const ReviewPage = ({ reviewId, onSelect }: Props) => {
@@ -27,7 +27,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         useState<PostInterviewReviewsDTO>(initialFormData);
 
     useEffect(() => {
-        if (reviewId !== null) {
+        if (reviewId) {
             const getData = async () => {
                 const data = await getReviewApi(reviewId);
                 console.log("reviewId가 있을 때", data.interviewReviews[0]);
@@ -49,12 +49,12 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             console.log(data);
             const updateReview = await updateReviewApi(data, reviewId);
             console.log(updateReview.data, updateReview.data.interviewDetailId);
-            onSelect(updateReview.data.interviewDetailId);
+            onSelect(updateReview.data.interviewDetailId, "update");
         } else {
             console.log(data);
             const createReview = await postReviewApi(data);
             console.log(createReview.data, createReview.data.interviewDetailId);
-            onSelect(createReview.data.interviewDetailId);
+            onSelect(createReview.data.interviewDetailId, "create");
         }
     });
 
@@ -63,6 +63,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         if (reviewId) {
             const deleteReview = await DeleteReviewApi(reviewId);
             console.log(deleteReview);
+            onSelect(undefined, "delete");
         }
     };
 

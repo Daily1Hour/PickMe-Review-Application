@@ -14,7 +14,7 @@ import { getSideData } from "../api/sideApi";
 
 interface SidebarProps {
     reviewId: string | null | undefined;
-    onSelect: (reviewId: string | null) => void;
+    onSelect: (reviewId: string | null, state: string) => void;
 }
 
 const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
@@ -145,7 +145,7 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
                                     }
                                     mb="10px"
                                     onClick={() => {
-                                        onSelect(item.id);
+                                        onSelect(item.id, "side");
                                         setSelectedReviewId(item.id);
                                     }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
