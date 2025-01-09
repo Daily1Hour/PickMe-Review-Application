@@ -11,19 +11,13 @@ import {
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
-import { Dispatch, SetStateAction } from "react";
 
 interface SidebarProps {
-    selectedItem: string;
-    setSelectedItem: (item: string) => void;
-    setIsCreatingReview: Dispatch<SetStateAction<boolean>>;
+    reviewId: string | null | undefined;
+    onSelect: (reviewId: string | null) => void;
 }
 
-const Sidebar = ({
-    selectedItem,
-    setSelectedItem,
-    setIsCreatingReview,
-}: SidebarProps) => {
+const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
         [],
@@ -31,6 +25,9 @@ const Sidebar = ({
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
     const [filteredItems, setFilteredItems] = useState(menuItems); // 필터링된 메뉴 항목
+    const [selectedReviewId, setSelectedReviewId] = useState<
+        string | null | undefined
+    >(null); // 선택된 리뷰 아이디 상태
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,12 +39,13 @@ const Sidebar = ({
                     label: `${item.interviewDetail.companyName} | ${item.interviewDetail.category}`,
                 }),
             );
-            console.log(formattedMenuItems);
+            //console.log(formattedMenuItems);
             setMenuItems(formattedMenuItems);
         };
 
         fetchData(); // getSideData 호출
-    }, []); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
+        setSelectedReviewId(reviewId);
+    }, [reviewId]); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
 
     // menuItems 상태가 변경되면 filteredItems 상태도 업데이트
     useEffect(() => {
@@ -93,6 +91,7 @@ const Sidebar = ({
                     flexDirection="column"
                     gap="10px"
                     height="100vh" // 화면을 가득 채움
+                    overflowY="auto" // 스크롤 기능 추가
                 >
                     {/* Sidebar Header */}
 
@@ -107,7 +106,7 @@ const Sidebar = ({
                         onClick={toggleSearch} // 클릭 시 검색창 토글
                         position="absolute"
                         top="15px"
-                        left="195px"
+                        left="180px"
                     >
                         <LuSearch />
                     </IconButton>
@@ -134,12 +133,20 @@ const Sidebar = ({
                             filteredItems.map((item) => (
                                 <Button
                                     key={item.id}
-                                    variant="ghost"
-                                    colorScheme="teal"
+                                    variant={
+                                        selectedReviewId === item.id
+                                            ? "solid"
+                                            : "ghost"
+                                    }
+                                    colorScheme={
+                                        selectedReviewId === item.id
+                                            ? "teal"
+                                            : "gray"
+                                    }
                                     mb="10px"
                                     onClick={() => {
-                                        setIsCreatingReview(false); // 상태 업데이트
-                                        setSelectedItem(item.id);
+                                        onSelect(item.id);
+                                        setSelectedReviewId(item.id);
                                     }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
                                 >

@@ -1,22 +1,27 @@
-import { Text, Button } from "@chakra-ui/react";
-import { useNavigate } from "react-router";
+import { Text, Button, Box } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-    state: Dispatch<SetStateAction<boolean>>; // 상태 업데이트 함수 타입// 상태 업데이트 함수 타입
+    onCreate: (reviewId: string | null) => void;
 }
 
-const FirstRender = ({ state }: Props) => {
-    const navigate = useNavigate(); // 페이지 이동을 위한 navigate 훅
-
+const FirstRender = ({ onCreate }: Props) => {
     // 버튼 클릭 시 호출되는 함수
     const handleCreateReviewClick = () => {
-        state(true); // "/create-review" 페이지로 이동
+        onCreate(null);
     };
 
     return (
         // 처음 렌더링 될 때
-        <>
+        <Box
+            flex="1"
+            padding="20px"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            height="100vh" // 화면 전체 높이를 채움
+        >
             <Text
                 fontSize="2xl"
                 fontWeight="bold"
@@ -36,7 +41,7 @@ const FirstRender = ({ state }: Props) => {
             >
                 면접 회고 작성하기
             </Button>
-        </>
+        </Box>
     );
 };
 

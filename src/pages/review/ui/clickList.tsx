@@ -1,18 +1,18 @@
-import { Heading } from "@chakra-ui/react";
-import { getReviewApi } from "../api/getReviewApi";
+import { Heading, Button } from "@chakra-ui/react";
+import { getReviewApi } from "../../../features/review/api/getReviewApi";
 import { useEffect, useState } from "react";
-import InterviewDetail from "@/features/create/ui/InterviewDetail";
-import { initialFormData } from "@/features/create/api/initialFormData";
+import InterviewDetail from "@/features/review/ui/InterviewDetail";
+import { initialFormData } from "@/features/review/api/initialFormData";
 import {
     InterviewDetailDTO,
     ReviewDetailDTO,
-} from "@/features/create/api/reviewDTOList";
-import Preparation from "@/features/create/ui/Preparation";
-import InterviewProcess from "@/features/create/ui/InterviewProcess";
-import QuestionsAnswers from "@/features/create/ui/QuestionsAnswers";
-import Communication from "@/features/create/ui/Communication";
-import InterviewAnalysis from "@/features/create/ui/InterviewAnalysis";
-import NextPreparation from "@/features/create/ui/NextPreparation";
+} from "@/features/review/api/reviewDTOList";
+import Preparation from "@/features/review/ui/Preparation";
+import InterviewProcess from "@/features/review/ui/InterviewProcess";
+import QuestionsAnswers from "@/features/review/ui/QuestionsAnswers";
+import Communication from "@/features/review/ui/Communication";
+import InterviewAnalysis from "@/features/review/ui/InterviewAnalysis";
+import NextPreparation from "@/features/review/ui/NextPreparation";
 
 interface Props {
     selectedItem: string;
@@ -24,6 +24,7 @@ const ClickList = ({ selectedItem }: Props) => {
     const [reviewDetailData, setReviewDetailData] = useState<ReviewDetailDTO>(
         initialFormData.reviewDetail,
     );
+    const [readState, setReadState] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
             const getdata = await getReviewApi(selectedItem);
@@ -35,6 +36,10 @@ const ClickList = ({ selectedItem }: Props) => {
         fetchData(); // getSideData 호출
     }, [selectedItem]);
 
+    const handleReadState = () => {
+        setReadState(!readState);
+    };
+
     return (
         // 사이드바에서 목록 클릭 시
         <>
@@ -43,29 +48,35 @@ const ClickList = ({ selectedItem }: Props) => {
             </Heading>
             <InterviewDetail
                 currentData={interviewDetailData}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <Preparation
                 currentData={reviewDetailData.preparation}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <InterviewProcess
                 currentData={reviewDetailData.interviewProcess}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
-            {/* <QuestionsAnswers inputData={handleReviewDetail} /> */}
+            <QuestionsAnswers
+                currentData={reviewDetailData.questionsAnswers}
+                isReadOnly={readState}
+            />
             <Communication
                 currentData={reviewDetailData.communication}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <InterviewAnalysis
                 currentData={reviewDetailData.interviewAnalysis}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
             <NextPreparation
                 currentData={reviewDetailData.nextPreparation}
-                isReadOnly={true}
+                isReadOnly={readState}
             />
+            <Button colorPalette="green" onClick={handleReadState}>
+                수정
+            </Button>
         </>
     );
 };
