@@ -36,23 +36,20 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         }
     }, [reviewId]);
 
-    const handleSave = async () => {
-        if (!reviewId) {
-            const createReview = await postReviewApi(formData);
-            console.log(createReview.data.interviewDetailId);
-            onSelect(createReview.data.interviewDetailId);
-        }
-    };
-
-    const method = useForm({
+    const methods = useForm({
         defaultValues: initialFormData,
     });
-    const { handleSubmit } = method;
 
-    const onSubmit = handleSubmit((data) => console.log(data));
+    const { handleSubmit } = methods;
+
+    const onSubmit = handleSubmit(async (data) => {
+        console.log(data);
+        const createReview = await postReviewApi(data);
+        console.log(createReview.data, createReview.data.interviewDetailId);
+    });
 
     return (
-        <FormProvider {...method}>
+        <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
                 <Heading textAlign="center" size="3xl" marginTop="50px">
                     {reviewId
