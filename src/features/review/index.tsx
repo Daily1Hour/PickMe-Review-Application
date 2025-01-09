@@ -48,6 +48,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         console.log(data);
         const createReview = await postReviewApi(data);
         console.log(createReview.data, createReview.data.interviewDetailId);
+        onSelect(createReview.data.interviewDetailId);
     });
 
     return (
