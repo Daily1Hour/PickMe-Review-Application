@@ -1,5 +1,4 @@
 import axios from "axios";
-import { PostInterviewReviewsDTO } from "./reviewDTOList";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 const TOKEN = import.meta.env.VITE_TOKEN;

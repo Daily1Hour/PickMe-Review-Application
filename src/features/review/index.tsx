@@ -15,6 +15,7 @@ import { postReviewApi } from "./api/postReviewApi";
 import { getReviewApi } from "@/features/review/api/getReviewApi";
 import { FormProvider, useForm } from "react-hook-form";
 import { updateReviewApi } from "./api/updateReviewApi";
+import { DeleteReviewApi } from "./api/DeleteReviewApi";
 
 interface Props {
     reviewId: string | null;
@@ -57,8 +58,12 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         }
     });
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         console.log("삭제");
+        if (reviewId) {
+            const deleteReview = await DeleteReviewApi(reviewId);
+            console.log(deleteReview);
+        }
     };
 
     return (
