@@ -1,13 +1,8 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
-import { InterviewAnalysisDTO } from "../api/reviewDTOList";
 import InputField from "./InputField";
 import { useFormContext } from "react-hook-form";
 
-interface Props {
-    data: InterviewAnalysisDTO;
-}
-
-const InterviewAnalysis = ({ data }: Props) => {
+const InterviewAnalysis = () => {
     const { register } = useFormContext();
     return (
         <Fieldset.Root size="lg" maxW="100%">
@@ -21,31 +16,26 @@ const InterviewAnalysis = ({ data }: Props) => {
                 <InputField
                     label="잘한 점"
                     name="reviewDetail.interviewAnalsis.strengths"
-                    defaultValue={data.strengths}
                     register={register}
                 />
                 <InputField
                     label="개선할 점"
                     name="reviewDetail.interviewAnalsis.improvements"
-                    defaultValue={data.improvements}
                     register={register}
                 />
                 <InputField
                     label="피드백"
                     name="reviewDetail.interviewAnalsis.feedback"
-                    defaultValue={data.feedback}
                     register={register}
                 />
                 <InputField
                     label="난이도"
                     name="reviewDetail.interviewAnalsis.difficulty"
-                    defaultValue={data.difficulty}
                     register={register}
                 />
                 <InputField
                     label="결과 분석"
                     name="reviewDetail.interviewAnalsis.interviewResultAnalysis"
-                    defaultValue={data.interviewResultAnalysis}
                     register={register}
                 />
             </Fieldset.Content>

@@ -28,19 +28,21 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         if (reviewId !== null) {
             const getData = async () => {
                 const data = await getReviewApi(reviewId);
+                console.log("reviewId가 있을 때", data.interviewReviews[0]);
                 setFormData(data.interviewReviews[0]);
+                reset(data.interviewReviews[0]);
             };
             getData();
         } else {
-            setFormData(initialFormData);
+            //setFormData(initialFormData);
         }
     }, [reviewId]);
-
+    //console.log(formData);
     const methods = useForm({
         defaultValues: initialFormData,
     });
 
-    const { handleSubmit } = methods;
+    const { handleSubmit, reset } = methods;
 
     const onSubmit = handleSubmit(async (data) => {
         console.log(data);
@@ -56,25 +58,19 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
                         ? formData.interviewDetail.companyName
                         : "면접 회고 작성"}
                 </Heading>
-                <InterviewDetail data={formData.interviewDetail} />
+                <InterviewDetail />
 
-                <Preparation data={formData.reviewDetail.preparation} />
+                <Preparation />
 
-                <InterviewProcess
-                    data={formData.reviewDetail.interviewProcess}
-                />
+                <InterviewProcess />
 
-                <QuestionsAnswers
-                    data={formData.reviewDetail.questionsAnswers}
-                />
+                <QuestionsAnswers />
 
-                <Communication data={formData.reviewDetail.communication} />
+                <Communication />
 
-                <InterviewAnalysis
-                    data={formData.reviewDetail.interviewAnalysis}
-                />
+                <InterviewAnalysis />
 
-                <NextPreparation data={formData.reviewDetail.nextPreparation} />
+                <NextPreparation />
 
                 <Button colorPalette="green" type="submit">
                     {reviewId ? "수정" : "저장"}

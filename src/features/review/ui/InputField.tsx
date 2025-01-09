@@ -4,7 +4,6 @@ import { Field } from "@/shared/chakra-ui/field";
 interface InputFieldProps {
     label: string;
     name: string;
-    defaultValue: string;
     type?: string;
     register: any;
 }
@@ -12,7 +11,6 @@ interface InputFieldProps {
 const InputField = ({
     label,
     name,
-    defaultValue,
     type = "text",
     register,
 }: InputFieldProps) => {
@@ -23,7 +21,6 @@ const InputField = ({
                 variant="flushed"
                 size="lg"
                 type={type}
-                defaultValue={defaultValue} // 초기값 설정
                 {...register(name)}
             />
         </Field>

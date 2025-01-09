@@ -1,13 +1,8 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
-import { NextPreparationDTO } from "../api/reviewDTOList";
 import InputField from "./InputField";
 import { useFormContext } from "react-hook-form";
 
-interface Props {
-    data: NextPreparationDTO;
-}
-
-const NextPreparation = ({ data }: Props) => {
+const NextPreparation = () => {
     const { register } = useFormContext();
     return (
         <Fieldset.Root size="lg" maxW="100%">
@@ -21,19 +16,16 @@ const NextPreparation = ({ data }: Props) => {
                 <InputField
                     label="기술적 준비"
                     name="reviewDetail.nextPreparation.technical"
-                    defaultValue={data.technical}
                     register={register}
                 />
                 <InputField
                     label="표현적 준비"
                     name="reviewDetail.nextPreparation.expression"
-                    defaultValue={data.expression}
                     register={register}
                 />
                 <InputField
                     label="추가 사항"
                     name="reviewDetail.nextPreparation.additionalPractice"
-                    defaultValue={data.additionalPractice}
                     register={register}
                 />
             </Fieldset.Content>
