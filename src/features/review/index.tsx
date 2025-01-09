@@ -57,6 +57,10 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         }
     });
 
+    const handleDelete = () => {
+        console.log("삭제");
+    };
+
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
@@ -79,9 +83,24 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
 
                 <NextPreparation />
 
-                <Button colorPalette="green" type="submit">
-                    {reviewId ? "수정" : "저장"}
-                </Button>
+                {reviewId ? (
+                    <>
+                        <Button colorPalette="green" type="submit">
+                            수정
+                        </Button>
+                        <Button
+                            colorPalette="red"
+                            onClick={handleDelete} // 삭제 처리 함수
+                            type="button"
+                        >
+                            삭제
+                        </Button>
+                    </>
+                ) : (
+                    <Button colorPalette="green" type="submit">
+                        저장
+                    </Button>
+                )}
             </form>
         </FormProvider>
     );
