@@ -13,11 +13,11 @@ import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
 
 interface SidebarProps {
-    reviewId: string | null | undefined;
-    onSelect: (reviewId: string | null) => void;
+    reviewItem: { reviewId: string | null | undefined; state: string };
+    onSelect: (reviewId: string | null, state: string) => void;
 }
 
-const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
+const Sidebar = ({ reviewItem, onSelect }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
         [],
@@ -44,8 +44,8 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
         };
 
         fetchData(); // getSideData 호출
-        setSelectedReviewId(reviewId);
-    }, [reviewId]); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
+        setSelectedReviewId(reviewItem.reviewId);
+    }, [reviewItem]); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
 
     // menuItems 상태가 변경되면 filteredItems 상태도 업데이트
     useEffect(() => {
@@ -145,7 +145,7 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
                                     }
                                     mb="10px"
                                     onClick={() => {
-                                        onSelect(item.id);
+                                        onSelect(item.id, "side");
                                         setSelectedReviewId(item.id);
                                     }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬

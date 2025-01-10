@@ -14,74 +14,100 @@ import { postReviewApi } from "./api/postReviewApi";
 
 import { getReviewApi } from "@/features/review/api/getReviewApi";
 import { FormProvider, useForm } from "react-hook-form";
+import { updateReviewApi } from "./api/updateReviewApi";
+import { DeleteReviewApi } from "./api/DeleteReviewApi";
 
 interface Props {
     reviewId: string | null;
-    onSelect: (reviewId: string | null) => void;
+    state: string;
+    onSelect: (reviewId: string | null | undefined, state: string) => void;
 }
 
-const ReviewPage = ({ reviewId, onSelect }: Props) => {
+const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
     const [formData, setFormData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
 
     useEffect(() => {
-        if (reviewId !== null) {
+        if (reviewId) {
             const getData = async () => {
                 const data = await getReviewApi(reviewId);
+                console.log("reviewId가 있을 때", data.interviewReviews[0]);
                 setFormData(data.interviewReviews[0]);
+                reset(data.interviewReviews[0]);
             };
             getData();
-        } else {
-            setFormData(initialFormData);
         }
-    }, [reviewId]);
+    }, [reviewId, state]);
 
-    const handleSave = async () => {
-        if (!reviewId) {
-            const createReview = await postReviewApi(formData);
-            console.log(createReview.data.interviewDetailId);
-            onSelect(createReview.data.interviewDetailId);
+    const methods = useForm({
+        defaultValues: initialFormData,
+    });
+
+    const { handleSubmit, reset } = methods;
+
+    const onSubmit = handleSubmit(async (data) => {
+        if (reviewId) {
+            console.log(data);
+            const updateReview = await updateReviewApi(data, reviewId);
+            console.log(updateReview.data, updateReview.data.interviewDetailId);
+            onSelect(updateReview.data.interviewDetailId, "update");
+        } else {
+            console.log(data);
+            const createReview = await postReviewApi(data);
+            console.log(createReview.data, createReview.data.interviewDetailId);
+            onSelect(createReview.data.interviewDetailId, "create");
+        }
+    });
+
+    const handleDelete = async () => {
+        console.log("삭제");
+        if (reviewId) {
+            const deleteReview = await DeleteReviewApi(reviewId);
+            console.log(deleteReview);
+            onSelect(undefined, "delete");
         }
     };
 
-    const method = useForm({
-        defaultValues: initialFormData,
-    });
-    const { handleSubmit } = method;
-
-    const onSubmit = handleSubmit((data) => console.log(data));
-
     return (
-        <FormProvider {...method}>
+        <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
                 <Heading textAlign="center" size="3xl" marginTop="50px">
                     {reviewId
                         ? formData.interviewDetail.companyName
                         : "면접 회고 작성"}
                 </Heading>
-                <InterviewDetail data={formData.interviewDetail} />
+                <InterviewDetail />
 
-                <Preparation data={formData.reviewDetail.preparation} />
+                <Preparation />
 
-                <InterviewProcess
-                    data={formData.reviewDetail.interviewProcess}
-                />
+                <InterviewProcess />
 
-                <QuestionsAnswers
-                    data={formData.reviewDetail.questionsAnswers}
-                />
+                <QuestionsAnswers />
 
-                <Communication data={formData.reviewDetail.communication} />
+                <Communication />
 
-                <InterviewAnalysis
-                    data={formData.reviewDetail.interviewAnalysis}
-                />
+                <InterviewAnalysis />
 
-                <NextPreparation data={formData.reviewDetail.nextPreparation} />
+                <NextPreparation />
 
-                <Button colorPalette="green" type="submit">
-                    {reviewId ? "수정" : "저장"}
-                </Button>
+                {reviewId ? (
+                    <>
+                        <Button colorPalette="green" type="submit">
+                            수정
+                        </Button>
+                        <Button
+                            colorPalette="red"
+                            onClick={handleDelete} // 삭제 처리 함수
+                            type="button"
+                        >
+                            삭제
+                        </Button>
+                    </>
+                ) : (
+                    <Button colorPalette="green" type="submit">
+                        저장
+                    </Button>
+                )}
             </form>
         </FormProvider>
     );

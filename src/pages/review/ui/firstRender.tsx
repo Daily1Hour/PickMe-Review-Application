@@ -1,14 +1,13 @@
 import { Text, Button, Box } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-    onCreate: (reviewId: string | null) => void;
+    onCreate: (reviewId: string | null, state: string) => void;
 }
 
 const FirstRender = ({ onCreate }: Props) => {
     // 버튼 클릭 시 호출되는 함수
     const handleCreateReviewClick = () => {
-        onCreate(null);
+        onCreate(null, "create");
     };
 
     return (
