@@ -106,7 +106,7 @@ const Sidebar = ({ reviewItem, onSelect }: SidebarProps) => {
                         onClick={toggleSearch} // 클릭 시 검색창 토글
                         position="absolute"
                         top="15px"
-                        left="180px"
+                        right="20px"
                     >
                         <LuSearch />
                     </IconButton>
