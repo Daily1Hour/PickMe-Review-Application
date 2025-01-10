@@ -24,7 +24,7 @@ const Review = () => {
 
     return (
         <div style={{ display: "flex" }}>
-            <Sidebar reviewItem={selectedId} onSelect={handleSidebarSelect} />
+            <Sidebar onSelect={handleSidebarSelect} />
 
             <Box
                 flex="1"
