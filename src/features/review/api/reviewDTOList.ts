@@ -3,6 +3,12 @@ export interface PostInterviewReviewsDTO {
     reviewDetail: ReviewDetailDTO;
 }
 
+export interface GetResponseDTO {
+    id: string;
+    clientId: string;
+    interviewReviews: GetInterviewReviewsDTO[];
+}
+
 export interface GetInterviewReviewsDTO {
     reviewId: string;
     interviewDetail: InterviewDetailDTO;
