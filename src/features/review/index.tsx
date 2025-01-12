@@ -57,13 +57,19 @@ const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
         mutation.mutate(data);
     });
 
+    const deleteMutation = useMutation({
+        mutationFn: async () => {
+            if (reviewId) return DeleteReviewApi(reviewId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["side"],
+            });
+        },
+    });
+
     const handleDelete = async () => {
-        console.log("삭제");
-        if (reviewId) {
-            const deleteReview = await DeleteReviewApi(reviewId);
-            console.log(deleteReview);
-            onSelect(undefined, "delete");
-        }
+        deleteMutation.mutate();
     };
 
     useEffect(() => {
