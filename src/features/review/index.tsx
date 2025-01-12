@@ -16,6 +16,7 @@ import { getReviewApi } from "@/features/review/api/getReviewApi";
 import { FormProvider, useForm } from "react-hook-form";
 import { updateReviewApi } from "./api/updateReviewApi";
 import { DeleteReviewApi } from "./api/DeleteReviewApi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
     reviewId: string | null;
@@ -26,6 +27,44 @@ interface Props {
 const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
     const [formData, setFormData] =
         useState<PostInterviewReviewsDTO>(initialFormData);
+
+    const methods = useForm({
+        defaultValues: initialFormData,
+    });
+
+    const { handleSubmit, reset } = methods;
+
+    // useMutation 훅을 컴포넌트 최상위에서 호출
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation({
+        mutationFn: async (data: any) => {
+            if (reviewId) {
+                return await updateReviewApi(data, reviewId);
+            } else {
+                return await postReviewApi(data);
+            }
+        },
+        onSuccess: () => {
+            // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
+            queryClient.invalidateQueries({
+                queryKey: ["side"],
+            });
+        },
+    });
+
+    const onSubmit = handleSubmit(async (data) => {
+        mutation.mutate(data);
+    });
+
+    const handleDelete = async () => {
+        console.log("삭제");
+        if (reviewId) {
+            const deleteReview = await DeleteReviewApi(reviewId);
+            console.log(deleteReview);
+            onSelect(undefined, "delete");
+        }
+    };
 
     useEffect(() => {
         if (reviewId) {
@@ -38,35 +77,6 @@ const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
             getData();
         }
     }, [reviewId, state]);
-
-    const methods = useForm({
-        defaultValues: initialFormData,
-    });
-
-    const { handleSubmit, reset } = methods;
-
-    const onSubmit = handleSubmit(async (data) => {
-        if (reviewId) {
-            console.log(data);
-            const updateReview = await updateReviewApi(data, reviewId);
-            console.log(updateReview.data, updateReview.data.interviewDetailId);
-            onSelect(updateReview.data.interviewDetailId, "update");
-        } else {
-            console.log(data);
-            const createReview = await postReviewApi(data);
-            console.log(createReview.data, createReview.data.interviewDetailId);
-            onSelect(createReview.data.interviewDetailId, "create");
-        }
-    });
-
-    const handleDelete = async () => {
-        console.log("삭제");
-        if (reviewId) {
-            const deleteReview = await DeleteReviewApi(reviewId);
-            console.log(deleteReview);
-            onSelect(undefined, "delete");
-        }
-    };
 
     return (
         <FormProvider {...methods}>
