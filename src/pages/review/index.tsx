@@ -5,9 +5,7 @@ import FirstRender from "./ui/firstRender";
 import ReviewPage from "@/features/review";
 
 const Review = () => {
-    const [selectedId, setSelectedId] = useState<string | null | undefined>(
-        undefined,
-    );
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
     const handleSidebarSelect = async (reviewId: string | null) =>
         setSelectedId(reviewId);
@@ -33,14 +31,10 @@ const Review = () => {
                 justifyContent="flex-start" // 수평 정렬
                 gap="100px" // 자식 요소들 사이에 20px 간격
             >
-                {selectedId === undefined ? (
-                    <FirstRender onCreate={handleSidebarSelect} />
-                ) : (
-                    <ReviewPage
-                        reviewId={selectedId}
-                        onSelect={handleSidebarSelect}
-                    />
-                )}
+                <ReviewPage
+                    reviewId={selectedId}
+                    onSelect={handleSidebarSelect}
+                />
             </Box>
         </div>
     );
