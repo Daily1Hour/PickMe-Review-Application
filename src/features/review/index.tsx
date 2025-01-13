@@ -68,6 +68,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             queryClient.invalidateQueries({
                 queryKey: ["side"],
             });
+            onSelect(null);
         },
     });
 
