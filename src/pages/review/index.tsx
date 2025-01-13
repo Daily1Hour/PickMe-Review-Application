@@ -5,17 +5,12 @@ import FirstRender from "./ui/firstRender";
 import ReviewPage from "@/features/review";
 
 const Review = () => {
-    const [selectedId, setSelectedId] = useState<{
-        reviewId: string | null | undefined;
-        state: string;
-    }>({ reviewId: undefined, state: "" });
+    const [selectedId, setSelectedId] = useState<string | null | undefined>(
+        undefined,
+    );
 
-    const handleSidebarSelect = async (
-        reviewId: string | null | undefined,
-        state: string,
-    ) => setSelectedId({ reviewId, state });
-
-    console.log("selectedId", selectedId);
+    const handleSidebarSelect = async (reviewId: string) =>
+        setSelectedId(reviewId);
 
     useEffect(() => {
         // 페이지 렌더링 시 스크롤을 맨 위로 이동
