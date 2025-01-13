@@ -7,8 +7,8 @@ import QuestionsAnswers from "./ui/QuestionsAnswers";
 import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
-import { useEffect, useState } from "react";
-import { PostInterviewReviewsDTO } from "./api/reviewDTOList";
+import { useState } from "react";
+import { GetResponseDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import { postReviewApi } from "./api/postReviewApi";
 
@@ -16,7 +16,7 @@ import { getReviewApi } from "@/features/review/api/getReviewApi";
 import { FormProvider, useForm } from "react-hook-form";
 import { updateReviewApi } from "./api/updateReviewApi";
 import { DeleteReviewApi } from "./api/DeleteReviewApi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
     reviewId: string | null;
@@ -25,8 +25,7 @@ interface Props {
 }
 
 const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
-    const [formData, setFormData] =
-        useState<PostInterviewReviewsDTO>(initialFormData);
+    const [id, setId] = useState<string | null>();
 
     const methods = useForm({
         defaultValues: initialFormData,
@@ -39,17 +38,23 @@ const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
 
     const mutation = useMutation({
         mutationFn: async (data: any) => {
-            if (reviewId) {
-                return await updateReviewApi(data, reviewId);
+            if (id) {
+                return await updateReviewApi(data, id);
             } else {
                 return await postReviewApi(data);
             }
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
+            console.log(data.data.interviewDetailId);
             // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
             queryClient.invalidateQueries({
                 queryKey: ["side"],
             });
+            setId(data.data.interviewDetailId);
+            queryClient.invalidateQueries({
+                queryKey: ["review"],
+            });
+            window.scrollTo(0, 0);
         },
     });
 
@@ -72,25 +77,20 @@ const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
         deleteMutation.mutate();
     };
 
-    useEffect(() => {
-        if (reviewId) {
-            const getData = async () => {
-                const data = await getReviewApi(reviewId);
-                console.log("reviewId가 있을 때", data.interviewReviews[0]);
-                setFormData(data.interviewReviews[0]);
-                reset(data.interviewReviews[0]);
-            };
-            getData();
-        }
-    }, [reviewId, state]);
+    const { data } = useQuery<GetResponseDTO>({
+        queryKey: ["review"],
+        queryFn: () => getReviewApi(id as string),
+        enabled: !!id,
+    });
 
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
                 <Box display="grid" gap="80px">
                     <Heading textAlign="center" size="3xl" marginTop="50px">
-                        {reviewId
-                            ? formData.interviewDetail.companyName
+                        {data
+                            ? data.interviewReviews[0].interviewDetail
+                                  .companyName
                             : "면접 회고 작성"}
                     </Heading>
                     <InterviewDetail />
@@ -107,7 +107,7 @@ const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
 
                     <NextPreparation />
 
-                    {reviewId ? (
+                    {id ? (
                         <HStack justify="flex-end">
                             <Button
                                 colorPalette="green"
