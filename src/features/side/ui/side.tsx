@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
     Box,
     Flex,
@@ -11,58 +11,39 @@ import {
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
+import { useQuery } from "@tanstack/react-query";
+import { GetSideDTO } from "../api/getSideDTO";
 
 interface SidebarProps {
-    reviewItem: { reviewId: string | null | undefined; state: string };
     onSelect: (reviewId: string | null, state: string) => void;
 }
 
-const Sidebar = ({ reviewItem, onSelect }: SidebarProps) => {
+const Sidebar = ({ onSelect }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
-    const [menuItems, setMenuItems] = useState<{ id: string; label: string }[]>(
-        [],
-    );
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
-    const [filteredItems, setFilteredItems] = useState(menuItems); // 필터링된 메뉴 항목
     const [selectedReviewId, setSelectedReviewId] = useState<
         string | null | undefined
     >(null); // 선택된 리뷰 아이디 상태
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await getSideData();
-            console.log(data); // 콘솔 로그가 호출
-            const formattedMenuItems = data.interviewReviews.map(
-                (item: any) => ({
-                    id: item.reviewId,
-                    label: `${item.interviewDetail.companyName} | ${item.interviewDetail.category}`,
-                }),
-            );
-            //console.log(formattedMenuItems);
-            setMenuItems(formattedMenuItems);
-        };
+    const { data } = useQuery<GetSideDTO>({
+        queryKey: ["side"],
+        queryFn: getSideData,
+    });
 
-        fetchData(); // getSideData 호출
-        setSelectedReviewId(reviewItem.reviewId);
-    }, [reviewItem]); // 빈 배열로 설정하면 컴포넌트가 마운트될 때만 호출됨
-
-    // menuItems 상태가 변경되면 filteredItems 상태도 업데이트
-    useEffect(() => {
-        setFilteredItems(menuItems); // menuItems가 업데이트될 때 filteredItems도 갱신
-    }, [menuItems]);
+    const formattedMenuItems = data?.interviewReviews.map((item) => ({
+        id: item.reviewId,
+        label: `${item.interviewDetail.companyName} | ${item.interviewDetail.category}`,
+    }));
 
     // 검색창 토글 함수
     const toggleSearch = () => {
         setIsSearchOpen(!isSearchOpen);
     };
 
-    useEffect(() => {
-        const filtered = menuItems.filter((item) =>
-            item.label.toLowerCase().includes(searchQuery.toLowerCase()),
-        );
-        setFilteredItems(filtered);
-    }, [searchQuery]); // searchQuery가 변경될 때마다 실행됨
+    const filteredItems = formattedMenuItems?.filter((item) =>
+        item.label.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
 
     return (
         <Flex height="100vh">
@@ -106,7 +87,7 @@ const Sidebar = ({ reviewItem, onSelect }: SidebarProps) => {
                         onClick={toggleSearch} // 클릭 시 검색창 토글
                         position="absolute"
                         top="15px"
-                        left="180px"
+                        right="20px"
                     >
                         <LuSearch />
                     </IconButton>
@@ -127,7 +108,7 @@ const Sidebar = ({ reviewItem, onSelect }: SidebarProps) => {
 
                     {/* 메뉴 항목 리스트 */}
                     <VStack align="stretch">
-                        {filteredItems.length === 0 ? (
+                        {!filteredItems || filteredItems.length === 0 ? (
                             <Text>검색된 항목이 없습니다.</Text>
                         ) : (
                             filteredItems.map((item) => (

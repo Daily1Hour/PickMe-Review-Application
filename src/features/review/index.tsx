@@ -1,4 +1,4 @@
-import { Heading, Button } from "@chakra-ui/react";
+import { Heading, Button, Box, HStack } from "@chakra-ui/react";
 
 import InterviewDetail from "./ui/InterviewDetail";
 import Preparation from "./ui/Preparation";
@@ -71,43 +71,56 @@ const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
-                <Heading textAlign="center" size="3xl" marginTop="50px">
-                    {reviewId
-                        ? formData.interviewDetail.companyName
-                        : "면접 회고 작성"}
-                </Heading>
-                <InterviewDetail />
+                <Box display="grid" gap="80px">
+                    <Heading textAlign="center" size="3xl" marginTop="50px">
+                        {reviewId
+                            ? formData.interviewDetail.companyName
+                            : "면접 회고 작성"}
+                    </Heading>
+                    <InterviewDetail />
 
-                <Preparation />
+                    <Preparation />
 
-                <InterviewProcess />
+                    <InterviewProcess />
 
-                <QuestionsAnswers />
+                    <QuestionsAnswers />
 
-                <Communication />
+                    <Communication />
 
-                <InterviewAnalysis />
+                    <InterviewAnalysis />
 
-                <NextPreparation />
+                    <NextPreparation />
 
-                {reviewId ? (
-                    <>
-                        <Button colorPalette="green" type="submit">
-                            수정
-                        </Button>
-                        <Button
-                            colorPalette="red"
-                            onClick={handleDelete} // 삭제 처리 함수
-                            type="button"
-                        >
-                            삭제
-                        </Button>
-                    </>
-                ) : (
-                    <Button colorPalette="green" type="submit">
-                        저장
-                    </Button>
-                )}
+                    {reviewId ? (
+                        <HStack justify="flex-end">
+                            <Button
+                                colorPalette="green"
+                                type="submit"
+                                width="100px"
+                            >
+                                수정하기
+                            </Button>
+                            <Button
+                                colorPalette="red"
+                                onClick={handleDelete} // 삭제 처리 함수
+                                type="button"
+                                width="100px"
+                            >
+                                삭제하기
+                            </Button>
+                        </HStack>
+                    ) : (
+                        <Box display="flex" justifyContent="flex-end">
+                            <Button
+                                colorPalette="green"
+                                type="submit"
+                                width="100px"
+                            >
+                                저장하기
+                            </Button>
+                        </Box>
+                    )}
+                </Box>
             </form>
         </FormProvider>
     );
