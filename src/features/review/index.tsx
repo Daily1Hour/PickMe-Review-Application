@@ -7,7 +7,7 @@ import QuestionsAnswers from "./ui/QuestionsAnswers";
 import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GetResponseDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import { postReviewApi } from "./api/postReviewApi";
@@ -24,8 +24,6 @@ interface Props {
 }
 
 const ReviewPage = ({ reviewId, onSelect }: Props) => {
-    const [id, setId] = useState<string | null>();
-
     const methods = useForm({
         defaultValues: initialFormData,
     });
@@ -37,8 +35,8 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
 
     const mutation = useMutation({
         mutationFn: async (data: any) => {
-            if (id) {
-                return await updateReviewApi(data, id);
+            if (reviewId) {
+                return await updateReviewApi(data, reviewId);
             } else {
                 return await postReviewApi(data);
             }
@@ -49,10 +47,11 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             queryClient.invalidateQueries({
                 queryKey: ["side"],
             });
-            setId(data.data.interviewDetailId);
+
             queryClient.invalidateQueries({
                 queryKey: ["review"],
             });
+            onSelect(data.data.interviewDetailId);
             window.scrollTo(0, 0);
         },
     });
@@ -77,10 +76,14 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
     };
 
     const { data } = useQuery<GetResponseDTO>({
-        queryKey: ["review"],
-        queryFn: () => getReviewApi(id as string),
-        enabled: !!id,
+        queryKey: ["review", reviewId],
+        queryFn: () => getReviewApi(reviewId as string),
+        enabled: !!reviewId,
     });
+
+    useEffect(() => {
+        reset(data?.interviewReviews[0]);
+    }, [reviewId]);
 
     return (
         <FormProvider {...methods}>
@@ -106,7 +109,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
 
                     <NextPreparation />
 
-                    {id ? (
+                    {reviewId ? (
                         <HStack justify="flex-end">
                             <Button
                                 colorPalette="green"

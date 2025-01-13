@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Box,
     Flex,
@@ -15,10 +15,11 @@ import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
 
 interface SidebarProps {
+    reviewId: string | null | undefined;
     onSelect: (reviewId: string) => void;
 }
 
-const Sidebar = ({ onSelect }: SidebarProps) => {
+const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
@@ -44,6 +45,10 @@ const Sidebar = ({ onSelect }: SidebarProps) => {
     const filteredItems = formattedMenuItems?.filter((item) =>
         item.label.toLowerCase().includes(searchQuery.toLowerCase()),
     );
+
+    useEffect(() => {
+        setSelectedReviewId(reviewId);
+    }, [reviewId]);
 
     return (
         <Flex height="100vh">
