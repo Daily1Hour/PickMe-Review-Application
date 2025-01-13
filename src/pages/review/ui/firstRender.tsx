@@ -1,13 +1,13 @@
 import { Text, Button, Box } from "@chakra-ui/react";
 
 interface Props {
-    onCreate: (reviewId: string | null, state: string) => void;
+    onCreate: (reviewId: string | null) => void;
 }
 
 const FirstRender = ({ onCreate }: Props) => {
     // 버튼 클릭 시 호출되는 함수
     const handleCreateReviewClick = () => {
-        onCreate(null, "create");
+        onCreate(null);
     };
 
     return (

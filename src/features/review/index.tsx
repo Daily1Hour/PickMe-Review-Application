@@ -20,11 +20,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
     reviewId: string | null;
-    state: string;
-    onSelect: (reviewId: string | null | undefined, state: string) => void;
+    onSelect: (reviewId: string | null) => void;
 }
 
-const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
+const ReviewPage = ({ reviewId, onSelect }: Props) => {
     const [id, setId] = useState<string | null>();
 
     const methods = useForm({

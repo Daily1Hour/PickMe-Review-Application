@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
 
 interface SidebarProps {
-    onSelect: (reviewId: string | null, state: string) => void;
+    onSelect: (reviewId: string) => void;
 }
 
 const Sidebar = ({ onSelect }: SidebarProps) => {
@@ -126,7 +126,7 @@ const Sidebar = ({ onSelect }: SidebarProps) => {
                                     }
                                     mb="10px"
                                     onClick={() => {
-                                        onSelect(item.id, "side");
+                                        onSelect(item.id);
                                         setSelectedReviewId(item.id);
                                     }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬

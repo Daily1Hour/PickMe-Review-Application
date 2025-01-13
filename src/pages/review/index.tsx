@@ -9,7 +9,7 @@ const Review = () => {
         undefined,
     );
 
-    const handleSidebarSelect = async (reviewId: string) =>
+    const handleSidebarSelect = async (reviewId: string | null) =>
         setSelectedId(reviewId);
 
     useEffect(() => {
@@ -33,12 +33,11 @@ const Review = () => {
                 justifyContent="flex-start" // 수평 정렬
                 gap="100px" // 자식 요소들 사이에 20px 간격
             >
-                {selectedId.reviewId === undefined ? (
+                {selectedId === undefined ? (
                     <FirstRender onCreate={handleSidebarSelect} />
                 ) : (
                     <ReviewPage
-                        reviewId={selectedId.reviewId}
-                        state={selectedId.state}
+                        reviewId={selectedId}
                         onSelect={handleSidebarSelect}
                     />
                 )}
