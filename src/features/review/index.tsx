@@ -68,6 +68,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             queryClient.invalidateQueries({
                 queryKey: ["side"],
             });
+            reset(initialFormData);
             onSelect(null);
         },
     });
@@ -76,15 +77,22 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         deleteMutation.mutate();
     };
 
-    const { data } = useQuery<GetResponseDTO>({
+    // reviewId가 있을 경우에만 작동
+    const { data, isSuccess } = useQuery<GetResponseDTO>({
         queryKey: ["review", reviewId],
         queryFn: () => getReviewApi(reviewId as string),
         enabled: !!reviewId,
     });
 
+    // useQuery가 성공 시 useForm을 가져온 데이터로 업데이트
     useEffect(() => {
-        reset(data?.interviewReviews[0]);
-    }, [reviewId]);
+        if (isSuccess) {
+            reset(data?.interviewReviews[0]);
+            console.log("reset");
+        }
+    }, [isSuccess]);
+
+    console.log("렌더링", reviewId);
 
     return (
         <FormProvider {...methods}>
