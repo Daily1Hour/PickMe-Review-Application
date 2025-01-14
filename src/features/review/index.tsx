@@ -8,7 +8,7 @@ import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
 import { useEffect, useState } from "react";
-import { PostInterviewReviewsDTO } from "./api/reviewDTOList";
+import { GetResponseDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import { postReviewApi } from "./api/postReviewApi";
 
@@ -16,65 +16,92 @@ import { getReviewApi } from "@/features/review/api/getReviewApi";
 import { FormProvider, useForm } from "react-hook-form";
 import { updateReviewApi } from "./api/updateReviewApi";
 import { DeleteReviewApi } from "./api/DeleteReviewApi";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
     reviewId: string | null;
-    state: string;
-    onSelect: (reviewId: string | null | undefined, state: string) => void;
+    onSelect: (reviewId: string | null) => void;
 }
 
-const ReviewPage = ({ reviewId, state, onSelect }: Props) => {
-    const [formData, setFormData] =
-        useState<PostInterviewReviewsDTO>(initialFormData);
-
-    useEffect(() => {
-        if (reviewId) {
-            const getData = async () => {
-                const data = await getReviewApi(reviewId);
-                console.log("reviewId가 있을 때", data.interviewReviews[0]);
-                setFormData(data.interviewReviews[0]);
-                reset(data.interviewReviews[0]);
-            };
-            getData();
-        }
-    }, [reviewId, state]);
-
+const ReviewPage = ({ reviewId, onSelect }: Props) => {
     const methods = useForm({
         defaultValues: initialFormData,
     });
 
     const { handleSubmit, reset } = methods;
 
+    // useMutation 훅을 컴포넌트 최상위에서 호출
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation({
+        mutationFn: async (data: any) => {
+            if (reviewId) {
+                return await updateReviewApi(data, reviewId);
+            } else {
+                return await postReviewApi(data);
+            }
+        },
+        onSuccess: (data) => {
+            console.log(data.data.interviewDetailId);
+            // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
+            queryClient.invalidateQueries({
+                queryKey: ["side"],
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ["review"],
+            });
+            onSelect(data.data.interviewDetailId);
+            window.scrollTo(0, 0);
+        },
+    });
+
     const onSubmit = handleSubmit(async (data) => {
-        if (reviewId) {
-            console.log(data);
-            const updateReview = await updateReviewApi(data, reviewId);
-            console.log(updateReview.data, updateReview.data.interviewDetailId);
-            onSelect(updateReview.data.interviewDetailId, "update");
-        } else {
-            console.log(data);
-            const createReview = await postReviewApi(data);
-            console.log(createReview.data, createReview.data.interviewDetailId);
-            onSelect(createReview.data.interviewDetailId, "create");
-        }
+        mutation.mutate(data);
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: async () => {
+            if (reviewId) return DeleteReviewApi(reviewId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["side"],
+            });
+            reset(initialFormData);
+            onSelect(null);
+        },
     });
 
     const handleDelete = async () => {
-        console.log("삭제");
-        if (reviewId) {
-            const deleteReview = await DeleteReviewApi(reviewId);
-            console.log(deleteReview);
-            onSelect(undefined, "delete");
-        }
+        deleteMutation.mutate();
     };
+
+    // reviewId가 있을 경우에만 작동
+    const { data, isSuccess } = useQuery<GetResponseDTO>({
+        queryKey: ["review", reviewId],
+        queryFn: () => getReviewApi(reviewId as string),
+        enabled: !!reviewId,
+    });
+
+    // useQuery가 성공 시 useForm을 가져온 데이터로 업데이트
+    useEffect(() => {
+        if (isSuccess) {
+            reset(data?.interviewReviews[0]);
+            console.log("reset");
+        }
+    }, [isSuccess]);
+
+    console.log("렌더링", reviewId);
 
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
                 <Box display="grid" gap="80px">
                     <Heading textAlign="center" size="3xl" marginTop="50px">
-                        {reviewId
-                            ? formData.interviewDetail.companyName
+                        {data
+                            ? data.interviewReviews[0].interviewDetail
+                                  .companyName
                             : "면접 회고 작성"}
                     </Heading>
                     <InterviewDetail />

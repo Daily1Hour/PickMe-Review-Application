@@ -5,17 +5,10 @@ import FirstRender from "./ui/firstRender";
 import ReviewPage from "@/features/review";
 
 const Review = () => {
-    const [selectedId, setSelectedId] = useState<{
-        reviewId: string | null | undefined;
-        state: string;
-    }>({ reviewId: undefined, state: "" });
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
-    const handleSidebarSelect = async (
-        reviewId: string | null | undefined,
-        state: string,
-    ) => setSelectedId({ reviewId, state });
-
-    console.log("selectedId", selectedId);
+    const handleSidebarSelect = async (reviewId: string | null) =>
+        setSelectedId(reviewId);
 
     useEffect(() => {
         // 페이지 렌더링 시 스크롤을 맨 위로 이동
@@ -24,7 +17,7 @@ const Review = () => {
 
     return (
         <div style={{ display: "flex" }}>
-            <Sidebar onSelect={handleSidebarSelect} />
+            <Sidebar reviewId={selectedId} onSelect={handleSidebarSelect} />
 
             <Box
                 flex="1"
@@ -38,15 +31,10 @@ const Review = () => {
                 justifyContent="flex-start" // 수평 정렬
                 gap="100px" // 자식 요소들 사이에 20px 간격
             >
-                {selectedId.reviewId === undefined ? (
-                    <FirstRender onCreate={handleSidebarSelect} />
-                ) : (
-                    <ReviewPage
-                        reviewId={selectedId.reviewId}
-                        state={selectedId.state}
-                        onSelect={handleSidebarSelect}
-                    />
-                )}
+                <ReviewPage
+                    reviewId={selectedId}
+                    onSelect={handleSidebarSelect}
+                />
             </Box>
         </div>
     );
