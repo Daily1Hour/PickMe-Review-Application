@@ -13,7 +13,7 @@ import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
 import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface SidebarProps {
     reviewId: string | null | undefined;
@@ -82,10 +82,20 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
                     overflowY="auto" // 스크롤 기능 추가
                 >
                     {/* Sidebar Header */}
-
                     <Text fontSize="xl" fontWeight="bold" textAlign="center">
                         목록
                     </Text>
+                    {/* 새 작성 클릭 시 작성 화면으로  */}
+                    <NavLink to={"/"}>
+                        <Button
+                            bg="none"
+                            color="gray"
+                            _hover={{ bg: "gray.100" }}
+                            title="작성하기"
+                        >
+                            새 작성
+                        </Button>
+                    </NavLink>
 
                     {/* Search Button inside the Sidebar */}
                     <IconButton

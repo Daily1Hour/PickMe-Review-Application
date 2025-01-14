@@ -94,9 +94,12 @@ const ReviewPage = () => {
     });
 
     // useQuery가 성공 시 useForm을 가져온 데이터로 업데이트
+    // reviewId가 있으면 해당 데이터로 없으면 초기 값으로 reset
     useEffect(() => {
-        reset(data?.interviewReviews[0]);
-    }, [data]);
+        if (reviewId) {
+            reset(data?.interviewReviews[0]);
+        } else reset(initialFormData);
+    }, [data, reviewId]);
 
     return (
         <FormProvider {...methods}>
