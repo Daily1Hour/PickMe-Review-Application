@@ -7,7 +7,7 @@ import QuestionsAnswers from "./ui/QuestionsAnswers";
 import Communication from "./ui/Communication";
 import InterviewAnalysis from "./ui/InterviewAnalysis";
 import NextPreparation from "./ui/NextPreparation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { GetResponseDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import { postReviewApi } from "./api/postReviewApi";
@@ -44,11 +44,11 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         onSuccess: (data) => {
             console.log(data.data.interviewDetailId);
             // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
-            queryClient.invalidateQueries({
+            queryClient.refetchQueries({
                 queryKey: ["side"],
             });
 
-            queryClient.invalidateQueries({
+            queryClient.refetchQueries({
                 queryKey: ["review"],
             });
             onSelect(data.data.interviewDetailId);
@@ -65,7 +65,7 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             if (reviewId) return DeleteReviewApi(reviewId);
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({
+            queryClient.refetchQueries({
                 queryKey: ["side"],
             });
             reset(initialFormData);
@@ -78,19 +78,17 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
     };
 
     // reviewId가 있을 경우에만 작동
-    const { data, isSuccess } = useQuery<GetResponseDTO>({
+    const { data } = useQuery<GetResponseDTO>({
         queryKey: ["review", reviewId],
         queryFn: () => getReviewApi(reviewId as string),
         enabled: !!reviewId,
+        staleTime: 1000 * 60 * 60,
     });
 
     // useQuery가 성공 시 useForm을 가져온 데이터로 업데이트
     useEffect(() => {
-        if (isSuccess) {
-            reset(data?.interviewReviews[0]);
-            console.log("reset");
-        }
-    }, [isSuccess]);
+        reset(data?.interviewReviews[0]);
+    }, [data]);
 
     console.log("렌더링", reviewId);
 
