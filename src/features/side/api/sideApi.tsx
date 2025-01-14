@@ -12,6 +12,7 @@ const client = axios.create({
 });
 
 export const getSideData = async () => {
-    const response = await client.get("/interview");
+    const response = await client.get("/interview/side");
+    console.log(response.data);
     return response.data;
 };

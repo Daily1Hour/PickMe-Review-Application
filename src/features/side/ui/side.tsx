@@ -27,12 +27,12 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
         string | null | undefined
     >(null); // 선택된 리뷰 아이디 상태
 
-    const { data } = useQuery<GetSideDTO>({
+    const { data } = useQuery<GetSideDTO[]>({
         queryKey: ["side"],
         queryFn: getSideData,
     });
 
-    const formattedMenuItems = data?.interviewReviews.map((item) => ({
+    const formattedMenuItems = data?.map((item) => ({
         id: item.reviewId,
         label: `${item.interviewDetail.companyName} | ${item.interviewDetail.category}`,
     }));
