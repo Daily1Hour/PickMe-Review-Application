@@ -17,13 +17,21 @@ import { FormProvider, useForm } from "react-hook-form";
 import { updateReviewApi } from "./api/updateReviewApi";
 import { DeleteReviewApi } from "./api/DeleteReviewApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface Props {
     reviewId: string | null;
     onSelect: (reviewId: string | null) => void;
 }
 
-const ReviewPage = ({ reviewId, onSelect }: Props) => {
+const ReviewPage = () => {
+    // 렌더링 시 화면을 맨 위로
+    window.scrollTo(0, 0);
+    // useParams로 url의 reviewId값 가져옴
+    const { reviewId } = useParams<{ reviewId: string | undefined }>();
+
+    const navigate = useNavigate();
+
     const methods = useForm({
         defaultValues: initialFormData,
     });
@@ -42,7 +50,6 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             }
         },
         onSuccess: (data) => {
-            console.log(data.data.interviewDetailId);
             // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
             queryClient.refetchQueries({
                 queryKey: ["side"],
@@ -51,8 +58,8 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             queryClient.refetchQueries({
                 queryKey: ["review"],
             });
-            onSelect(data.data.interviewDetailId);
-            window.scrollTo(0, 0);
+            // 성공 시 해당 id 경로로 이동
+            navigate(`${data.data.interviewDetailId}`);
         },
     });
 
@@ -68,8 +75,9 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
             queryClient.refetchQueries({
                 queryKey: ["side"],
             });
+            // 삭제 시 초기 화면으로
+            navigate("/");
             reset(initialFormData);
-            onSelect(null);
         },
     });
 

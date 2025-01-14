@@ -13,6 +13,7 @@ import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
 import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
+import { useNavigate } from "react-router-dom";
 
 interface SidebarProps {
     reviewId: string | null | undefined;
@@ -26,6 +27,7 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
     const [selectedReviewId, setSelectedReviewId] = useState<
         string | null | undefined
     >(null); // 선택된 리뷰 아이디 상태
+    const navigate = useNavigate();
 
     const { data } = useQuery<GetSideDTO[]>({
         queryKey: ["side"],
@@ -131,7 +133,7 @@ const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
                                     }
                                     mb="10px"
                                     onClick={() => {
-                                        onSelect(item.id);
+                                        navigate(`${item.id}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
                                         setSelectedReviewId(item.id);
                                     }}
                                     justifyContent="flex-start" // 텍스트를 왼쪽 정렬
