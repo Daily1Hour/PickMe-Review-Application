@@ -90,8 +90,6 @@ const ReviewPage = ({ reviewId, onSelect }: Props) => {
         reset(data?.interviewReviews[0]);
     }, [data]);
 
-    console.log("렌더링", reviewId);
-
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
