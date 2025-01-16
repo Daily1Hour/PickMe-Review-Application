@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
-import Review from "@/pages/review";
-import ReviewPage from "@/features/review";
+import ReviewPage from "@/pages/review";
+import ReviewScreen from "@/features/review";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Review />,
+        element: <ReviewPage />,
         children: [
             {
                 path: ":reviewId",
-                element: <ReviewPage />,
+                element: <ReviewScreen />,
             },
         ],
     },
