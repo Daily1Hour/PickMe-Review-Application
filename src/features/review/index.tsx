@@ -1,28 +1,26 @@
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { FormProvider, useForm } from "react-hook-form";
 import { Heading, Button, Box, HStack } from "@chakra-ui/react";
 
-import InterviewDetail from "./ui/InterviewDetail";
-import Preparation from "./ui/Preparation";
-import InterviewProcess from "./ui/InterviewProcess";
-import QuestionsAnswers from "./ui/QuestionsAnswers";
-import Communication from "./ui/Communication";
-import InterviewAnalysis from "./ui/InterviewAnalysis";
-import NextPreparation from "./ui/NextPreparation";
-import { useEffect } from "react";
 import { GetResponseDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
-import { postReviewApi } from "./api/postReviewApi";
-
-import { getReviewApi } from "@/features/review/api/getReviewApi";
-import { FormProvider, useForm } from "react-hook-form";
-import { updateReviewApi } from "./api/updateReviewApi";
-import { DeleteReviewApi } from "./api/DeleteReviewApi";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
-
-interface Props {
-    reviewId: string | null;
-    onSelect: (reviewId: string | null) => void;
-}
+import {
+    updateReviewApi,
+    postReviewApi,
+    DeleteReviewApi,
+    getReviewApi,
+} from "./api";
+import {
+    InterviewDetail,
+    Preparation,
+    InterviewProcess,
+    QuestionsAnswers,
+    Communication,
+    InterviewAnalysis,
+    NextPreparation,
+} from "./ui";
 
 const ReviewPage = () => {
     // 렌더링 시 화면을 맨 위로
