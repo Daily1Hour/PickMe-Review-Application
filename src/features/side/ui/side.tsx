@@ -13,20 +13,16 @@ import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
 import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
-interface SidebarProps {
-    reviewId: string | null | undefined;
-    onSelect: (reviewId: string) => void;
-}
-
-const Sidebar = ({ reviewId, onSelect }: SidebarProps) => {
+const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
     const [selectedReviewId, setSelectedReviewId] = useState<
         string | null | undefined
     >(null); // 선택된 리뷰 아이디 상태
+    const { reviewId } = useParams<{ reviewId: string | undefined }>();
     const navigate = useNavigate();
 
     const { data } = useQuery<GetSideDTO[]>({
