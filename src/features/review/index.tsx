@@ -12,15 +12,7 @@ import {
     DeleteReviewApi,
     getReviewApi,
 } from "./api";
-import {
-    InterviewDetail,
-    Preparation,
-    InterviewProcess,
-    QuestionsAnswers,
-    Communication,
-    InterviewAnalysis,
-    NextPreparation,
-} from "./ui";
+import { InterviewReviewParts } from "./ui";
 
 const ReviewPage = () => {
     // 렌더링 시 화면을 맨 위로
@@ -106,19 +98,8 @@ const ReviewPage = () => {
                                   .companyName
                             : "면접 회고 작성"}
                     </Heading>
-                    <InterviewDetail />
 
-                    <Preparation />
-
-                    <InterviewProcess />
-
-                    <QuestionsAnswers />
-
-                    <Communication />
-
-                    <InterviewAnalysis />
-
-                    <NextPreparation />
+                    <InterviewReviewParts />
 
                     {reviewId ? (
                         <HStack justify="flex-end">
