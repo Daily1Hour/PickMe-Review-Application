@@ -50,14 +50,11 @@ const ReviewPage = () => {
             }
         },
         onSuccess: (data) => {
-            // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
+            // // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
             queryClient.refetchQueries({
                 queryKey: ["side"],
             });
 
-            queryClient.refetchQueries({
-                queryKey: ["review"],
-            });
             // 성공 시 해당 id 경로로 이동
             navigate(`${data.data.interviewDetailId}`);
         },
