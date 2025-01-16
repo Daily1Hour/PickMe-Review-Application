@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import Sidebar from "../../features/side";
-import FirstRender from "./ui/firstRender";
 import ReviewPage from "@/features/review";
 
 const Review = () => {
@@ -31,10 +30,7 @@ const Review = () => {
                 justifyContent="flex-start" // 수평 정렬
                 gap="100px" // 자식 요소들 사이에 20px 간격
             >
-                <ReviewPage
-                    reviewId={selectedId}
-                    onSelect={handleSidebarSelect}
-                />
+                <ReviewPage />
             </Box>
         </div>
     );
