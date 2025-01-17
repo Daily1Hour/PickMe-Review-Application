@@ -22,6 +22,15 @@ const ReviewPage = () => {
 
     const navigate = useNavigate();
 
+    // reviewId가 있을 경우에만 작동
+    const { data } = useQuery<GetResponseDTO>({
+        queryKey: ["review", reviewId],
+        queryFn: () => getReviewApi(reviewId as string),
+        enabled: !!reviewId,
+        staleTime: 1000 * 60 * 60,
+        
+    });
+
     const methods = useForm({
         defaultValues: initialFormData,
     });
@@ -72,14 +81,6 @@ const ReviewPage = () => {
         deleteMutation.mutate();
     };
 
-    // reviewId가 있을 경우에만 작동
-    const { data } = useQuery<GetResponseDTO>({
-        queryKey: ["review", reviewId],
-        queryFn: () => getReviewApi(reviewId as string),
-        enabled: !!reviewId,
-        staleTime: 1000 * 60 * 60,
-    });
-
     // useQuery가 성공 시 useForm을 가져온 데이터로 업데이트
     // reviewId가 있으면 해당 데이터로 없으면 초기 값으로 reset
     useEffect(() => {
@@ -93,8 +94,8 @@ const ReviewPage = () => {
             <form onSubmit={onSubmit}>
                 <Box display="grid" gap="80px">
                     <Heading textAlign="center" size="3xl" marginTop="50px">
-                        {data
-                            ? data.interviewReviews[0].interviewDetail
+                        {reviewId
+                            ? data?.interviewReviews[0].interviewDetail
                                   .companyName
                             : "면접 회고 작성"}
                     </Heading>
