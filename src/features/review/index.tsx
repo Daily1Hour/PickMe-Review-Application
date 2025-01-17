@@ -7,7 +7,7 @@ import { Heading, Button, Box, HStack } from "@chakra-ui/react";
 import { GetResponseDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import {
-    updateReviewApi,
+    putReviewApi,
     postReviewApi,
     DeleteReviewApi,
     getReviewApi,
@@ -43,7 +43,7 @@ const ReviewPage = () => {
     const mutation = useMutation({
         mutationFn: async (data: InterviewReviews) => {
             if (reviewId) {
-                return await updateReviewApi(data, reviewId);
+                return await putReviewApi(data, reviewId);
             } else {
                 return await postReviewApi(data);
             }

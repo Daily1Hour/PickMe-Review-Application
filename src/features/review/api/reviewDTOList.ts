@@ -6,7 +6,6 @@ export interface PostInterviewReviewsDTO {
 export interface PutInterviewReviewsDTO {
     interviewDetail: InterviewDetailDTO;
     reviewDetail: ReviewDetailDTO;
-    reviewId: string;
 }
 
 export interface GetResponseDTO {
