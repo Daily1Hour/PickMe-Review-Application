@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
@@ -15,6 +15,7 @@ import { InterviewReviewParts } from "./ui";
 import { InterviewReviews, Review } from "@/entities/review/model/review";
 
 const ReviewPage = () => {
+    const [title, setTitle] = useState<string>();
     // 렌더링 시 화면을 맨 위로
     window.scrollTo(0, 0);
     // useParams로 url의 reviewId값 가져옴
@@ -82,10 +83,17 @@ const ReviewPage = () => {
 
     // useQuery가 성공 시 useForm을 가져온 데이터로 업데이트
     // reviewId가 있으면 해당 데이터로 없으면 초기 값으로 reset
+    // 데이터가 로드될 때마다 reset 호출
     useEffect(() => {
-        if (reviewId) {
-            reset(data?.interviewReviews[0]);
-        } else reset(initialFormData);
+        if (data && reviewId) {
+            reset(data.interviewReviews[0]);
+            setTitle(
+                `${data.interviewReviews[0].interviewDetail.companyName} | ${data.interviewReviews[0].interviewDetail.category}`,
+            );
+        } else if (!reviewId) {
+            reset(initialFormData);
+            setTitle("면접 회고 작성");
+        }
     }, [data, reviewId]);
 
     return (
@@ -93,10 +101,7 @@ const ReviewPage = () => {
             <form onSubmit={onSubmit}>
                 <Box display="grid" gap="80px">
                     <Heading textAlign="center" size="3xl" marginTop="50px">
-                        {reviewId
-                            ? data?.interviewReviews[0].interviewDetail
-                                  .companyName
-                            : "면접 회고 작성"}
+                        {title}
                     </Heading>
 
                     <InterviewReviewParts />
