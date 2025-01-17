@@ -7,3 +7,11 @@ export function reviewToCreateDTO(data: InterviewReviews) {
         reviewDetail: data.reviewDetail,
     } as PostInterviewReviewsDTO;
 }
+
+export function reviewToUpdateDTO(data: InterviewReviews) {
+    return {
+        interviewDetail: data.interviewDetail,
+        reviewDetail: data.reviewDetail,
+        reviewId: data.reviewId,
+    };
+}
