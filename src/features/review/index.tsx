@@ -4,7 +4,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
 import { Heading, Button, Box, HStack } from "@chakra-ui/react";
 
-import { GetResponseDTO } from "./api/reviewDTOList";
 import { initialFormData } from "./api/initialFormData";
 import {
     putReviewApi,
@@ -13,7 +12,7 @@ import {
     getReviewApi,
 } from "./api";
 import { InterviewReviewParts } from "./ui";
-import { InterviewReviews } from "@/entities/review/model/review";
+import { InterviewReviews, Review } from "@/entities/review/model/review";
 
 const ReviewPage = () => {
     // 렌더링 시 화면을 맨 위로
@@ -24,7 +23,7 @@ const ReviewPage = () => {
     const navigate = useNavigate();
 
     // reviewId가 있을 경우에만 작동
-    const { data } = useQuery<GetResponseDTO>({
+    const { data } = useQuery<Review>({
         queryKey: ["review", reviewId],
         queryFn: () => getReviewApi(reviewId as string),
         enabled: !!reviewId,
