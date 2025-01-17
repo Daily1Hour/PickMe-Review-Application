@@ -8,9 +8,9 @@ export class Review {
 
 export class InterviewReviews {
     constructor(
-        public reviewId: string,
         public interviewDetail: InterviewDetail,
         public reviewDetail: ReviewDetail,
+        public reviewId?: string,
     ) {}
 }
 

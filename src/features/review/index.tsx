@@ -13,6 +13,7 @@ import {
     getReviewApi,
 } from "./api";
 import { InterviewReviewParts } from "./ui";
+import { InterviewReviews } from "@/entities/review/model/review";
 
 const ReviewPage = () => {
     // 렌더링 시 화면을 맨 위로
@@ -28,7 +29,6 @@ const ReviewPage = () => {
         queryFn: () => getReviewApi(reviewId as string),
         enabled: !!reviewId,
         staleTime: 1000 * 60 * 60,
-        
     });
 
     const methods = useForm({
@@ -41,7 +41,7 @@ const ReviewPage = () => {
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: async (data: any) => {
+        mutationFn: async (data: InterviewReviews) => {
             if (reviewId) {
                 return await updateReviewApi(data, reviewId);
             } else {
