@@ -24,7 +24,7 @@ const ReviewPage = () => {
     const navigate = useNavigate();
 
     // reviewId가 있을 경우에만 작동
-    const { data } = useQuery<InterviewReviews>({
+    const { data, refetch } = useQuery<InterviewReviews>({
         queryKey: ["review", reviewId],
         queryFn: () => getReviewApi(reviewId as string),
         enabled: !!reviewId,
@@ -48,14 +48,13 @@ const ReviewPage = () => {
                 return await postReviewApi(data);
             }
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
             // // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
             queryClient.refetchQueries({
                 queryKey: ["side"],
             });
-            queryClient.refetchQueries({
-                queryKey: ["review"],
-            });
+            refetch();
+            navigate(`${data.data.interviewDetailId}`);
         },
     });
 
