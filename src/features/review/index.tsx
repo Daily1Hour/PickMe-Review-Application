@@ -24,7 +24,7 @@ const ReviewPage = () => {
     const navigate = useNavigate();
 
     // reviewId가 있을 경우에만 작동
-    const { data } = useQuery<Review>({
+    const { data } = useQuery<InterviewReviews>({
         queryKey: ["review", reviewId],
         queryFn: () => getReviewApi(reviewId as string),
         enabled: !!reviewId,
@@ -86,9 +86,9 @@ const ReviewPage = () => {
     // 데이터가 로드될 때마다 reset 호출
     useEffect(() => {
         if (data && reviewId) {
-            reset(data.interviewReviews[0]);
+            reset(data);
             setTitle(
-                `${data.interviewReviews[0].interviewDetail.companyName} | ${data.interviewReviews[0].interviewDetail.category}`,
+                `${data.interviewDetail.companyName} | ${data.interviewDetail.category}`,
             );
         } else if (!reviewId) {
             reset(initialFormData);
