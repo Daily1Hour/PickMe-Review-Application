@@ -1,9 +1,7 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
 import InputField from "./InputField";
-import { useFormContext } from "react-hook-form";
 
 const Preparation = () => {
-    const { register } = useFormContext();
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -14,12 +12,10 @@ const Preparation = () => {
                 <InputField
                     label="잘한 점"
                     name="reviewDetail.preparation.strengths"
-                    register={register}
                 />
                 <InputField
                     label="개선할 점"
                     name="reviewDetail.preparation.improvements"
-                    register={register}
                 />
             </Fieldset.Content>
         </Fieldset.Root>

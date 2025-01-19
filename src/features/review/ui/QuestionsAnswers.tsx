@@ -11,7 +11,7 @@ const QuestionsAnswers = () => {
     const handleDeleteField = (index: number) => {
         remove(index);
     };
-    const { control, register } = useFormContext();
+    const { control } = useFormContext();
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -52,7 +52,6 @@ const QuestionsAnswers = () => {
                                 <InputField
                                     label="질문 유형"
                                     name={`reviewDetail.questionsAnswers.${index}.type`}
-                                    register={register}
                                 />
                             )}
                         />
