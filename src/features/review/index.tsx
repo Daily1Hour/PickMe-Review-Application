@@ -12,7 +12,7 @@ import {
     getReviewApi,
 } from "./api";
 import { InterviewReviewParts } from "./ui";
-import { InterviewReviews, Review } from "@/entities/review/model/review";
+import { InterviewReviews } from "@/entities/review/model/review";
 
 const ReviewPage = () => {
     const [title, setTitle] = useState<string>();
