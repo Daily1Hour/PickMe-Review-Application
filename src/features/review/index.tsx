@@ -8,7 +8,7 @@ import { initialFormData } from "./api/initialFormData";
 import {
     putReviewApi,
     postReviewApi,
-    DeleteReviewApi,
+    deleteReviewApi,
     getReviewApi,
 } from "./api";
 import { InterviewReviewParts } from "./ui";
@@ -68,7 +68,7 @@ const ReviewPage = () => {
 
     const deleteMutation = useMutation({
         mutationFn: async () => {
-            if (reviewId) return DeleteReviewApi(reviewId);
+            if (reviewId) return deleteReviewApi(reviewId);
         },
         onSuccess: () => {
             queryClient.refetchQueries({

@@ -11,7 +11,7 @@ const client = axios.create({
     },
 });
 
-export const DeleteReviewApi = async (reviewId: string) => {
+export const deleteReviewApi = async (reviewId: string) => {
     const response = await client.delete(`/interview`, {
         params: { reviewId: reviewId },
     });
