@@ -53,7 +53,11 @@ const ReviewPage = () => {
             queryClient.refetchQueries({
                 queryKey: ["side"],
             });
-            refetch();
+
+            if (reviewId) {
+                refetch();
+            }
+
             navigate(`${data.data.interviewDetailId}`);
         },
     });
