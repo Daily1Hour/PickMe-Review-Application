@@ -15,7 +15,6 @@ import { InterviewReviewParts } from "./ui";
 import { InterviewReviews } from "@/entities/review/model/review";
 
 const ReviewPage = () => {
-    const [title, setTitle] = useState<string>();
     // 렌더링 시 화면을 맨 위로
     window.scrollTo(0, 0);
     // useParams로 url의 reviewId값 가져옴
@@ -35,7 +34,7 @@ const ReviewPage = () => {
         defaultValues: initialFormData,
     });
 
-    const { handleSubmit, reset } = methods;
+    const { handleSubmit, reset, watch } = methods;
 
     // useMutation 훅을 컴포넌트 최상위에서 호출
     const queryClient = useQueryClient();
@@ -90,12 +89,8 @@ const ReviewPage = () => {
     useEffect(() => {
         if (data && reviewId) {
             reset(data);
-            setTitle(
-                `${data.interviewDetail.companyName} | ${data.interviewDetail.category}`,
-            );
         } else if (!reviewId) {
             reset(initialFormData);
-            setTitle("면접 회고 작성");
         }
     }, [data, reviewId]);
 
@@ -104,7 +99,9 @@ const ReviewPage = () => {
             <form onSubmit={onSubmit}>
                 <Box display="grid" gap="80px">
                     <Heading textAlign="center" size="3xl" marginTop="50px">
-                        {title}
+                        {`${watch("interviewDetail.companyName")} - ${watch(
+                            "interviewDetail.category",
+                        )}`}
                     </Heading>
 
                     <InterviewReviewParts />
