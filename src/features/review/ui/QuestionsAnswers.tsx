@@ -58,10 +58,21 @@ const QuestionsAnswers = () => {
                         <Controller
                             name={`reviewDetail.questionsAnswers.${index}.question`}
                             control={control}
-                            render={({ field }) => (
+                            rules={{
+                                maxLength: {
+                                    value: 501,
+                                    message: "500자 이하로 작성해주세요",
+                                },
+                                minLength: {
+                                    value: 10,
+                                    message: "10자 이상 작성해주세요",
+                                },
+                            }}
+                            render={({ field, fieldState }) => (
                                 <TextAreaField
                                     label="면접 질문"
                                     field={field}
+                                    fieldState={fieldState}
                                 />
                             )}
                         />
