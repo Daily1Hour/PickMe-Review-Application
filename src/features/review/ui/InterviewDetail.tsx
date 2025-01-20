@@ -1,7 +1,17 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
-import InputField from "./InputField";
+import InputFieldMap from "./InputFieldMap";
 
 const InterviewDetail = () => {
+    const inputParams = [
+        { label: "회사명", name: "interviewDetail.companyName" },
+        { label: "지원 직무", name: "interviewDetail.position" },
+        {
+            label: "면접 날짜",
+            name: "interviewDetail.interviewDateTime",
+            type: "datetime-local",
+        },
+        { label: "면접 유형", name: "interviewDetail.category" },
+    ];
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -9,14 +19,7 @@ const InterviewDetail = () => {
             </Stack>
 
             <Fieldset.Content>
-                <InputField label="회사명" name="interviewDetail.companyName" />
-                <InputField label="지원 직무" name="interviewDetail.position" />
-                <InputField
-                    label="면접 날짜"
-                    name="interviewDetail.interviewDateTime"
-                    type="datetime-local"
-                />
-                <InputField label="면접 유형" name="interviewDetail.category" />
+                <InputFieldMap params={inputParams} />
             </Fieldset.Content>
         </Fieldset.Root>
     );

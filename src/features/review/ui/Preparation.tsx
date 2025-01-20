@@ -1,7 +1,11 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
-import InputField from "./InputField";
+import InputFieldMap from "./InputFieldMap";
 
 const Preparation = () => {
+    const inputParams = [
+        { label: "잘한 점", name: "reviewDetail.preparation.strengths" },
+        { label: "개선할 점", name: "reviewDetail.preparation.improvements" },
+    ];
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -9,14 +13,7 @@ const Preparation = () => {
             </Stack>
 
             <Fieldset.Content>
-                <InputField
-                    label="잘한 점"
-                    name="reviewDetail.preparation.strengths"
-                />
-                <InputField
-                    label="개선할 점"
-                    name="reviewDetail.preparation.improvements"
-                />
+                <InputFieldMap params={inputParams} />
             </Fieldset.Content>
         </Fieldset.Root>
     );

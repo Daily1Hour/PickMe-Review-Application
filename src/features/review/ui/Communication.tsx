@@ -1,7 +1,12 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
-import InputField from "./InputField";
+import InputFieldMap from "./InputFieldMap";
 
 const Communication = () => {
+    const inputParams = [
+        { label: "언어적", name: "reviewDetail.communication.verbal" },
+        { label: "비언어적", name: "reviewDetail.communication.nonVerbal" },
+        { label: "상호작용", name: "reviewDetail.communication.interaction" },
+    ];
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -9,18 +14,7 @@ const Communication = () => {
             </Stack>
 
             <Fieldset.Content>
-                <InputField
-                    label="언어적"
-                    name="reviewDetail.communication.verbal"
-                />
-                <InputField
-                    label="비언어적"
-                    name="reviewDetail.communication.nonVerbal"
-                />
-                <InputField
-                    label="상호작용"
-                    name="reviewDetail.communication.interaction"
-                />
+                <InputFieldMap params={inputParams} />
             </Fieldset.Content>
         </Fieldset.Root>
     );

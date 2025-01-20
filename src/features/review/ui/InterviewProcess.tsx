@@ -1,7 +1,16 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
-import InputField from "./InputField";
+import InputFieldMap from "./InputFieldMap";
 
 const InterviewProcess = () => {
+    const inputParams = [
+        { label: "면접 방식", name: "reviewDetail.interviewProcess.format" },
+        { label: "면접 분위기", name: "reviewDetail.interviewProcess.mood" },
+        { label: "면접관 정보", name: "reviewDetail.interviewProcess.panel" },
+        {
+            label: "면접관 : 면접자 비율",
+            name: "reviewDetail.interviewProcess.interviewRatio",
+        },
+    ];
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -9,22 +18,7 @@ const InterviewProcess = () => {
             </Stack>
 
             <Fieldset.Content>
-                <InputField
-                    label="면접 방식"
-                    name="reviewDetail.interviewProcess.format"
-                />
-                <InputField
-                    label="면접 분위기"
-                    name="reviewDetail.interviewProcess.mood"
-                />
-                <InputField
-                    label="면접관 정보"
-                    name="reviewDetail.interviewProcess.panel"
-                />
-                <InputField
-                    label="면접관 : 면접자 비율"
-                    name="reviewDetail.interviewProcess.interviewRatio"
-                />
+                <InputFieldMap params={inputParams} />
             </Fieldset.Content>
         </Fieldset.Root>
     );

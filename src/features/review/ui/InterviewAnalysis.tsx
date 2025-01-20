@@ -1,7 +1,20 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
-import InputField from "./InputField";
+import InputFieldMap from "./InputFieldMap";
 
 const InterviewAnalysis = () => {
+    const inputParams = [
+        { label: "잘한 점", name: "reviewDetail.interviewAnalsis.strengths" },
+        {
+            label: "개선할 점",
+            name: "reviewDetail.interviewAnalsis.improvements",
+        },
+        { label: "피드백", name: "reviewDetail.interviewAnalsis.feedback" },
+        { label: "난이도", name: "reviewDetail.interviewAnalsis.difficulty" },
+        {
+            label: "결과 분석",
+            name: "reviewDetail.interviewAnalsis.interviewResultAnalysis",
+        },
+    ];
     return (
         <Fieldset.Root size="lg" maxW="100%">
             <Stack>
@@ -11,26 +24,7 @@ const InterviewAnalysis = () => {
             </Stack>
 
             <Fieldset.Content>
-                <InputField
-                    label="잘한 점"
-                    name="reviewDetail.interviewAnalsis.strengths"
-                />
-                <InputField
-                    label="개선할 점"
-                    name="reviewDetail.interviewAnalsis.improvements"
-                />
-                <InputField
-                    label="피드백"
-                    name="reviewDetail.interviewAnalsis.feedback"
-                />
-                <InputField
-                    label="난이도"
-                    name="reviewDetail.interviewAnalsis.difficulty"
-                />
-                <InputField
-                    label="결과 분석"
-                    name="reviewDetail.interviewAnalsis.interviewResultAnalysis"
-                />
+                <InputFieldMap params={inputParams} />
             </Fieldset.Content>
         </Fieldset.Root>
     );
