@@ -32,6 +32,7 @@ const ReviewPage = () => {
 
     const methods = useForm({
         defaultValues: initialFormData,
+        mode: "onChange", // 실시간 유효성 검증
     });
 
     const { handleSubmit, reset, watch } = methods;
