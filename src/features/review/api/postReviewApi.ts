@@ -1,5 +1,6 @@
 import axios from "axios";
-import { PostInterviewReviewsDTO } from "./reviewDTOList";
+import { InterviewReviews } from "@/entities/review/model/review";
+import { reviewToCreateDTO } from "../service/reviewToDto";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 const TOKEN = import.meta.env.VITE_TOKEN;
@@ -12,7 +13,8 @@ const client = axios.create({
     },
 });
 
-export const postReviewApi = async (data: PostInterviewReviewsDTO) => {
-    const response = await client.post(`/interview`, data);
+export const postReviewApi = async (data: InterviewReviews) => {
+    const dto = reviewToCreateDTO(data);
+    const response = await client.post(`/interview`, dto);
     return response;
 };
