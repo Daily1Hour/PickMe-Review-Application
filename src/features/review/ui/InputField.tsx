@@ -1,6 +1,6 @@
 import { Flex, Input, Text } from "@chakra-ui/react";
 import { Field } from "@/shared/chakra-ui/field";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 interface InputFieldProps {
     label: string;

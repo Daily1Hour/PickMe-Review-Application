@@ -1,4 +1,3 @@
-import { RegisterOptions } from "react-hook-form";
 import InputField from "./InputField";
 
 interface Props {
