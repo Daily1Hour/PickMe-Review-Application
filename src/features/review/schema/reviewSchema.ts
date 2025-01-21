@@ -76,3 +76,5 @@ export const ReviewSchema = z.object({
     clientId: z.string(),
     interviewReviews: z.array(InterviewReviewsSchema),
 });
+
+export type InterviewReviewsType = z.infer<typeof InterviewReviewsSchema>;
