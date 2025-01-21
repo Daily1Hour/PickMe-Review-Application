@@ -2,47 +2,53 @@ import { z } from "zod";
 
 // Preparation
 export const PreparationSchema = z.object({
-    strengths: z.string(),
-    improvements: z.string(),
+    strengths: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    improvements: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
 });
 
 // InterviewProcess
 export const InterviewProcessSchema = z.object({
-    format: z.string(),
-    mood: z.string(),
-    panel: z.string(),
-    interviewRatio: z.string(),
+    format: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    mood: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    panel: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    interviewRatio: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
 });
 
 // QuestionsAnswers
 export const QuestionsAnswersSchema = z.object({
-    type: z.string(),
-    question: z.string(),
-    answer: z.string(),
-    feedback: z.string(),
+    type: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    question: z.string().max(500, { message: "100자 이하로 작성해주세요" }),
+    answer: z.string().max(500, { message: "100자 이하로 작성해주세요" }),
+    feedback: z.string().max(300, { message: "100자 이하로 작성해주세요" }),
 });
 
 // Communication
 export const CommunicationSchema = z.object({
-    verbal: z.string(),
-    nonVerbal: z.string(),
-    interaction: z.string(),
+    verbal: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    nonVerbal: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    interaction: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
 });
 
 // InterviewAnalysis
 export const InterviewAnalysisSchema = z.object({
-    strengths: z.string(),
-    improvements: z.string(),
-    feedback: z.string(),
-    difficulty: z.string(),
-    interviewResultAnalysis: z.string(),
+    strengths: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    improvements: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    feedback: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    difficulty: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    interviewResultAnalysis: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
 });
 
 // NextPreparation
 export const NextPreparationSchema = z.object({
-    technical: z.string(),
-    expression: z.string(),
-    additionalPractice: z.string(),
+    technical: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    expression: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    additionalPractice: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
 });
 
 // ReviewDetail
@@ -57,10 +63,10 @@ export const ReviewDetailSchema = z.object({
 
 // InterviewDetail
 export const InterviewDetailSchema = z.object({
-    companyName: z.string(),
-    position: z.string(),
+    companyName: z.string().min(1, { message: "화사명은 필수값입니다." }),
+    position: z.string().min(1, { message: "지원 직무는 필수값입니다." }),
     interviewDateTime: z.string(),
-    category: z.string(),
+    category: z.string().min(1, { message: "면접 유형은 필수값입니다." }),
 });
 
 // InterviewReviews

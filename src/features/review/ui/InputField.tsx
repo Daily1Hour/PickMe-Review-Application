@@ -6,15 +6,9 @@ interface InputFieldProps {
     label: string;
     name: string;
     type?: string;
-    validationRules?: RegisterOptions;
 }
 
-const InputField = ({
-    label,
-    name,
-    type = "text",
-    validationRules = {},
-}: InputFieldProps) => {
+const InputField = ({ label, name, type = "text" }: InputFieldProps) => {
     const {
         register,
         formState: { errors },
@@ -26,7 +20,6 @@ const InputField = ({
     for (const part of nameParts) {
         error = error?.[part];
     }
-
     return (
         <Field
             orientation="horizontal"
@@ -41,7 +34,7 @@ const InputField = ({
                     variant="flushed"
                     size="lg"
                     type={type}
-                    {...register(name, validationRules)}
+                    {...register(name)}
                 />
                 {error?.message && (
                     <Text color="red.500" fontSize="xs" mt={1}>

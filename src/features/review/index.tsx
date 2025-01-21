@@ -13,7 +13,11 @@ import {
 } from "./api";
 import { InterviewReviewParts } from "./ui";
 import { InterviewReviews } from "@/entities/review/model/review";
-import { InterviewReviewsType } from "./schema/reviewSchema";
+import {
+    InterviewReviewsSchema,
+    InterviewReviewsType,
+} from "./schema/reviewSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const ReviewPage = () => {
     // 렌더링 시 화면을 맨 위로
@@ -34,6 +38,7 @@ const ReviewPage = () => {
     const methods = useForm<InterviewReviewsType>({
         defaultValues: initialFormData,
         mode: "onChange", // 실시간 유효성 검증
+        resolver: zodResolver(InterviewReviewsSchema),
     });
 
     const { handleSubmit, reset, watch } = methods;

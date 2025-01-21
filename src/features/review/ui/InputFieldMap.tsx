@@ -6,7 +6,6 @@ interface Props {
         label: string;
         name: string;
         type?: string;
-        validationRules?: RegisterOptions;
     }[];
 }
 
@@ -19,7 +18,6 @@ const InputFieldMap = ({ params }: Props) => {
                     label={param.label}
                     name={param.name}
                     type={param.type}
-                    validationRules={param.validationRules}
                 />
             ))}
         </>
