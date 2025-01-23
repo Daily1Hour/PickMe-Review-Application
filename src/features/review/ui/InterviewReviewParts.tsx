@@ -1,9 +1,10 @@
-import InterviewDetail from "./InterviewDetail";
+import InterviewDetailField from "./InterviewDetail";
 import ReviewDetails from "./ReviewDetails";
 import QuestionsAnswers from "./QuestionsAnswers";
 import {
     Communication,
     InterviewAnalysis,
+    InterviewDetail,
     InterviewProcess,
     NextPreparation,
     Preparation,
@@ -12,7 +13,9 @@ import {
 const InterviewReviewParts = () => {
     return (
         <>
-            <InterviewDetail />
+            <InterviewDetailField
+                entity={new InterviewDetail("", "", "", "")}
+            />
             <ReviewDetails entity={new Preparation("", "")} />
             <ReviewDetails entity={new InterviewProcess("", "", "", "")} />
             <QuestionsAnswers />

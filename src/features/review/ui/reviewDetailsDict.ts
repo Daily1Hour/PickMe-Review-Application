@@ -42,3 +42,13 @@ export const dict = {
         },
     },
 };
+
+export const InterviewDetaildict = {
+    title: "면접 정보",
+    body: {
+        companyName: "회사명",
+        position: "지원 직무",
+        interviewDateTime: "면접 날짜",
+        category: "면접 유형",
+    },
+};
