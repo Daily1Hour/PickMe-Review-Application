@@ -8,9 +8,9 @@ const ReviewDetails = ({ entity }: { entity: ReviewInterface }) => {
     const formattedName = (name.charAt(0).toLowerCase() +
         name.slice(1)) as keyof typeof dict; // 클래스 명 맨 앞글자 만 소문자로 변경
 
-    type TypeKeys = keyof typeof entity;
-    const keys = [...Object.keys(entity)] as TypeKeys[];
-    const ob: Record<TypeKeys, string> = dict[formattedName].body;
+    type TypeKeys = keyof typeof entity; // entity 객체에서 타입 받음
+    const keys = [...Object.keys(entity)] as TypeKeys[]; // Object.keys(entity)로 만들어진 배열을 풀고 다시 한번 진짜 배열로 만들고 타입을 entity타입으로 지정
+    const reviewFields: Record<TypeKeys, string> = dict[formattedName].body;
 
     return (
         <Fieldset.Root size="lg" maxW="100%">
@@ -24,7 +24,7 @@ const ReviewDetails = ({ entity }: { entity: ReviewInterface }) => {
                 {keys.map((key, index) => (
                     <InputField
                         key={index}
-                        label={ob[key]}
+                        label={reviewFields[key]}
                         name={`reviewDetail.${formattedName}.${key}`}
                     />
                 ))}
