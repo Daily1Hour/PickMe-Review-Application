@@ -19,9 +19,9 @@ export const InterviewProcessSchema = z.object({
 // QuestionsAnswers
 export const QuestionsAnswersSchema = z.object({
     type: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
-    question: z.string().max(500, { message: "100자 이하로 작성해주세요" }),
-    answer: z.string().max(500, { message: "100자 이하로 작성해주세요" }),
-    feedback: z.string().max(300, { message: "100자 이하로 작성해주세요" }),
+    question: z.string().max(500, { message: "500자 이하로 작성해주세요" }),
+    answer: z.string().max(500, { message: "500자 이하로 작성해주세요" }),
+    feedback: z.string().max(300, { message: "300자 이하로 작성해주세요" }),
 });
 
 // Communication

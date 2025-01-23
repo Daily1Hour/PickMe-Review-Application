@@ -58,16 +58,6 @@ const QuestionsAnswers = () => {
                         <Controller
                             name={`reviewDetail.questionsAnswers.${index}.question`}
                             control={control}
-                            rules={{
-                                maxLength: {
-                                    value: 501,
-                                    message: "500자 이하로 작성해주세요",
-                                },
-                                minLength: {
-                                    value: 10,
-                                    message: "10자 이상 작성해주세요",
-                                },
-                            }}
                             render={({ field, fieldState }) => (
                                 <TextAreaField
                                     label="면접 질문"
@@ -79,15 +69,23 @@ const QuestionsAnswers = () => {
                         <Controller
                             name={`reviewDetail.questionsAnswers.${index}.answer`}
                             control={control}
-                            render={({ field }) => (
-                                <TextAreaField label="답변" field={field} />
+                            render={({ field, fieldState }) => (
+                                <TextAreaField
+                                    label="답변"
+                                    field={field}
+                                    fieldState={fieldState}
+                                />
                             )}
                         />
                         <Controller
                             name={`reviewDetail.questionsAnswers.${index}.feedback`}
                             control={control}
-                            render={({ field }) => (
-                                <TextAreaField label="피드백" field={field} />
+                            render={({ field, fieldState }) => (
+                                <TextAreaField
+                                    label="피드백"
+                                    field={field}
+                                    fieldState={fieldState}
+                                />
                             )}
                         />
                     </Stack>
