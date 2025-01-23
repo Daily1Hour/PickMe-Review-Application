@@ -34,11 +34,11 @@ export class ReviewDetail {
     ) {}
 }
 
-export class Preparation {
+export class Preparation implements ReviewInterface {
     constructor(public strengths: string, public improvements: string) {}
 }
 
-export class InterviewProcess {
+export class InterviewProcess implements ReviewInterface {
     constructor(
         public format: string,
         public mood: string,
@@ -47,7 +47,7 @@ export class InterviewProcess {
     ) {}
 }
 
-export class QuestionsAnswers {
+export class QuestionsAnswers implements ReviewInterface {
     constructor(
         public type: string,
         public question: string,
@@ -56,7 +56,7 @@ export class QuestionsAnswers {
     ) {}
 }
 
-export class Communication {
+export class Communication implements ReviewInterface {
     constructor(
         public verbal: string,
         public nonVerbal: string,
@@ -64,7 +64,7 @@ export class Communication {
     ) {}
 }
 
-export class InterviewAnalysis {
+export class InterviewAnalysis implements ReviewInterface {
     constructor(
         public strengths: string,
         public improvements: string,
@@ -74,10 +74,12 @@ export class InterviewAnalysis {
     ) {}
 }
 
-export class NextPreparation {
+export class NextPreparation implements ReviewInterface {
     constructor(
         public technical: string,
         public expression: string,
         public additionalPractice: string,
     ) {}
 }
+
+export interface ReviewInterface {}

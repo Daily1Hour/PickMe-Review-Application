@@ -1,21 +1,24 @@
 import InterviewDetail from "./InterviewDetail";
-import Preparation from "./Preparation";
-import Communication from "./Communication";
-import InterviewAnalysis from "./InterviewAnalysis";
-import InterviewProcess from "./InterviewProcess";
-import NextPreparation from "./NextPreparation";
+import ReviewDetails from "./ReviewDetails";
 import QuestionsAnswers from "./QuestionsAnswers";
+import {
+    Communication,
+    InterviewAnalysis,
+    InterviewProcess,
+    NextPreparation,
+    Preparation,
+} from "@/entities/review/model/review";
 
 const InterviewReviewParts = () => {
     return (
         <>
             <InterviewDetail />
-            <Preparation />
-            <InterviewProcess />
+            <ReviewDetails entity={new Preparation("", "")} />
+            <ReviewDetails entity={new InterviewProcess("", "", "", "")} />
             <QuestionsAnswers />
-            <Communication />
-            <InterviewAnalysis />
-            <NextPreparation />
+            <ReviewDetails entity={new Communication("", "", "")} />
+            <ReviewDetails entity={new InterviewAnalysis("", "", "", "", "")} />
+            <ReviewDetails entity={new NextPreparation("", "", "")} />
         </>
     );
 };
