@@ -1,4 +1,13 @@
 export const dict = {
+    interviewDetail: {
+        title: "면접 정보",
+        body: {
+            companyName: "회사명",
+            position: "지원 직무",
+            interviewDateTime: "면접 날짜",
+            category: "면접 유형",
+        },
+    },
     preparation: {
         title: "사전 준비",
         body: {
@@ -40,15 +49,5 @@ export const dict = {
             expression: "표현적 준비",
             additionalPractice: "추가 사항",
         },
-    },
-};
-
-export const InterviewDetaildict = {
-    title: "면접 정보",
-    body: {
-        companyName: "회사명",
-        position: "지원 직무",
-        interviewDateTime: "면접 날짜",
-        category: "면접 유형",
     },
 };

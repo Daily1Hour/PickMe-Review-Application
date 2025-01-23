@@ -14,7 +14,7 @@ export class InterviewReviews {
     ) {}
 }
 
-export class InterviewDetail {
+export class InterviewDetail implements ReviewInterface {
     constructor(
         public companyName: string,
         public position: string,

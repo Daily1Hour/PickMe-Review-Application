@@ -1,4 +1,3 @@
-import InterviewDetailField from "./InterviewDetail";
 import ReviewDetails from "./ReviewDetails";
 import QuestionsAnswers from "./QuestionsAnswers";
 import {
@@ -13,9 +12,7 @@ import {
 const InterviewReviewParts = () => {
     return (
         <>
-            <InterviewDetailField
-                entity={new InterviewDetail("", "", "", "")}
-            />
+            <ReviewDetails entity={new InterviewDetail("", "", "", "")} />
             <ReviewDetails entity={new Preparation("", "")} />
             <ReviewDetails entity={new InterviewProcess("", "", "", "")} />
             <QuestionsAnswers />

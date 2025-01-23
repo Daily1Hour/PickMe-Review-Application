@@ -21,13 +21,22 @@ const ReviewDetails = ({ entity }: { entity: ReviewInterface }) => {
             </Stack>
 
             <Fieldset.Content>
-                {keys.map((key, index) => (
-                    <InputField
-                        key={index}
-                        label={reviewFields[key]}
-                        name={`reviewDetail.${formattedName}.${key}`}
-                    />
-                ))}
+                {keys.map((key, index) => {
+                    const type =
+                        key === "interviewDateTime" ? "datetime-local" : "text"; // 면접 날짜인 경우 datetime-local, 아니면 text
+                    const rootName =
+                        formattedName === "interviewDetail"
+                            ? "interviewDetail"
+                            : `reviewDetail.${formattedName}`;
+                    return (
+                        <InputField
+                            key={index}
+                            label={reviewFields[key]}
+                            name={`${rootName}.${key}`}
+                            type={type} // 여기서 type을 적용
+                        />
+                    );
+                })}
             </Fieldset.Content>
         </Fieldset.Root>
     );
