@@ -1,4 +1,4 @@
-import ReviewDetails from "./ReviewDetails";
+import DynamicReviewFields from "./DynamicReviewFields";
 import QuestionsAnswers from "./QuestionsAnswers";
 import {
     Communication,
@@ -12,13 +12,17 @@ import {
 const InterviewReviewParts = () => {
     return (
         <>
-            <ReviewDetails entity={new InterviewDetail("", "", "", "")} />
-            <ReviewDetails entity={new Preparation("", "")} />
-            <ReviewDetails entity={new InterviewProcess("", "", "", "")} />
+            <DynamicReviewFields entity={new InterviewDetail("", "", "", "")} />
+            <DynamicReviewFields entity={new Preparation("", "")} />
+            <DynamicReviewFields
+                entity={new InterviewProcess("", "", "", "")}
+            />
             <QuestionsAnswers />
-            <ReviewDetails entity={new Communication("", "", "")} />
-            <ReviewDetails entity={new InterviewAnalysis("", "", "", "", "")} />
-            <ReviewDetails entity={new NextPreparation("", "", "")} />
+            <DynamicReviewFields entity={new Communication("", "", "")} />
+            <DynamicReviewFields
+                entity={new InterviewAnalysis("", "", "", "", "")}
+            />
+            <DynamicReviewFields entity={new NextPreparation("", "", "")} />
         </>
     );
 };
