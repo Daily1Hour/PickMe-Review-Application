@@ -28,7 +28,7 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
 
     const navigate = useNavigate();
 
-    const { handleSubmit, reset, watch } = methods;
+    const { handleSubmit, watch } = methods;
 
     // useMutation 훅을 컴포넌트 최상위에서 호출
     const queryClient = useQueryClient();
@@ -69,7 +69,6 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
             });
             // 삭제 시 초기 화면으로
             navigate("/");
-            reset(initialFormData);
         },
     });
 
