@@ -13,6 +13,7 @@ import {
 } from "../schema/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ActionButton from "./ActionButton";
+import { useReviewMutation } from "../hook/useReviewMutation";
 
 interface ReviewFormProps {
     data: InterviewReviews | undefined;
@@ -26,54 +27,16 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
         values: data ?? initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
     });
 
-    const navigate = useNavigate();
+    const { mutation, deleteMutation } = useReviewMutation();
 
     const { handleSubmit, watch } = methods;
 
-    // useMutation 훅을 컴포넌트 최상위에서 호출
-    const queryClient = useQueryClient();
-
-    const mutation = useMutation({
-        mutationFn: async (data: InterviewReviews) => {
-            if (reviewId) {
-                return await putReviewApi(data, reviewId);
-            } else {
-                return await postReviewApi(data);
-            }
-        },
-        onSuccess: (data) => {
-            // // 생성 & 수정 성공 시 사이드 바 "side" 쿼리의 캐시를 무효화하고 데이터를 새로 가져옴(refetch)
-            queryClient.refetchQueries({
-                queryKey: ["side"],
-            });
-
-            queryClient.refetchQueries({
-                queryKey: ["review"],
-            });
-
-            navigate(`${data.data.interviewDetailId}`);
-        },
-    });
-
     const onSubmit = handleSubmit(async (data) => {
-        mutation.mutate(data);
-    });
-
-    const deleteMutation = useMutation({
-        mutationFn: async () => {
-            if (reviewId) return deleteReviewApi(reviewId);
-        },
-        onSuccess: () => {
-            queryClient.refetchQueries({
-                queryKey: ["side"],
-            });
-            // 삭제 시 초기 화면으로
-            navigate("/");
-        },
+        mutation.mutate({ reviewId, data });
     });
 
     const handleDelete = async () => {
-        deleteMutation.mutate();
+        deleteMutation.mutate(reviewId);
     };
 
     return (
