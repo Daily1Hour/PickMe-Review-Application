@@ -12,6 +12,7 @@ import {
     InterviewReviewsType,
 } from "../schema/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ActionButton from "./ActionButton";
 
 interface ReviewFormProps {
     data: InterviewReviews | undefined;
@@ -22,7 +23,7 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
     const methods = useForm<InterviewReviewsType>({
         mode: "onChange", // 실시간 유효성 검증
         resolver: zodResolver(InterviewReviewsSchema),
-        values: data ?? initialFormData, // values가 props로 업데이트 되면 값 업데이트
+        values: data ?? initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
     });
 
     const navigate = useNavigate();
@@ -88,35 +89,10 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
 
                     <InterviewReviewParts />
 
-                    {reviewId ? (
-                        <HStack justify="flex-end">
-                            <Button
-                                colorPalette="green"
-                                type="submit"
-                                width="100px"
-                            >
-                                수정하기
-                            </Button>
-                            <Button
-                                colorPalette="red"
-                                onClick={handleDelete} // 삭제 처리 함수
-                                type="button"
-                                width="100px"
-                            >
-                                삭제하기
-                            </Button>
-                        </HStack>
-                    ) : (
-                        <Box display="flex" justifyContent="flex-end">
-                            <Button
-                                colorPalette="green"
-                                type="submit"
-                                width="100px"
-                            >
-                                저장하기
-                            </Button>
-                        </Box>
-                    )}
+                    <ActionButton
+                        reviewId={reviewId}
+                        handleDelete={handleDelete}
+                    />
                 </Box>
             </form>
         </FormProvider>
