@@ -1,5 +1,4 @@
-import React from "react";
-import { Heading, Button, Box, HStack } from "@chakra-ui/react";
+import { Button, Box, HStack } from "@chakra-ui/react";
 
 interface ActionButtonProps {
     reviewId: string | undefined;
