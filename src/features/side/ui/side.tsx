@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-    Box,
-    Flex,
-    Text,
-    VStack,
-    Button,
-    IconButton,
-    Input,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, Button, IconButton, Input } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
 import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import ReviewList from "./ReviewList";
 
 const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -23,7 +16,6 @@ const Sidebar = () => {
         string | null | undefined
     >(null); // 선택된 리뷰 아이디 상태
     const { reviewId } = useParams<{ reviewId: string | undefined }>();
-    const navigate = useNavigate();
 
     const { data } = useQuery<GetSideDTO[]>({
         queryKey: ["side"],
@@ -119,36 +111,12 @@ const Sidebar = () => {
                         </Box>
                     )}
 
-                    {/* 메뉴 항목 리스트 */}
-                    <VStack align="stretch">
-                        {!filteredItems || filteredItems.length === 0 ? (
-                            <Text>검색된 항목이 없습니다.</Text>
-                        ) : (
-                            filteredItems.map((item) => (
-                                <Button
-                                    key={item.id}
-                                    variant={
-                                        selectedReviewId === item.id
-                                            ? "solid"
-                                            : "ghost"
-                                    }
-                                    colorScheme={
-                                        selectedReviewId === item.id
-                                            ? "teal"
-                                            : "gray"
-                                    }
-                                    mb="10px"
-                                    onClick={() => {
-                                        navigate(`${item.id}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
-                                        setSelectedReviewId(item.id);
-                                    }}
-                                    justifyContent="flex-start" // 텍스트를 왼쪽 정렬
-                                >
-                                    {item.label}
-                                </Button>
-                            ))
-                        )}
-                    </VStack>
+                    {/* 리뷰 항목 리스트 */}
+                    <ReviewList
+                        filteredItems={filteredItems}
+                        selectedReviewId={selectedReviewId}
+                        setSelectedReviewId={setSelectedReviewId}
+                    />
                 </Box>
             )}
         </Flex>
