@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Flex, Text, IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { getSideData } from "../api/sideApi";
 import { useQuery } from "@tanstack/react-query";
@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ButtonItem from "./ButtonItem";
 import ReviewList from "./ReviewList";
 import SearchBar from "./SearchBar";
+import SidebarHeader from "./SidebarHeader";
 
 const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -66,12 +67,8 @@ const Sidebar = () => {
                     height="100vh" // 화면을 가득 채움
                     overflowY="auto" // 스크롤 기능 추가
                 >
-                    {/* Sidebar Header */}
-                    <Text fontSize="xl" fontWeight="bold" textAlign="center">
-                        목록
-                    </Text>
+                    <SidebarHeader title={"목록"} />
 
-                    {/* 새 작성 클릭 시 작성 화면으로  */}
                     <ButtonItem
                         label={"새 작성"}
                         onClick={() => {
@@ -87,7 +84,6 @@ const Sidebar = () => {
                         onSearchChange={(e) => setSearchQuery(e.target.value)}
                     />
 
-                    {/* 리뷰 항목 리스트 */}
                     <ReviewList
                         filteredItems={filteredItems}
                         selectedReviewId={selectedReviewId}
