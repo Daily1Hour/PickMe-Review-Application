@@ -1,6 +1,7 @@
-import { VStack, Button, Text } from "@chakra-ui/react";
+import { VStack, Text } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
+import ButtonItem from "./ButtonItem";
 
 interface ReviewListProps {
     filteredItems: { id: string; label: string }[] | undefined;
@@ -20,23 +21,14 @@ const ReviewList = ({
                 <Text>검색된 항목이 없습니다.</Text>
             ) : (
                 filteredItems.map((item) => (
-                    <Button
-                        key={item.id}
-                        variant={
-                            selectedReviewId === item.id ? "solid" : "ghost"
-                        }
-                        colorScheme={
-                            selectedReviewId === item.id ? "teal" : "gray"
-                        }
-                        mb="10px"
+                    <ButtonItem
+                        label={item.label}
+                        isSelected={selectedReviewId === item.id}
                         onClick={() => {
                             navigate(`${item.id}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
                             setSelectedReviewId(item.id);
                         }}
-                        justifyContent="flex-start" // 텍스트를 왼쪽 정렬
-                    >
-                        {item.label}
-                    </Button>
+                    ></ButtonItem>
                 ))
             )}
         </VStack>

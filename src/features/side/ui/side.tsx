@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Flex, Text, VStack, IconButton, Input } from "@chakra-ui/react";
+import { Box, Flex, Text, IconButton, Input } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
 import { useNavigate, useParams } from "react-router-dom";
 import ButtonItem from "./ButtonItem";
+import ReviewList from "./ReviewList";
 
 const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -98,35 +99,22 @@ const Sidebar = () => {
 
                     {/* 검색창 표시 */}
                     {isSearchOpen && (
-                        <Box>
-                            <Input
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)} // 검색어 입력 시 상태 업데이트
-                                placeholder="면접 회고 검색..."
-                                size="sm"
-                                border="2px solid teal"
-                                borderRadius="md"
-                            />
-                        </Box>
+                        <Input
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)} // 검색어 입력 시 상태 업데이트
+                            placeholder="면접 회고 검색..."
+                            size="sm"
+                            border="2px solid teal"
+                            borderRadius="md"
+                        />
                     )}
 
-                    {/* 메뉴 항목 리스트 */}
-                    <VStack align="stretch">
-                        {!filteredItems || filteredItems.length === 0 ? (
-                            <Text>검색된 항목이 없습니다.</Text>
-                        ) : (
-                            filteredItems.map((item) => (
-                                <ButtonItem
-                                    label={item.label}
-                                    isSelected={selectedReviewId === item.id}
-                                    onClick={() => {
-                                        navigate(`${item.id}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
-                                        setSelectedReviewId(item.id);
-                                    }}
-                                ></ButtonItem>
-                            ))
-                        )}
-                    </VStack>
+                    {/* 리뷰 항목 리스트 */}
+                    <ReviewList
+                        filteredItems={filteredItems}
+                        selectedReviewId={selectedReviewId}
+                        setSelectedReviewId={setSelectedReviewId}
+                    />
                 </Box>
             )}
         </Flex>
