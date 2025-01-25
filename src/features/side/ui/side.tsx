@@ -16,8 +16,8 @@ const Sidebar = () => {
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
     const [selectedReviewId, setSelectedReviewId] = useState<
-        string | null | undefined
-    >(null); // 선택된 리뷰 아이디 상태
+        string | undefined
+    >(undefined); // 선택된 리뷰 아이디 상태
     const { reviewId } = useParams<{ reviewId: string | undefined }>();
     const navigate = useNavigate();
 

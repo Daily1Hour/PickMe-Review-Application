@@ -5,8 +5,8 @@ import ButtonItem from "./ButtonItem";
 
 interface ReviewListProps {
     filteredItems: { id: string; label: string }[] | undefined;
-    selectedReviewId: string | undefined | null;
-    setSelectedReviewId: Dispatch<SetStateAction<string | null | undefined>>;
+    selectedReviewId: string | undefined;
+    setSelectedReviewId: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const ReviewList = ({
