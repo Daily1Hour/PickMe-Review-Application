@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Flex, IconButton } from "@chakra-ui/react";
-import { FiMenu } from "react-icons/fi";
+import { Box, Flex } from "@chakra-ui/react";
 import { getSideData } from "../api/sideApi";
 import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
@@ -9,6 +8,7 @@ import ButtonItem from "./ButtonItem";
 import ReviewList from "./ReviewList";
 import SearchBar from "./SearchBar";
 import SidebarHeader from "./SidebarHeader";
+import SidebarToggleButton from "./SidebarToggleButton";
 
 const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -40,18 +40,9 @@ const Sidebar = () => {
 
     return (
         <Flex height="100vh">
-            {/* Toggle Button */}
-            <IconButton
-                aria-label="Toggle Sidebar"
+            <SidebarToggleButton
                 onClick={() => setSidebarVisible(!isSidebarVisible)}
-                position="fixed"
-                top="15px"
-                left="20px"
-                zIndex="10"
-                size="sm"
-            >
-                <FiMenu />
-            </IconButton>
+            />
 
             {/* Sidebar */}
             {isSidebarVisible && (
