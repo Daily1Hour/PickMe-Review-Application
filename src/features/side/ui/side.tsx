@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Box, Flex, Text, IconButton, Input } from "@chakra-ui/react";
+import { Box, Flex, Text, IconButton } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
-import { LuSearch } from "react-icons/lu";
 import { getSideData } from "../api/sideApi";
 import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
 import { useNavigate, useParams } from "react-router-dom";
 import ButtonItem from "./ButtonItem";
 import ReviewList from "./ReviewList";
+import SearchBar from "./SearchBar";
 
 const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -28,11 +28,6 @@ const Sidebar = () => {
         id: item.reviewId,
         label: `${item.interviewDetail.companyName} | ${item.interviewDetail.category}`,
     }));
-
-    // 검색창 토글 함수
-    const toggleSearch = () => {
-        setIsSearchOpen(!isSearchOpen);
-    };
 
     const filteredItems = formattedMenuItems?.filter((item) =>
         item.label.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -85,29 +80,12 @@ const Sidebar = () => {
                         justifyContent={"center"}
                     />
 
-                    {/* Search Button inside the Sidebar */}
-                    <IconButton
-                        aria-label="Search database"
-                        size="sm"
-                        onClick={toggleSearch} // 클릭 시 검색창 토글
-                        position="absolute"
-                        top="15px"
-                        right="20px"
-                    >
-                        <LuSearch />
-                    </IconButton>
-
-                    {/* 검색창 표시 */}
-                    {isSearchOpen && (
-                        <Input
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)} // 검색어 입력 시 상태 업데이트
-                            placeholder="면접 회고 검색..."
-                            size="sm"
-                            border="2px solid teal"
-                            borderRadius="md"
-                        />
-                    )}
+                    <SearchBar
+                        isSearchOpen={isSearchOpen}
+                        toggleSearch={() => setIsSearchOpen(!isSearchOpen)}
+                        searchQuery={searchQuery}
+                        onSearchChange={(e) => setSearchQuery(e.target.value)}
+                    />
 
                     {/* 리뷰 항목 리스트 */}
                     <ReviewList
