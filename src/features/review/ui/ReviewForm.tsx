@@ -2,7 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Heading, Box } from "@chakra-ui/react";
 
 import { initialFormData } from "../api/initialFormData";
-import { InterviewReviewParts } from "../ui";
+import InterviewReviewParts from "./InterviewReviewParts";
 import { InterviewReviews } from "@/entities/review/model/review";
 import {
     InterviewReviewsSchema,
