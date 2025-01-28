@@ -1,7 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Heading, Box } from "@chakra-ui/react";
 
-import { initialFormData } from "../api/initialFormData";
 import InterviewReviewParts from "./InterviewReviewParts";
 import { InterviewReviews } from "@/entities/review/model/review";
 import {
@@ -21,7 +20,7 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
     const methods = useForm<InterviewReviewsType>({
         mode: "onChange", // 실시간 유효성 검증
         resolver: zodResolver(InterviewReviewsSchema),
-        values: data ?? initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
+        values: data, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
     });
 
     const { mutation, deleteMutation } = useReviewMutation();
