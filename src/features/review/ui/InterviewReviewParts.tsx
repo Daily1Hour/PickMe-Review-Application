@@ -2,9 +2,9 @@ import {
     InterviewDetailSchema,
     ReviewDetailSchema,
 } from "../schema/reviewSchema";
+import getFieldKeyMap from "../util/getFieldKeyMap";
 import DynamicReviewFields from "./DynamicReviewFields";
 import QuestionsAnswers from "./QuestionsAnswers";
-import getFieldKeyMap from "../util/getFieldKeyMap";
 
 const InterviewReviewParts = () => {
     // 스키마에서 필드 이름을 Map으로 추출
@@ -15,7 +15,7 @@ const InterviewReviewParts = () => {
         <>
             <DynamicReviewFields
                 rootName="interviewDetail"
-                sectionFields={interviewDetailKeyMap}
+                fieldNames={Object.keys(interviewDetailKeyMap)}
             />
             {Object.entries(reviewDetailKeyMap).map(([name, fields]) =>
                 name === "questionsAnswers" ? (
@@ -25,7 +25,7 @@ const InterviewReviewParts = () => {
                         key={name}
                         rootName="reviewDetail"
                         sectionName={name}
-                        sectionFields={fields!}
+                        fieldNames={Object.keys(fields!)}
                     />
                 ),
             )}

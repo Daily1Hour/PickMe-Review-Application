@@ -6,11 +6,11 @@ import safeReadDictionary from "../util/safeReadDictionary";
 const DynamicReviewFields = ({
     rootName,
     sectionName,
-    sectionFields,
+    fieldNames,
 }: {
     rootName: string;
     sectionName?: string;
-    sectionFields: Record<string, any>;
+    fieldNames: string[];
 }) => {
     const section = safeReadDictionary(dict, sectionName ?? rootName);
     const prefix = sectionName ? `${rootName}.${sectionName}` : rootName;
@@ -24,7 +24,7 @@ const DynamicReviewFields = ({
             </Stack>
 
             <Fieldset.Content>
-                {Object.keys(sectionFields).map((fieldName) => {
+                {fieldNames.map((fieldName) => {
                     const type =
                         fieldName === "interviewDateTime"
                             ? "datetime-local"
