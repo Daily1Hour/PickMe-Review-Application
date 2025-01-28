@@ -35,14 +35,15 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
         deleteMutation.mutate(reviewId);
     };
 
+    const title = `${watch("interviewDetail.companyName") || ""} -\
+                   ${watch("interviewDetail.category") || ""}`;
+
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
                 <Box display="grid" gap="80px">
                     <Heading textAlign="center" size="3xl" marginTop="50px">
-                        {`${watch("interviewDetail.companyName")} - ${watch(
-                            "interviewDetail.category",
-                        )}`}
+                        {title}
                     </Heading>
 
                     <InterviewReviewParts />
