@@ -1,6 +1,7 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
 import InputField from "./InputField";
 import { dict } from "./ReviewDict";
+import safeReadDictionary from "../util/safeReadDictionary";
 
 const DynamicReviewFields = ({
     rootName,
@@ -11,7 +12,7 @@ const DynamicReviewFields = ({
     sectionName?: string;
     sectionFields: { [key: string]: string };
 }) => {
-    const section = (dict as any)[sectionName ?? rootName];
+    const section = safeReadDictionary(dict, sectionName ?? rootName);
     const prefix = sectionName ? `${rootName}.${sectionName}` : rootName;
 
     return (
@@ -31,7 +32,7 @@ const DynamicReviewFields = ({
                     return (
                         <InputField
                             key={fieldName}
-                            label={section?.body?.[fieldName]}
+                            label={safeReadDictionary(section?.body, fieldName)}
                             name={`${prefix}.${fieldName}`}
                             type={type} // 여기서 type을 적용
                         />
