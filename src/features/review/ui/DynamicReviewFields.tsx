@@ -10,7 +10,7 @@ const DynamicReviewFields = ({
 }: {
     rootName: string;
     sectionName?: string;
-    sectionFields: { [key: string]: string };
+    sectionFields: Record<string, any>;
 }) => {
     const section = safeReadDictionary(dict, sectionName ?? rootName);
     const prefix = sectionName ? `${rootName}.${sectionName}` : rootName;

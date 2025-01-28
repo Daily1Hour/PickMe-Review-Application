@@ -1,21 +1,23 @@
-import { useFormContext } from "react-hook-form";
-import QuestionsAnswers from "./QuestionsAnswers";
+import {
+    InterviewDetailSchema,
+    ReviewDetailSchema,
+} from "../schema/reviewSchema";
 import DynamicReviewFields from "./DynamicReviewFields";
-import { InterviewReviewsType } from "../schema/reviewSchema";
-
-type SectionFieldsType = { [key: string]: string };
+import QuestionsAnswers from "./QuestionsAnswers";
+import getFieldKeyMap from "../util/getFieldKeyMap";
 
 const InterviewReviewParts = () => {
-    const { watch } = useFormContext();
-    const { interviewDetail, reviewDetail } = watch() as InterviewReviewsType;
+    // 스키마에서 필드 이름을 Map으로 추출
+    const reviewDetailKeyMap = getFieldKeyMap(ReviewDetailSchema);
+    const interviewDetailKeyMap = getFieldKeyMap(InterviewDetailSchema);
 
     return (
         <>
             <DynamicReviewFields
                 rootName="interviewDetail"
-                sectionFields={interviewDetail}
+                sectionFields={interviewDetailKeyMap}
             />
-            {Object.entries(reviewDetail).map(([name, fields]) =>
+            {Object.entries(reviewDetailKeyMap).map(([name, fields]) =>
                 name === "questionsAnswers" ? (
                     <QuestionsAnswers key={name} />
                 ) : (
@@ -23,7 +25,7 @@ const InterviewReviewParts = () => {
                         key={name}
                         rootName="reviewDetail"
                         sectionName={name}
-                        sectionFields={fields as SectionFieldsType}
+                        sectionFields={fields!}
                     />
                 ),
             )}
