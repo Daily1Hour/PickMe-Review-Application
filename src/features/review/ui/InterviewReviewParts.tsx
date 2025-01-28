@@ -1,28 +1,32 @@
-import DynamicReviewFields from "./DynamicReviewFields";
+import { useFormContext } from "react-hook-form";
 import QuestionsAnswers from "./QuestionsAnswers";
-import {
-    Communication,
-    InterviewAnalysis,
-    InterviewDetail,
-    InterviewProcess,
-    NextPreparation,
-    Preparation,
-} from "@/entities/review/model/review";
+import DynamicReviewFields from "./DynamicReviewFields";
+import { InterviewReviewsType } from "../schema/reviewSchema";
+
+type SectionFieldsType = { [key: string]: string };
 
 const InterviewReviewParts = () => {
+    const { watch } = useFormContext();
+    const { interviewDetail, reviewDetail } = watch() as InterviewReviewsType;
+
     return (
         <>
-            <DynamicReviewFields entity={new InterviewDetail("", "", "", "")} />
-            <DynamicReviewFields entity={new Preparation("", "")} />
             <DynamicReviewFields
-                entity={new InterviewProcess("", "", "", "")}
+                rootName="interviewDetail"
+                sectionFields={interviewDetail}
             />
-            <QuestionsAnswers />
-            <DynamicReviewFields entity={new Communication("", "", "")} />
-            <DynamicReviewFields
-                entity={new InterviewAnalysis("", "", "", "", "")}
-            />
-            <DynamicReviewFields entity={new NextPreparation("", "", "")} />
+            {Object.entries(reviewDetail).map(([name, fields]) =>
+                name === "questionsAnswers" ? (
+                    <QuestionsAnswers key={name} />
+                ) : (
+                    <DynamicReviewFields
+                        key={name}
+                        rootName="reviewDetail"
+                        sectionName={name}
+                        sectionFields={fields as SectionFieldsType}
+                    />
+                ),
+            )}
         </>
     );
 };
