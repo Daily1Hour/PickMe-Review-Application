@@ -39,6 +39,8 @@ export default defineConfig(({ mode }) => {
             vitePluginSingleSpa(vitePluginSingleSpaOptions), // single-spa 라이브러리 적용
         ],
         build: {
+            // cssMinify: false, // css 코드 압축 여부
+             minify: false, // 빌드시 코드 압축 여부
             cssCodeSplit: false, // css 코드 분할 여부
             emptyOutDir: false, // 빌드시 기존 파일 삭제 여부
         },
