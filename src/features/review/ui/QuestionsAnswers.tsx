@@ -58,25 +58,34 @@ const QuestionsAnswers = () => {
                         <Controller
                             name={`reviewDetail.questionsAnswers.${index}.question`}
                             control={control}
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                                 <TextAreaField
                                     label="면접 질문"
                                     field={field}
+                                    fieldState={fieldState}
                                 />
                             )}
                         />
                         <Controller
                             name={`reviewDetail.questionsAnswers.${index}.answer`}
                             control={control}
-                            render={({ field }) => (
-                                <TextAreaField label="답변" field={field} />
+                            render={({ field, fieldState }) => (
+                                <TextAreaField
+                                    label="답변"
+                                    field={field}
+                                    fieldState={fieldState}
+                                />
                             )}
                         />
                         <Controller
                             name={`reviewDetail.questionsAnswers.${index}.feedback`}
                             control={control}
-                            render={({ field }) => (
-                                <TextAreaField label="피드백" field={field} />
+                            render={({ field, fieldState }) => (
+                                <TextAreaField
+                                    label="피드백"
+                                    field={field}
+                                    fieldState={fieldState}
+                                />
                             )}
                         />
                     </Stack>

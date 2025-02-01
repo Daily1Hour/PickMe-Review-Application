@@ -1,21 +1,28 @@
-import InterviewDetail from "./InterviewDetail";
-import Preparation from "./Preparation";
-import Communication from "./Communication";
-import InterviewAnalysis from "./InterviewAnalysis";
-import InterviewProcess from "./InterviewProcess";
-import NextPreparation from "./NextPreparation";
+import DynamicReviewFields from "./DynamicReviewFields";
 import QuestionsAnswers from "./QuestionsAnswers";
+import {
+    Communication,
+    InterviewAnalysis,
+    InterviewDetail,
+    InterviewProcess,
+    NextPreparation,
+    Preparation,
+} from "@/entities/review/model/review";
 
 const InterviewReviewParts = () => {
     return (
         <>
-            <InterviewDetail />
-            <Preparation />
-            <InterviewProcess />
+            <DynamicReviewFields entity={new InterviewDetail("", "", "", "")} />
+            <DynamicReviewFields entity={new Preparation("", "")} />
+            <DynamicReviewFields
+                entity={new InterviewProcess("", "", "", "")}
+            />
             <QuestionsAnswers />
-            <Communication />
-            <InterviewAnalysis />
-            <NextPreparation />
+            <DynamicReviewFields entity={new Communication("", "", "")} />
+            <DynamicReviewFields
+                entity={new InterviewAnalysis("", "", "", "", "")}
+            />
+            <DynamicReviewFields entity={new NextPreparation("", "", "")} />
         </>
     );
 };
