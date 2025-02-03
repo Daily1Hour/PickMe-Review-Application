@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getReviewApi } from "./api";
 import { InterviewReviews } from "@/entities/review/model/review";
-import ReviewForm from "./ui/ReviewForm";
+import { ReviewForm } from "./ui";
 
 const ReviewPage = () => {
     // 렌더링 시 화면을 맨 위로
