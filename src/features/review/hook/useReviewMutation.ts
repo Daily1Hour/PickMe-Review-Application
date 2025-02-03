@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 
 import { putReviewApi, postReviewApi, deleteReviewApi } from "../api";
 import { InterviewReviews } from "@/entities/review/model/review";
+import { useReviewIdStore } from "@/shared/store/useReviewIdStore";
 
 export const useReviewMutation = () => {
-    const navigate = useNavigate();
     const queryClient = useQueryClient();
+    const { setReviewId } = useReviewIdStore();
 
     const mutation = useMutation({
         mutationFn: async ({
@@ -31,8 +31,7 @@ export const useReviewMutation = () => {
             queryClient.refetchQueries({
                 queryKey: ["review"],
             });
-
-            navigate(`${data.data.interviewDetailId}`);
+            setReviewId(`${data.data.interviewDetailId}`);
         },
     });
 
@@ -45,7 +44,7 @@ export const useReviewMutation = () => {
                 queryKey: ["side"],
             });
             // 삭제 시 초기 화면으로
-            navigate("/");
+            setReviewId(undefined);
         },
     });
     return { mutation, deleteMutation };
