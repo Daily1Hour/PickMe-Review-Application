@@ -1,5 +1,4 @@
 import { VStack, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import ButtonItem from "./ButtonItem";
 import { useReviewIdStore } from "@/shared/store/useReviewIdStore";
 
@@ -8,7 +7,6 @@ interface ReviewListProps {
 }
 
 const ReviewList = ({ filteredItems }: ReviewListProps) => {
-    const navigate = useNavigate();
     const { reviewId, setReviewId } = useReviewIdStore();
     return (
         <VStack align="stretch">
@@ -21,7 +19,6 @@ const ReviewList = ({ filteredItems }: ReviewListProps) => {
                         label={item.label}
                         isSelected={reviewId === item.id}
                         onClick={() => {
-                            navigate(`${item.id}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
                             setReviewId(item.id);
                         }}
                     ></ButtonItem>
