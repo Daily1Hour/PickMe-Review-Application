@@ -1,6 +1,11 @@
 import { create } from "zustand";
 
-export const useSideStore = create((set) => ({
-    reviewId: undefined,
-    setReviewId: (reviewId: string | undefined) => set({ reviewId }),
+type sideStore = {
+    selectedReviewId: string | undefined;
+};
+
+export const useSideStore = create<sideStore>((set) => ({
+    selectedReviewId: undefined,
+    setSelectedReviewId: (selectedReviewId: string | undefined) =>
+        set({ selectedReviewId }),
 }));
