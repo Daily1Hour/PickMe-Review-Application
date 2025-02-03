@@ -3,7 +3,6 @@ import { Flex } from "@chakra-ui/react";
 import { getSideData } from "../api/sideApi";
 import { useQuery } from "@tanstack/react-query";
 import { GetSideDTO } from "../api/getSideDTO";
-import { useNavigate } from "react-router-dom";
 import ButtonItem from "./ButtonItem";
 import ReviewList from "./ReviewList";
 import SearchBar from "./SearchBar";
@@ -18,8 +17,6 @@ const Sidebar = () => {
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
 
     const { setReviewId } = useReviewIdStore();
-
-    const navigate = useNavigate();
 
     const { data } = useQuery<GetSideDTO[]>({
         queryKey: ["side"],
@@ -47,7 +44,6 @@ const Sidebar = () => {
                     <ButtonItem
                         label={"새 작성"}
                         onClick={() => {
-                            navigate("/");
                             setReviewId(undefined);
                         }}
                         justifyContent={"center"}
