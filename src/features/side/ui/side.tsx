@@ -10,11 +10,14 @@ import SearchBar from "./SearchBar";
 import SidebarHeader from "./SidebarHeader";
 import SidebarToggleButton from "./SidebarToggleButton";
 import SidebarContainer from "./SidebarContainer";
+import { useReviewIdStore } from "@/shared/store/useReviewIdStore";
 
 const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
     const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
     const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
+
+    const { setReviewId } = useReviewIdStore();
 
     const navigate = useNavigate();
 
@@ -45,6 +48,7 @@ const Sidebar = () => {
                         label={"새 작성"}
                         onClick={() => {
                             navigate("/");
+                            setReviewId(undefined);
                         }}
                         justifyContent={"center"}
                     />
