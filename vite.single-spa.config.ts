@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 
+import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import vitePluginSingleSpa, {
     SingleSpaPluginOptions,
@@ -33,10 +34,13 @@ export default defineConfig(({ mode }) => {
     // vite 설정
     return {
         plugins: [
+            react(), // React 라이브러리 적용
             tsconfigPaths(), // tsconfig.json의 paths 설정을 적용
             vitePluginSingleSpa(vitePluginSingleSpaOptions), // single-spa 라이브러리 적용
         ],
         build: {
+            // cssMinify: false, // css 코드 압축 여부
+             minify: false, // 빌드시 코드 압축 여부
             cssCodeSplit: false, // css 코드 분할 여부
             emptyOutDir: false, // 빌드시 기존 파일 삭제 여부
         },

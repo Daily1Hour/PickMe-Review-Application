@@ -3,7 +3,7 @@ import { Field } from "@/shared/chakra-ui/field";
 import { useFormContext } from "react-hook-form";
 
 interface InputFieldProps {
-    label: string;
+    label: string | null;
     name: string;
     type?: string;
 }
@@ -30,7 +30,7 @@ const InputField = ({ label, name, type = "text" }: InputFieldProps) => {
             {/* Flex로 감싸서 에러 메세지 입력칸 아래에 뜨게 설정 */}
             <Flex flexDirection="column" width="100%">
                 <Input
-                    placeholder={label}
+                    placeholder={label || undefined}
                     variant="flushed"
                     size="lg"
                     type={type}

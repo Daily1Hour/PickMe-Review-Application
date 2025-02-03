@@ -22,6 +22,7 @@ const ReviewList = ({
             ) : (
                 filteredItems.map((item) => (
                     <ButtonItem
+                        key={item.id}
                         label={item.label}
                         isSelected={selectedReviewId === item.id}
                         onClick={() => {
