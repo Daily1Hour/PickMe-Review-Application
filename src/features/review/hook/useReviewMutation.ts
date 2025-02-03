@@ -29,7 +29,7 @@ export const useReviewMutation = () => {
             });
 
             queryClient.refetchQueries({
-                queryKey: ["review"],
+                queryKey: ["review", `${data.data.interviewDetailId}`],
             });
             setReviewId(`${data.data.interviewDetailId}`);
         },
