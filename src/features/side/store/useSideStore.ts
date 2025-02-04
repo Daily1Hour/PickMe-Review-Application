@@ -8,9 +8,9 @@ type sideType = {
 };
 
 export const useSideStore = create<sideType>((set) => ({
-    isSearchOpen: false,
+    isSearchOpen: false, // 검색창 상태
     setIsSearchOpen: (isSearchOpen: boolean) => set({ isSearchOpen }),
 
-    searchQuery: "",
+    searchQuery: "", // 검색 쿼리 상태 관리
     setSearchQuery: (searchQuery: string) => set({ searchQuery }),
 }));

@@ -11,11 +11,12 @@ import SidebarHeader from "./SidebarHeader";
 import SidebarToggleButton from "./SidebarToggleButton";
 import SidebarContainer from "./SidebarContainer";
 import { useReviewIdStore } from "@/shared/store/useReviewIdStore";
+import { useSideStore } from "../store/useSideStore";
 
 const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
-    const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태 관리
-    const [searchQuery, setSearchQuery] = useState(""); // 검색 쿼리 상태 관리
+
+    const { searchQuery } = useSideStore();
 
     const { setReviewId } = useReviewIdStore();
 
@@ -52,12 +53,7 @@ const Sidebar = () => {
                         }}
                         justifyContent={"center"}
                     />
-                    <SearchBar
-                        isSearchOpen={isSearchOpen}
-                        toggleSearch={() => setIsSearchOpen(!isSearchOpen)}
-                        searchQuery={searchQuery}
-                        onSearchChange={(e) => setSearchQuery(e.target.value)}
-                    />
+                    <SearchBar />
                     <ReviewList filteredItems={filteredItems} />
                 </SidebarContainer>
             )}
