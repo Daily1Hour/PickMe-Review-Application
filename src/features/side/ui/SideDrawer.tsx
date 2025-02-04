@@ -13,7 +13,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/shared/chakra-ui/drawer";
-import { Button } from "@chakra-ui/react";
+import { IconButton } from "@chakra-ui/react";
 import { CiMenuBurger } from "react-icons/ci";
 
 interface SideDrawerProps {
@@ -29,9 +29,9 @@ const SideDrawer = ({ filteredItems }: SideDrawerProps) => {
         <DrawerRoot placement={"start"}>
             <DrawerBackdrop />
             <DrawerTrigger asChild>
-                <Button variant="outline" size="lg">
+                <IconButton variant="outline" size="lg">
                     <CiMenuBurger />
-                </Button>
+                </IconButton>
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
