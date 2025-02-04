@@ -1,3 +1,4 @@
+import { Separator } from "@chakra-ui/react";
 import {
     InterviewDetailSchema,
     ReviewDetailSchema,
@@ -19,7 +20,10 @@ const InterviewReviewParts = () => {
             />
             {Object.entries(reviewDetailKeyMap).map(([name, fields]) =>
                 name === "questionsAnswers" ? (
-                    <QuestionsAnswers key={name} />
+                    <>
+                        <QuestionsAnswers key={name} />
+                        <Separator borderColor="black" size="sm" />
+                    </>
                 ) : (
                     <DynamicReviewFields
                         key={name}
