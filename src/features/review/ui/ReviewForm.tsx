@@ -42,7 +42,7 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
     return (
         <FormProvider {...methods}>
             <form onSubmit={onSubmit}>
-                <Box display="grid" gap="80px">
+                <Box display="grid" gap="50px">
                     <Heading textAlign="center" size="3xl" marginTop="50px">
                         {title}
                     </Heading>

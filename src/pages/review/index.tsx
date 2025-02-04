@@ -1,17 +1,16 @@
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Sidebar from "../../features/side";
 import ReviewPage from "@/features/review";
 
 const Review = () => {
     return (
-        <div style={{ display: "flex" }}>
+        <Flex>
             <Sidebar />
-
-            <Box
+            <Flex
                 flex="1"
                 bg="whiteAlpha.100"
-                paddingLeft="30%" // 좌측 패딩 10%
-                paddingRight="30%" // 우측 패딩 10%
+                paddingLeft="25%" // 좌측 패딩
+                paddingRight="25%" // 우측 패딩
                 display="flex"
                 flexDirection="column"
                 height="100vh" // 화면 전체 높이를 채움
@@ -20,8 +19,8 @@ const Review = () => {
                 gap="100px" // 자식 요소들 사이에 20px 간격
             >
                 <ReviewPage />
-            </Box>
-        </div>
+            </Flex>
+        </Flex>
     );
 };
 
