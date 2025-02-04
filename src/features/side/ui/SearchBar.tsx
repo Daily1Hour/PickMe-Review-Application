@@ -13,7 +13,7 @@ const SearchBar = () => {
                 size="sm"
                 onClick={() => setIsSearchOpen(!isSearchOpen)} // 클릭 시 검색창 토글
                 position="absolute"
-                top="15px"
+                top="80px"
                 right="20px"
             >
                 <LuSearch />
