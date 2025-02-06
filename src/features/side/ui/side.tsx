@@ -5,7 +5,7 @@ import { useSideStore } from "../store/useSideStore";
 import SideDrawer from "./SideDrawer";
 
 const Sidebar = () => {
-    const { searchQuery } = useSideStore();
+    const searchQuery = useSideStore((state) => state.searchQuery); // 객체 형태 말고 변수로 받음
 
     const { data } = useQuery<GetSideDTO[]>({
         queryKey: ["side"],
