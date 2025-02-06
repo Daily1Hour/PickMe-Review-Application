@@ -1,7 +1,6 @@
 import { VStack, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonItem from "./ButtonItem";
-import { useReviewIdStore } from "@/shared/store/useReviewIdStore";
 
 interface ReviewListProps {
     filteredItems: { id: string; label: string }[] | undefined;
@@ -9,7 +8,16 @@ interface ReviewListProps {
 
 const ReviewList = ({ filteredItems }: ReviewListProps) => {
     const navigate = useNavigate();
-    const { reviewId, setReviewId } = useReviewIdStore();
+
+    const { reviewId } = useParams<{ reviewId: string | undefined }>();
+
+    // 클릭된 아이템의 ID가 현재 reviewId와 같으면 navigate를 호출하지 않음
+    const handleButtonClick = (itemId: string) => {
+        if (reviewId !== itemId) {
+            navigate(`${itemId}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
+        }
+    };
+
     return (
         <VStack align="stretch">
             {!filteredItems || filteredItems.length === 0 ? (
@@ -20,10 +28,7 @@ const ReviewList = ({ filteredItems }: ReviewListProps) => {
                         key={item.id}
                         label={item.label}
                         isSelected={reviewId === item.id}
-                        onClick={() => {
-                            navigate(`${item.id}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
-                            setReviewId(item.id);
-                        }}
+                        onClick={() => handleButtonClick(item.id)}
                     ></ButtonItem>
                 ))
             )}
