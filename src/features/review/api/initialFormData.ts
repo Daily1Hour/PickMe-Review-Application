@@ -1,47 +1,33 @@
 import { InterviewReviewsType } from "../schema/reviewSchema";
 
 export const initialFormData: InterviewReviewsType = {
-    interviewDetail: {
-        companyName: "",
-        position: "",
-        interviewDateTime: "",
-        category: "",
-    },
-    reviewDetail: {
-        preparation: {
-            strengths: "",
-            improvements: "",
-        },
-        interviewProcess: {
-            format: "",
-            mood: "",
-            panel: "",
-            interviewRatio: "",
-        },
-        questionsAnswers: [
-            {
-                type: "",
-                question: "",
-                answer: "",
-                feedback: "",
-            },
-        ],
-        communication: {
-            verbal: "",
-            nonVerbal: "",
-            interaction: "",
-        },
-        interviewAnalysis: {
-            strengths: "",
-            improvements: "",
+    companyName: "",
+    position: "",
+    interviewDateTime: "",
+    category: "",
+    strengths: "",
+    improvements: "",
+    format: "",
+    mood: "",
+    panel: "",
+    interviewRatio: "",
+    questionsAnswers: [
+        {
+            type: "",
+            question: "",
+            answer: "",
             feedback: "",
-            difficulty: "",
-            interviewResultAnalysis: "",
         },
-        nextPreparation: {
-            technical: "",
-            expression: "",
-            additionalPractice: "",
-        },
-    },
+    ],
+    verbal: "",
+    nonVerbal: "",
+    interaction: "",
+    analysisStrengths: "",
+    analysisImprovements: "",
+    analysisFeedback: "",
+    difficulty: "",
+    interviewResultAnalysis: "",
+    technical: "",
+    expression: "",
+    additionalPractice: "",
 };
