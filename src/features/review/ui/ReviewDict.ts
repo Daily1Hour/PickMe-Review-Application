@@ -1,4 +1,5 @@
 export const dict = {
+    // InterviewDetail
     interviewDetail: {
         title: "면접 정보",
         body: {
@@ -8,6 +9,7 @@ export const dict = {
             category: "면접 유형",
         },
     },
+    // Preparation
     preparation: {
         title: "사전 준비",
         body: {
@@ -15,6 +17,8 @@ export const dict = {
             improvements: "개선할 점",
         },
     },
+
+    // InterviewProcess
     interviewProcess: {
         title: "면접 진행 과정",
         body: {
@@ -24,6 +28,19 @@ export const dict = {
             interviewRatio: "면접관 : 면접자 비율",
         },
     },
+
+    // questionsAnswers
+    questionsAnswers: {
+        title: "면접 질문과 답변",
+        body: {
+            type: "질문 유형",
+            question: "면접 질문",
+            answer: "답변",
+            feedback: "피드백",
+        },
+    },
+
+    // Communication
     communication: {
         title: "의사소통",
         body: {
@@ -32,16 +49,20 @@ export const dict = {
             interaction: "상호작용",
         },
     },
+
+    // InterviewAnalysis
     interviewAnalysis: {
         title: "면접 분석 및 종합적 평가",
         body: {
-            strengths: "잘한 점",
-            improvements: "개선할 점",
-            feedback: "피드백",
+            analysisStrengths: "잘한 점",
+            analysisImprovements: "개선할 점",
+            analysisFeedback: "피드백",
             difficulty: "난이도",
             interviewResultAnalysis: "결과 분석",
         },
     },
+
+    // NextPreparation
     nextPreparation: {
         title: "다음 면접을 위한 준비",
         body: {
