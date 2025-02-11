@@ -2,9 +2,9 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Heading, Box } from "@chakra-ui/react";
 
 import InterviewReviewParts from "./InterviewReviewParts";
-import { InterviewReviews } from "@/entities/review/model/review";
+import { FlattenedReview } from "@/entities/review/model/review";
 import {
-    InterviewReviewsSchema,
+    FlattenedInterviewReviewsSchema,
     InterviewReviewsType,
 } from "../schema/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,14 +13,14 @@ import { useReviewMutation } from "../hook/useReviewMutation";
 import { initialFormData } from "../api/initialFormData";
 
 interface ReviewFormProps {
-    data: InterviewReviews | undefined;
+    data: FlattenedReview | undefined;
     reviewId: string | undefined;
 }
 
 const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
     const methods = useForm<InterviewReviewsType>({
         mode: "onChange", // 실시간 유효성 검증
-        resolver: zodResolver(InterviewReviewsSchema),
+        resolver: zodResolver(FlattenedInterviewReviewsSchema),
         values: data ?? initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
     });
 
@@ -36,8 +36,8 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
         deleteMutation.mutate(reviewId);
     };
 
-    const title = `${watch("interviewDetail.companyName") || ""} -\
-                   ${watch("interviewDetail.category") || ""}`;
+    const title = `${watch("companyName") || ""} -\
+                   ${watch("category") || ""}`;
 
     return (
         <FormProvider {...methods}>
