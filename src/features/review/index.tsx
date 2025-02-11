@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getReviewApi } from "./api";
-import { InterviewReviews } from "@/entities/review/model/review";
+import { FlattenedReview } from "@/entities/review/model/review";
 import { ReviewForm } from "./ui";
 
 const ReviewPage = () => {
@@ -12,7 +12,7 @@ const ReviewPage = () => {
     const { reviewId } = useParams<{ reviewId: string | undefined }>();
 
     // reviewId가 있을 경우에만 작동
-    const { data } = useQuery<InterviewReviews>({
+    const { data } = useQuery<FlattenedReview>({
         queryKey: ["review", reviewId],
         queryFn: () => getReviewApi(reviewId as string),
         enabled: !!reviewId,

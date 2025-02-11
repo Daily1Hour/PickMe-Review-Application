@@ -82,4 +82,37 @@ export class NextPreparation implements ReviewInterface {
     ) {}
 }
 
+export class FlattenedReview {
+    constructor(
+        public companyName: string,
+        public position: string,
+        public interviewDateTime: string,
+        public category: string,
+        public strengths: string,
+        public improvements: string,
+        public format: string,
+        public mood: string,
+        public panel: string,
+        public interviewRatio: string,
+        public questionsAnswers: {
+            type: string;
+            question: string;
+            answer: string;
+            feedback: string;
+        }[],
+        public verbal: string,
+        public nonVerbal: string,
+        public interaction: string,
+        public analysisStrengths: string,
+        public analysisImprovements: string,
+        public analysisFeedback: string,
+        public difficulty: string,
+        public interviewResultAnalysis: string,
+        public technical: string,
+        public expression: string,
+        public additionalPractice: string,
+        public reviewId?: string,
+    ) {}
+}
+
 export interface ReviewInterface {}
