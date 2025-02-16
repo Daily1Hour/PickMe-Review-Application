@@ -1,10 +1,12 @@
 import { Flex } from "@chakra-ui/react";
-import Sidebar from "../../features/side";
+import { Container } from "@styleguide/react";
+
+import Sidebar from "@/features/side";
 import ReviewPage from "@/features/review";
 
 const Review = () => {
     return (
-        <Flex>
+        <Container>
             <Sidebar />
             <Flex
                 flex="1"
@@ -20,7 +22,7 @@ const Review = () => {
             >
                 <ReviewPage />
             </Flex>
-        </Flex>
+        </Container>
     );
 };
 
