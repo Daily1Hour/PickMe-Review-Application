@@ -9,8 +9,8 @@ import {
 } from "../schema/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ActionButton from "./ActionButton";
-import { useReviewMutation } from "../hook/useReviewMutation";
 import { initialFormData } from "../api/initialFormData";
+import React from "react";
 
 interface ReviewFormProps {
     data: FlattenedReview | undefined;
@@ -24,24 +24,11 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
         values: data ?? initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
     });
 
-    const { mutation, deleteMutation } = useReviewMutation();
-
-    const { handleSubmit, watch } = methods;
-
-    const onSubmit = handleSubmit(async (data) => {
-        mutation.mutate({ reviewId, data });
-    });
-
-    const handleDelete = async () => {
-        deleteMutation.mutate(reviewId);
-    };
-
-    const title = `${watch("companyName") || ""} -\
-                   ${watch("category") || ""}`;
+    const title = data ? `${data?.companyName} - ${data?.category}` : "-";
 
     return (
         <FormProvider {...methods}>
-            <form onSubmit={onSubmit}>
+            <form>
                 <Box display="grid" gap="50px">
                     <Heading textAlign="center" size="3xl" marginTop="50px">
                         {title}
@@ -49,14 +36,11 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
 
                     <InterviewReviewParts />
 
-                    <ActionButton
-                        reviewId={reviewId}
-                        handleDelete={handleDelete}
-                    />
+                    <ActionButton reviewId={reviewId} methods={methods} />
                 </Box>
             </form>
         </FormProvider>
     );
 };
 
-export default ReviewForm;
+export default React.memo(ReviewForm);

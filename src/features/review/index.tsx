@@ -7,7 +7,7 @@ import { ReviewForm } from "./ui";
 
 const ReviewPage = () => {
     // 렌더링 시 화면을 맨 위로
-    window.scrollTo(0, 0);
+
     // useParams로 url의 reviewId값 가져옴
     const { reviewId } = useParams<{ reviewId: string | undefined }>();
 

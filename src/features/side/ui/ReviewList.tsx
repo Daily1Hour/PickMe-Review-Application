@@ -13,9 +13,7 @@ const ReviewList = ({ filteredItems }: ReviewListProps) => {
 
     // 클릭된 아이템의 ID가 현재 reviewId와 같으면 navigate를 호출하지 않음
     const handleButtonClick = (itemId: string) => {
-        if (reviewId !== itemId) {
-            navigate(`${itemId}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
-        }
+        navigate(`${itemId}`); // 클릭 시 item.id 값을 URL에 추가하여 해당 경로로 이동
     };
 
     return (
