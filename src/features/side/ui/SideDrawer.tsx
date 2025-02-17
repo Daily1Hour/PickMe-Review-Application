@@ -26,7 +26,7 @@ const SideDrawer = ({ filteredItems }: SideDrawerProps) => {
         <DrawerRoot placement={"start"}>
             <DrawerBackdrop />
             <DrawerTrigger asChild>
-                <IconButton variant="outline" size="lg">
+                <IconButton variant="outline" size="lg" position="fixed">
                     <CiMenuBurger />
                 </IconButton>
             </DrawerTrigger>
