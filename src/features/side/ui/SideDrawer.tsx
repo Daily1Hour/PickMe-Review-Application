@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import ReviewList from "./ReviewList";
 import ButtonItem from "./ButtonItem";
@@ -20,8 +19,6 @@ interface SideDrawerProps {
 }
 
 const SideDrawer = ({ filteredItems }: SideDrawerProps) => {
-    const navigate = useNavigate();
-
     return (
         <DrawerRoot placement={"start"}>
             <DrawerBackdrop />
@@ -36,10 +33,8 @@ const SideDrawer = ({ filteredItems }: SideDrawerProps) => {
                 </DrawerHeader>
                 <DrawerBody>
                     <ButtonItem
+                        itemId="/"
                         label={"새 작성"}
-                        onClick={() => {
-                            navigate("/");
-                        }}
                         justifyContent={"center"}
                     />
                     <SearchBar />
