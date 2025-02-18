@@ -10,7 +10,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import ActionButton from "./ActionButton";
 import { initialFormData } from "../api/initialFormData";
-import React from "react";
+import React, { useEffect } from "react";
 
 interface ReviewFormProps {
     data: FlattenedReview | undefined;
@@ -21,8 +21,19 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
     const methods = useForm<InterviewReviewsType>({
         mode: "onChange", // 실시간 유효성 검증
         resolver: zodResolver(FlattenedInterviewReviewsSchema),
-        values: data ?? initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
+        defaultValues: initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
     });
+
+    const { reset } = methods;
+    console.log(data, reviewId);
+    useEffect(() => {
+        if (data) {
+            reset(data); // data가 있을 때만 reset 실행
+        }
+        if (reviewId === undefined) {
+            reset(initialFormData);
+        }
+    }, [data, reset]); // data가 변경될 때마다 실행
 
     const title = data ? `${data?.companyName} - ${data?.category}` : "-";
 
