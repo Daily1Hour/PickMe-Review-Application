@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { useReviewIdStore } from "@/shared/store/useReviewIdStore";
 import SearchBar from "./SearchBar";
 import ReviewList from "./ReviewList";
 import ButtonItem from "./ButtonItem";
@@ -21,15 +19,11 @@ interface SideDrawerProps {
 }
 
 const SideDrawer = ({ filteredItems }: SideDrawerProps) => {
-    const navigate = useNavigate();
-
-    const { setReviewId } = useReviewIdStore();
-
     return (
         <DrawerRoot placement={"start"}>
             <DrawerBackdrop />
             <DrawerTrigger asChild>
-                <IconButton variant="outline" size="lg">
+                <IconButton variant="outline" size="lg" position="fixed">
                     <CiMenuBurger />
                 </IconButton>
             </DrawerTrigger>
@@ -39,11 +33,8 @@ const SideDrawer = ({ filteredItems }: SideDrawerProps) => {
                 </DrawerHeader>
                 <DrawerBody>
                     <ButtonItem
+                        itemId="/"
                         label={"새 작성"}
-                        onClick={() => {
-                            navigate("/");
-                            setReviewId(undefined);
-                        }}
                         justifyContent={"center"}
                     />
                     <SearchBar />

@@ -14,12 +14,8 @@ const InputField = ({ label, name, type = "text" }: InputFieldProps) => {
         formState: { errors },
     } = useFormContext();
 
-    // 중첩된 객체 경로를 동적으로 탐색
-    const nameParts = name.split(".");
-    let error: any = errors;
-    for (const part of nameParts) {
-        error = error?.[part];
-    }
+    let error: any = errors[name];
+
     return (
         <Field
             orientation="horizontal"

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 import { putReviewApi, postReviewApi, deleteReviewApi } from "../api";
-import { InterviewReviews } from "@/entities/review/model/review";
+import { FlattenedReview } from "@/entities/review/model/review";
 
 export const useReviewMutation = () => {
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ export const useReviewMutation = () => {
             data,
         }: {
             reviewId: string | undefined;
-            data: InterviewReviews;
+            data: FlattenedReview;
         }) => {
             if (reviewId) {
                 return await putReviewApi(data, reviewId);
