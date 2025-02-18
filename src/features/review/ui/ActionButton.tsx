@@ -11,10 +11,11 @@ interface ActionButtonProps {
 const ActionButton = ({ reviewId, methods }: ActionButtonProps) => {
     const { mutation, deleteMutation } = useReviewMutation();
 
-    const handleSave = () => {
-        const formData = methods.getValues(); // form data 가져오기
-        mutation.mutate({ reviewId, data: formData }); // 제출 시 mutation 호출
-    };
+    const { handleSubmit } = methods;
+
+    const handleSave = handleSubmit(async (data) => {
+        mutation.mutate({ reviewId, data });
+    });
 
     const handleDelete = async () => {
         deleteMutation.mutate(reviewId); // 삭제 시 deleteMutation 호출
@@ -27,6 +28,7 @@ const ActionButton = ({ reviewId, methods }: ActionButtonProps) => {
                     <Button
                         colorPalette="green"
                         onClick={handleSave}
+                        type="submit"
                         width="100px"
                     >
                         수정하기
@@ -45,6 +47,7 @@ const ActionButton = ({ reviewId, methods }: ActionButtonProps) => {
                     <Button
                         colorPalette="green"
                         onClick={handleSave}
+                        type="submit"
                         width="100px"
                     >
                         저장하기
