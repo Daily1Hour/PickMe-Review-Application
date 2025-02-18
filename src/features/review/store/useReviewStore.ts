@@ -1,12 +1,12 @@
-import { InterviewReviews } from "@/entities/review/model/review";
+import { FlattenedReview } from "@/entities/review/model/review";
 import { create } from "zustand";
 
 type reviewType = {
-    review: InterviewReviews | undefined;
-    setReview: (review: InterviewReviews | undefined) => void;
+    review: FlattenedReview | undefined;
+    setReview: (review: FlattenedReview | undefined) => void;
 };
 
 export const useReviewStore = create<reviewType>((set) => ({
     review: undefined,
-    setReview: (review: InterviewReviews | undefined) => set({ review }),
+    setReview: (review: FlattenedReview | undefined) => set({ review }),
 }));
