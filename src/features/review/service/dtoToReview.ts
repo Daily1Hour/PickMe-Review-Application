@@ -1,10 +1,11 @@
-import { InterviewReviews } from "@/entities/review/model/review";
 import { GetResponseDTO } from "../api/reviewDTOList";
 
 export function dtoToReview(dto: GetResponseDTO) {
     const interview = dto.interviewReviews[0];
 
     return {
+        createAt: interview.createdAt,
+        updatedAt: interview.updatedAt,
         companyName: interview.interviewDetail.companyName,
         position: interview.interviewDetail.position,
         interviewDateTime: interview.interviewDetail.interviewDateTime,
