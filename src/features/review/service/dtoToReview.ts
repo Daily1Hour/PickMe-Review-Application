@@ -4,7 +4,7 @@ export function dtoToReview(dto: GetResponseDTO) {
     const interview = dto.interviewReviews[0];
 
     return {
-        createAt: interview.createdAt,
+        createdAt: interview.createdAt,
         updatedAt: interview.updatedAt,
         companyName: interview.interviewDetail.companyName,
         position: interview.interviewDetail.position,
