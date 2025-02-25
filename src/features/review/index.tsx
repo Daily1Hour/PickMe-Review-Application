@@ -19,6 +19,7 @@ const ReviewPage = () => {
         staleTime: 1000 * 60 * 60,
     });
 
+    console.log(data?.createdAt, data?.updatedAt);
     return <ReviewForm data={data} reviewId={reviewId} />;
 };
 

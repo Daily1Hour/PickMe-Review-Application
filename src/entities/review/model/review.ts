@@ -84,8 +84,6 @@ export class NextPreparation implements ReviewInterface {
 
 export class FlattenedReview {
     constructor(
-        public createdAt: string,
-        public updatedAt: string,
         public companyName: string,
         public position: string,
         public interviewDateTime: string,
@@ -114,6 +112,8 @@ export class FlattenedReview {
         public expression: string,
         public additionalPractice: string,
         public reviewId?: string,
+        public createdAt?: string,
+        public updatedAt?: string,
     ) {}
 }
 
