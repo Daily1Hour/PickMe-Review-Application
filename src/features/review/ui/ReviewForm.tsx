@@ -12,6 +12,7 @@ import { initialFormData } from "../api/initialFormData";
 import React from "react";
 import { useReviewMutation } from "../hook/useReviewMutation";
 import { useReviewStore } from "../store/useReviewStore";
+import router from "@/app/router";
 
 const ReviewForm = () => {
     const { review, setReview } = useReviewStore();
@@ -31,7 +32,7 @@ const ReviewForm = () => {
     const onSubmit = handleSubmit(async (data) => {
         if (!reviewId) {
             const newReview = await createMutation({ data });
-            console.log(newReview.interviewDetailId);
+            router.navigate(`/${newReview.interviewDetailId}`);
         } else {
             updateMutation({ reviewId, data });
             setReview(data);
