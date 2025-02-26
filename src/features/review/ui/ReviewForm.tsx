@@ -2,7 +2,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Heading, Box } from "@chakra-ui/react";
 
 import InterviewReviewParts from "./InterviewReviewParts";
-import { FlattenedReview } from "@/entities/review/model/review";
 import {
     FlattenedInterviewReviewsSchema,
     InterviewReviewsType,
@@ -10,44 +9,40 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import ActionButton from "./ActionButton";
 import { initialFormData } from "../api/initialFormData";
-import React, { useEffect } from "react";
+import React from "react";
 import { useReviewMutation } from "../hook/useReviewMutation";
+import { useReviewStore } from "../store/useReviewStore";
 
-interface ReviewFormProps {
-    data: FlattenedReview | undefined;
-    reviewId: string | undefined;
-}
-
-const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
+const ReviewForm = () => {
+    const { review, setReview } = useReviewStore();
     const methods = useForm<InterviewReviewsType>({
         mode: "onChange", // 실시간 유효성 검증
         resolver: zodResolver(FlattenedInterviewReviewsSchema),
-        defaultValues: initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
+        defaultValues: review || initialFormData,
     });
 
-    const { mutation, deleteMutation } = useReviewMutation();
+    const reviewId = review.reviewId;
+
+    const { createMutation, updateMutation, deleteMutation } =
+        useReviewMutation();
 
     const { handleSubmit } = methods;
 
     const onSubmit = handleSubmit(async (data) => {
-        mutation.mutate({ reviewId, data });
+        if (!reviewId) {
+            const newReview = await createMutation({ data });
+            console.log(newReview.interviewDetailId);
+        } else {
+            updateMutation({ reviewId, data });
+            setReview(data);
+        }
     });
 
     const handleDelete = async () => {
-        deleteMutation.mutate(reviewId);
+        deleteMutation(reviewId);
     };
 
-    const { reset } = methods;
-    useEffect(() => {
-        if (data) {
-            reset(data); // data가 있을 때만 reset 실행
-        }
-        if (reviewId === undefined) {
-            reset(initialFormData);
-        }
-    }, [data, reset]); // data가 변경될 때마다 실행
-
-    const title = data ? `${data?.companyName} - ${data?.category}` : "-";
+    const title = review ? `${review?.companyName} - ${review?.category}` : "-";
 
     return (
         <FormProvider {...methods}>
