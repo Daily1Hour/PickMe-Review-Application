@@ -1,12 +1,13 @@
 import { FlattenedReview } from "@/entities/review/model/review";
 import { create } from "zustand";
+import { initialFormData } from "../api/initialFormData";
 
 type reviewType = {
-    review: FlattenedReview | undefined;
-    setReview: (review: FlattenedReview | undefined) => void;
+    review: FlattenedReview;
+    setReview: (review: FlattenedReview) => void;
 };
 
 export const useReviewStore = create<reviewType>((set) => ({
-    review: undefined,
-    setReview: (review: FlattenedReview | undefined) => set({ review }),
+    review: initialFormData,
+    setReview: (review) => set({ review }),
 }));
