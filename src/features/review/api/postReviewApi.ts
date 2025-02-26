@@ -13,8 +13,10 @@ const client = axios.create({
     },
 });
 
-export const postReviewApi = async (data: FlattenedReview) => {
+export const postReviewApi = async (
+    data: FlattenedReview,
+): Promise<{ interviewDetailId: string }> => {
     const dto = reviewToCreateDTO(data);
     const response = await client.post(`/interview`, dto);
-    return response;
+    return response.data;
 };
