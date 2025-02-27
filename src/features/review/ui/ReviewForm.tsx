@@ -2,42 +2,48 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Heading, Box } from "@chakra-ui/react";
 
 import InterviewReviewParts from "./InterviewReviewParts";
-import { InterviewReviews } from "@/entities/review/model/review";
 import {
-    InterviewReviewsSchema,
+    FlattenedInterviewReviewsSchema,
     InterviewReviewsType,
 } from "../schema/reviewSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ActionButton from "./ActionButton";
-import { useReviewMutation } from "../hook/useReviewMutation";
 import { initialFormData } from "../api/initialFormData";
+import React from "react";
+import { useReviewMutation } from "../hook/useReviewMutation";
+import { useReviewStore } from "../store/useReviewStore";
+import { navigateTo } from "@/shared/api/router";
 
-interface ReviewFormProps {
-    data: InterviewReviews | undefined;
-    reviewId: string | undefined;
-}
-
-const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
+const ReviewForm = () => {
+    const { review, setReview } = useReviewStore();
     const methods = useForm<InterviewReviewsType>({
         mode: "onChange", // 실시간 유효성 검증
-        resolver: zodResolver(InterviewReviewsSchema),
-        values: data ?? initialFormData, // values가 props로 업데이트 되면 값 업데이트, defaultValue는 첫 마운트 시에만 초기값 설정됨
+        resolver: zodResolver(FlattenedInterviewReviewsSchema),
+        defaultValues: review || initialFormData,
     });
 
-    const { mutation, deleteMutation } = useReviewMutation();
+    const reviewId = review.reviewId;
 
-    const { handleSubmit, watch } = methods;
+    const { createMutation, updateMutation, deleteMutation } =
+        useReviewMutation();
+
+    const { handleSubmit } = methods;
 
     const onSubmit = handleSubmit(async (data) => {
-        mutation.mutate({ reviewId, data });
+        if (!reviewId) {
+            const newReview = await createMutation({ data });
+            navigateTo(`/${newReview.interviewDetailId}`);
+        } else {
+            updateMutation({ reviewId, data });
+            setReview(data);
+        }
     });
 
     const handleDelete = async () => {
-        deleteMutation.mutate(reviewId);
+        deleteMutation(reviewId);
     };
 
-    const title = `${watch("interviewDetail.companyName") || ""} -\
-                   ${watch("interviewDetail.category") || ""}`;
+    const title = review ? `${review?.companyName} - ${review?.category}` : "-";
 
     return (
         <FormProvider {...methods}>
@@ -59,4 +65,4 @@ const ReviewForm = ({ data, reviewId }: ReviewFormProps) => {
     );
 };
 
-export default ReviewForm;
+export default React.memo(ReviewForm);

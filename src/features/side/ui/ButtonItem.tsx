@@ -1,28 +1,31 @@
 import { Button } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface ButtonItemProps {
+    itemId: string;
     label: string;
-    isSelected?: boolean;
     justifyContent?: string;
-    onClick: () => void;
 }
 
 const ButtonItem = ({
+    itemId,
     label,
-    isSelected,
     justifyContent = "start",
-    onClick,
 }: ButtonItemProps) => {
+    const { reviewId } = useParams<{ reviewId: string | undefined }>();
+
     return (
-        <Button
-            variant={isSelected ? "solid" : "ghost"}
-            colorScheme={isSelected ? "teal" : "gray"}
-            mb="10px"
-            onClick={onClick}
-            justifyContent={justifyContent} // 텍스트를 왼쪽 정렬
-        >
-            {label}
-        </Button>
+        <NavLink to={`${itemId}`}>
+            <Button
+                variant={reviewId === itemId ? "solid" : "ghost"}
+                colorScheme={reviewId === itemId ? "teal" : "gray"}
+                mb="10px"
+                justifyContent={justifyContent} // 텍스트를 왼쪽 정렬
+            >
+                {label}
+            </Button>
+        </NavLink>
     );
 };
 

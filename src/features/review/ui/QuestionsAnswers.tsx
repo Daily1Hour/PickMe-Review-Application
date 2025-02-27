@@ -15,7 +15,7 @@ const QuestionsAnswers = () => {
 
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "reviewDetail.questionsAnswers",
+        name: "questionsAnswers",
     });
 
     return (
@@ -46,17 +46,17 @@ const QuestionsAnswers = () => {
                         )}
 
                         <Controller
-                            name={`reviewDetail.questionsAnswers.${index}.type`}
+                            name={`questionsAnswers.${index}.type`}
                             control={control}
                             render={() => (
                                 <InputField
                                     label="질문 유형"
-                                    name={`reviewDetail.questionsAnswers.${index}.type`}
+                                    name={`questionsAnswers.${index}.type`}
                                 />
                             )}
                         />
                         <Controller
-                            name={`reviewDetail.questionsAnswers.${index}.question`}
+                            name={`questionsAnswers.${index}.question`}
                             control={control}
                             render={({ field, fieldState }) => (
                                 <TextAreaField
@@ -67,7 +67,7 @@ const QuestionsAnswers = () => {
                             )}
                         />
                         <Controller
-                            name={`reviewDetail.questionsAnswers.${index}.answer`}
+                            name={`questionsAnswers.${index}.answer`}
                             control={control}
                             render={({ field, fieldState }) => (
                                 <TextAreaField
@@ -78,7 +78,7 @@ const QuestionsAnswers = () => {
                             )}
                         />
                         <Controller
-                            name={`reviewDetail.questionsAnswers.${index}.feedback`}
+                            name={`questionsAnswers.${index}.feedback`}
                             control={control}
                             render={({ field, fieldState }) => (
                                 <TextAreaField

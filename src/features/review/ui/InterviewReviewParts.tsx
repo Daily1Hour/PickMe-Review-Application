@@ -1,24 +1,19 @@
 import { Separator } from "@chakra-ui/react";
-import {
-    InterviewDetailSchema,
-    ReviewDetailSchema,
-} from "../schema/reviewSchema";
-import getFieldKeyMap from "../util/getFieldKeyMap";
 import DynamicReviewFields from "./DynamicReviewFields";
 import QuestionsAnswers from "./QuestionsAnswers";
+import { dict } from "./ReviewDict";
 
 const InterviewReviewParts = () => {
-    // 스키마에서 필드 이름을 Map으로 추출
-    const reviewDetailKeyMap = getFieldKeyMap(ReviewDetailSchema);
-    const interviewDetailKeyMap = getFieldKeyMap(InterviewDetailSchema);
+    // dict 객체에서 최상위 키와 body의 key만 추출
+    const reviewDetailKeyMap: { name: string; fields: string[] }[] =
+        Object.entries(dict).map(([name, { body }]) => ({
+            name,
+            fields: Object.keys(body),
+        }));
 
     return (
         <>
-            <DynamicReviewFields
-                rootName="interviewDetail"
-                fieldNames={Object.keys(interviewDetailKeyMap)}
-            />
-            {Object.entries(reviewDetailKeyMap).map(([name, fields]) =>
+            {reviewDetailKeyMap.map(({ name, fields }) =>
                 name === "questionsAnswers" ? (
                     <>
                         <QuestionsAnswers key={name} />
@@ -27,9 +22,8 @@ const InterviewReviewParts = () => {
                 ) : (
                     <DynamicReviewFields
                         key={name}
-                        rootName="reviewDetail"
                         sectionName={name}
-                        fieldNames={Object.keys(fields!)}
+                        fieldNames={fields}
                     />
                 ),
             )}

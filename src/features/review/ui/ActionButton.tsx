@@ -1,5 +1,4 @@
 import { Button, Box, HStack } from "@chakra-ui/react";
-
 interface ActionButtonProps {
     reviewId: string | undefined;
     handleDelete: () => void;
