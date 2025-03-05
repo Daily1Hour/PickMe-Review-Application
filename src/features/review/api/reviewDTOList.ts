@@ -16,6 +16,8 @@ export interface GetResponseDTO {
 
 export interface GetInterviewReviewsDTO {
     reviewId: string;
+    createdAt: string;
+    updatedAt: string;
     interviewDetail: InterviewDetailDTO;
     reviewDetail: ReviewDetailDTO;
 }
