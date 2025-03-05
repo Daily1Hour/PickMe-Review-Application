@@ -41,6 +41,7 @@ const ReviewForm = () => {
 
     const handleDelete = async () => {
         deleteMutation(reviewId);
+        navigateTo("/");
     };
 
     const title = review ? `${review?.companyName} - ${review?.category}` : "-";
