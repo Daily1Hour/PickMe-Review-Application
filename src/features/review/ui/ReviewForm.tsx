@@ -9,7 +9,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import ActionButton from "./ActionButton";
 import { initialFormData } from "../api/initialFormData";
-import React from "react";
+import * as React from "react";
 import { useReviewMutation } from "../hook/useReviewMutation";
 import { useReviewStore } from "../store/useReviewStore";
 import { navigateTo } from "@/shared/api/router";
