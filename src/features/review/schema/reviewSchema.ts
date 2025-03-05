@@ -83,4 +83,72 @@ export const ReviewSchema = z.object({
     interviewReviews: z.array(InterviewReviewsSchema),
 });
 
-export type InterviewReviewsType = z.infer<typeof InterviewReviewsSchema>;
+export const FlattenedInterviewReviewsSchema = z.object({
+    // InterviewDetail
+    companyName: z.string().min(1, { message: "화사명은 필수값입니다." }),
+    position: z.string().min(1, { message: "지원 직무는 필수값입니다." }),
+    interviewDateTime: z.string(),
+    category: z.string().min(1, { message: "면접 유형은 필수값입니다." }),
+
+    // Preparation
+    strengths: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    improvements: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+
+    // InterviewProcess
+    format: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    mood: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    panel: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    interviewRatio: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
+
+    // QuestionsAnswers
+    questionsAnswers: z.array(
+        z.object({
+            type: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+            question: z
+                .string()
+                .max(500, { message: "500자 이하로 작성해주세요" }),
+            answer: z
+                .string()
+                .max(500, { message: "500자 이하로 작성해주세요" }),
+            feedback: z
+                .string()
+                .max(300, { message: "300자 이하로 작성해주세요" }),
+        }),
+    ),
+
+    // Communication
+    verbal: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    nonVerbal: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    interaction: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+
+    // InterviewAnalysis
+    analysisStrengths: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
+    analysisImprovements: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
+    analysisFeedback: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
+    difficulty: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    interviewResultAnalysis: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
+
+    // NextPreparation
+    technical: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    expression: z.string().max(100, { message: "100자 이하로 작성해주세요" }),
+    additionalPractice: z
+        .string()
+        .max(100, { message: "100자 이하로 작성해주세요" }),
+
+    // Review ID
+    reviewId: z.string().optional(),
+});
+
+export type InterviewReviewsType = z.infer<
+    typeof FlattenedInterviewReviewsSchema
+>;

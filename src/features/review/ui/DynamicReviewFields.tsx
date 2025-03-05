@@ -5,16 +5,13 @@ import { dict } from "./ReviewDict";
 import safeReadDictionary from "../util/safeReadDictionary";
 
 const DynamicReviewFields = ({
-    rootName,
     sectionName,
     fieldNames,
 }: {
-    rootName: string;
-    sectionName?: string;
+    sectionName: string;
     fieldNames: string[];
 }) => {
-    const section = safeReadDictionary(dict, sectionName ?? rootName);
-    const prefix = sectionName ? `${rootName}.${sectionName}` : rootName;
+    const section = safeReadDictionary(dict, sectionName);
 
     return (
         <>
@@ -38,7 +35,7 @@ const DynamicReviewFields = ({
                                     section?.body,
                                     fieldName,
                                 )}
-                                name={`${prefix}.${fieldName}`}
+                                name={fieldName}
                                 type={type} // 여기서 type을 적용
                             />
                         );
