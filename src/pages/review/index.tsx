@@ -1,9 +1,9 @@
-import { Flex, Input, Stack, Image } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Container } from "@styleguide/react";
 
 import Sidebar from "@/features/side";
 import ReviewPage from "@/features/review";
-import SectionBar from "@/features/side/ui/sectionNav/sectionBar";
+import SectionBar from "@/features/side/ui/sectionNav/SectionBar";
 
 const Review = () => {
     return (
