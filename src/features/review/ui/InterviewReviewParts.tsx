@@ -1,4 +1,4 @@
-import { Separator } from "@chakra-ui/react";
+import { Separator, HStack } from "@chakra-ui/react";
 import DynamicReviewFields from "./DynamicReviewFields";
 import QuestionsAnswers from "./QuestionsAnswers";
 import { dict } from "./ReviewDict";
@@ -15,16 +15,18 @@ const InterviewReviewParts = () => {
         <>
             {reviewDetailKeyMap.map(({ name, fields }) =>
                 name === "questionsAnswers" ? (
-                    <>
+                    <div id={name}>
                         <QuestionsAnswers key={name} />
                         <Separator borderColor="black" size="sm" />
-                    </>
+                    </div>
                 ) : (
-                    <DynamicReviewFields
-                        key={name}
-                        sectionName={name}
-                        fieldNames={fields}
-                    />
+                    <div id={name}>
+                        <DynamicReviewFields
+                            key={name}
+                            sectionName={name}
+                            fieldNames={fields}
+                        />
+                    </div>
                 ),
             )}
         </>
