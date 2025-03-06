@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-scroll";
-import { dict } from "@/features/review/ui/ReviewDict";
+import { dict } from "@/shared/data/ReviewDict";
 import { Flex } from "@chakra-ui/react";
 
 const SectionBar = () => {

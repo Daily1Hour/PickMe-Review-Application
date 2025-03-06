@@ -1,7 +1,7 @@
 import { Stack, Fieldset } from "@chakra-ui/react";
 import { Separator } from "@chakra-ui/react";
 import InputField from "./InputField";
-import { dict } from "./ReviewDict";
+import { dict } from "../../../shared/data/ReviewDict";
 import safeReadDictionary from "../util/safeReadDictionary";
 
 const DynamicReviewFields = ({

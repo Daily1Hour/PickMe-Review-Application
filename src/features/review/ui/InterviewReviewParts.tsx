@@ -1,7 +1,7 @@
 import { Separator, Flex } from "@chakra-ui/react";
 import DynamicReviewFields from "./DynamicReviewFields";
 import QuestionsAnswers from "./QuestionsAnswers";
-import { dict } from "./ReviewDict";
+import { dict } from "../../../shared/data/ReviewDict";
 
 const InterviewReviewParts = () => {
     // dict 객체에서 최상위 키와 body의 key만 추출
