@@ -1,5 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Heading, Box } from "@chakra-ui/react";
+import { ScrollRestoration } from "react-router-dom";
 
 import InterviewReviewParts from "./InterviewReviewParts";
 import {
@@ -9,7 +10,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import ActionButton from "./ActionButton";
 import { initialFormData } from "../api/initialFormData";
-import * as React from "react";
+import React from "react";
 import { useReviewMutation } from "../hook/useReviewMutation";
 import { useReviewStore } from "../store/useReviewStore";
 import { navigateTo } from "@/shared/api/router";
@@ -47,22 +48,25 @@ const ReviewForm = () => {
     const title = review ? `${review?.companyName} - ${review?.category}` : "-";
 
     return (
-        <FormProvider {...methods}>
-            <form onSubmit={onSubmit}>
-                <Box display="grid" gap="50px">
-                    <Heading textAlign="center" size="3xl" marginTop="50px">
-                        {title}
-                    </Heading>
+        <>
+            <FormProvider {...methods}>
+                <form onSubmit={onSubmit}>
+                    <Box display="grid" gap="50px">
+                        <Heading textAlign="center" size="3xl" marginTop="50px">
+                            {title}
+                        </Heading>
 
-                    <InterviewReviewParts />
+                        <InterviewReviewParts />
 
-                    <ActionButton
-                        reviewId={reviewId}
-                        handleDelete={handleDelete}
-                    />
-                </Box>
-            </form>
-        </FormProvider>
+                        <ActionButton
+                            reviewId={reviewId}
+                            handleDelete={handleDelete}
+                        />
+                    </Box>
+                </form>
+            </FormProvider>
+            <ScrollRestoration />
+        </>
     );
 };
 

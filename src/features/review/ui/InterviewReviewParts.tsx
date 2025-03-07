@@ -1,7 +1,7 @@
-import { Separator } from "@chakra-ui/react";
+import { Separator, Flex } from "@chakra-ui/react";
 import DynamicReviewFields from "./DynamicReviewFields";
 import QuestionsAnswers from "./QuestionsAnswers";
-import { dict } from "./ReviewDict";
+import { dict } from "../../../shared/data/ReviewDict";
 
 const InterviewReviewParts = () => {
     // dict 객체에서 최상위 키와 body의 key만 추출
@@ -13,18 +13,30 @@ const InterviewReviewParts = () => {
 
     return (
         <>
-            {reviewDetailKeyMap.map(({ name, fields }) =>
+            {reviewDetailKeyMap.map(({ name, fields }, index) =>
                 name === "questionsAnswers" ? (
-                    <>
-                        <QuestionsAnswers key={name} />
+                    <Flex
+                        key={`${name}-${index}`}
+                        id={name}
+                        direction="column"
+                        gap="30px"
+                    >
+                        <QuestionsAnswers key={`${name}-${index}`} />
                         <Separator borderColor="black" size="sm" />
-                    </>
+                    </Flex>
                 ) : (
-                    <DynamicReviewFields
-                        key={name}
-                        sectionName={name}
-                        fieldNames={fields}
-                    />
+                    <Flex
+                        key={`${name}-${index}`}
+                        id={name}
+                        direction="column"
+                        gap="30px"
+                    >
+                        <DynamicReviewFields
+                            key={`${name}-${index}`}
+                            sectionName={name}
+                            fieldNames={fields}
+                        />
+                    </Flex>
                 ),
             )}
         </>
