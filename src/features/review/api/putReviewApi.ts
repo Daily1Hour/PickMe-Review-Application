@@ -6,7 +6,7 @@ import { reviewToUpdateDTO } from "../service/reviewToDto";
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 const client = axios.create({
-    baseURL: `${SERVER_URL}/review`,
+    baseURL: `${SERVER_URL}`,
     headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
