@@ -15,14 +15,10 @@ const SectionBar = () => {
             direction="column"
             style={{
                 width: "250px",
-                backgroundColor: "#F8C471",
                 padding: "20px",
-                borderRight: "2px solidrgb(80, 49, 44)", // 부드러운 테두리
                 position: "fixed",
                 top: "100px", // 화면에서 약간 떨어지도록 설정
-                right: "0",
-                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)", // 부드러운 그림자
-                borderRadius: "8px 0 0 8px", // 둥근 모서리
+                right: "100px",
                 zIndex: 1000,
                 transition: "transform 0.3s ease-in-out", // 애니메이션
             }}
