@@ -27,7 +27,7 @@ const SectionBar = () => {
                 <div key={name}>
                     <Link
                         to={name}
-                        smooth={true}
+                        smooth={false}
                         offset={-50}
                         style={{
                             display: "block",
