@@ -1,5 +1,6 @@
-import { FlattenedReview } from "@/entities/review/model/review";
 import { create } from "zustand";
+
+import { FlattenedReview } from "@/entities/review/model/review";
 import { initialFormData } from "../api/initialFormData";
 
 type reviewType = {
