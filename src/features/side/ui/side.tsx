@@ -14,11 +14,12 @@ import {
 import { getSideData } from "../api/sideApi";
 import { GetSideDTO } from "../api/getSideDTO";
 import { useSideStore } from "../store/useSideStore";
+import SideSkeleton from "./SideSkeleton";
 
 const Sidebar = () => {
     const searchQuery = useSideStore((state) => state.searchQuery); // 객체 형태 말고 변수로 받음
 
-    const { data } = useQuery<GetSideDTO[]>({
+    const { data, isLoading } = useQuery<GetSideDTO[]>({
         queryKey: ["side"],
         queryFn: getSideData,
     });
@@ -49,11 +50,15 @@ const Sidebar = () => {
                         </IconButton>
                     </Item>
 
-                    {filteredItems.map((item) => (
-                        <Item key={item.id} as={NavLink} to={`/${item.id}`}>
-                            <Text m={3}>{item.label}</Text>
-                        </Item>
-                    ))}
+                    {isLoading ? (
+                        <SideSkeleton />
+                    ) : (
+                        filteredItems.map((item) => (
+                            <Item key={item.id} as={NavLink} to={`/${item.id}`}>
+                                <Text m={3}>{item.label}</Text>
+                            </Item>
+                        ))
+                    )}
                 </List>
             </DrawerBody>
         </DrawerLayout>
