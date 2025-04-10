@@ -2,15 +2,19 @@ import React from "react";
 import { Link } from "react-scroll";
 import { dict } from "@/shared/data/ReviewDict";
 import { Flex } from "@chakra-ui/react";
+import { useLoadingStore } from "@/shared/store/useLoadingStore";
 
 const SectionBar = () => {
+    const { isLoading } = useLoadingStore();
     // dict 객체에서 최상위 키와 title만 추출
     const reviewDetailKeyMap: { name: string; title: string }[] =
         Object.entries(dict).map(([name, { title }]) => ({
             name,
             title,
         }));
-    return (
+    return isLoading ? (
+        <></>
+    ) : (
         <Flex
             direction="column"
             position="fixed"
