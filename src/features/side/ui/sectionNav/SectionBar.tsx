@@ -13,15 +13,9 @@ const SectionBar = () => {
     return (
         <Flex
             direction="column"
-            style={{
-                width: "250px",
-                padding: "20px",
-                position: "fixed",
-                top: "100px", // 화면에서 약간 떨어지도록 설정
-                right: "100px",
-                zIndex: 1000,
-                transition: "transform 0.3s ease-in-out", // 애니메이션
-            }}
+            position="fixed"
+            top="120px"
+            alignSelf="flex-start"
         >
             {reviewDetailKeyMap.map(({ name, title }) => (
                 <div key={name}>
