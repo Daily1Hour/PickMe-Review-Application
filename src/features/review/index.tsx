@@ -7,6 +7,7 @@ import { ReviewForm } from "./ui";
 import { useReviewStore } from "./store/useReviewStore";
 import { initialFormData } from "./api/initialFormData";
 import { useEffect } from "react";
+import ReviewSkeleton from "./ui/ReviewSkeleton";
 
 const ReviewPage = () => {
     const { review, setReview } = useReviewStore();
@@ -15,7 +16,7 @@ const ReviewPage = () => {
     const { reviewId } = useParams<{ reviewId: string | undefined }>();
 
     // reviewId가 있을 경우에만 작동
-    const { data: fetchedReview } = useQuery<FlattenedReview>({
+    const { data: fetchedReview, isLoading } = useQuery<FlattenedReview>({
         queryKey: ["review", reviewId],
         queryFn: () => getReviewApi(reviewId as string),
         enabled: !!reviewId,
@@ -29,7 +30,11 @@ const ReviewPage = () => {
         }
     }, [fetchedReview, setReview]);
 
-    return <ReviewForm key={review.updatedAt} />;
+    return isLoading ? (
+        <ReviewSkeleton />
+    ) : (
+        <ReviewForm key={review.updatedAt} />
+    );
 };
 
 export default ReviewPage;
