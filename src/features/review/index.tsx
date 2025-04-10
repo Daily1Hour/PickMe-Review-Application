@@ -8,9 +8,12 @@ import { useReviewStore } from "./store/useReviewStore";
 import { initialFormData } from "./api/initialFormData";
 import { useEffect } from "react";
 import ReviewSkeleton from "./ui/ReviewSkeleton";
+import { useLoadingStore } from "@/shared/store/useLoadingStore";
 
 const ReviewPage = () => {
     const { review, setReview } = useReviewStore();
+
+    const { setIsLoading } = useLoadingStore();
 
     // useParams로 url의 reviewId값 가져옴
     const { reviewId } = useParams<{ reviewId: string | undefined }>();
@@ -29,6 +32,10 @@ const ReviewPage = () => {
             setReview(fetchedReview);
         }
     }, [fetchedReview, setReview]);
+
+    useEffect(() => {
+        setIsLoading(isLoading);
+    }, [isLoading]);
 
     return isLoading ? (
         <ReviewSkeleton />
