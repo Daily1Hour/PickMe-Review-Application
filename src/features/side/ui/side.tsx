@@ -1,7 +1,7 @@
 import { MdAdd } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Text } from "@chakra-ui/react";
+import { Text, Skeleton } from "@chakra-ui/react";
 import {
     DrawerLayout,
     DrawerHeader,
@@ -18,7 +18,7 @@ import { useSideStore } from "../store/useSideStore";
 const Sidebar = () => {
     const searchQuery = useSideStore((state) => state.searchQuery); // 객체 형태 말고 변수로 받음
 
-    const { data } = useQuery<GetSideDTO[]>({
+    const { data, isLoading } = useQuery<GetSideDTO[]>({
         queryKey: ["side"],
         queryFn: getSideData,
     });
@@ -49,11 +49,25 @@ const Sidebar = () => {
                         </IconButton>
                     </Item>
 
-                    {filteredItems.map((item) => (
-                        <Item key={item.id} as={NavLink} to={`/${item.id}`}>
-                            <Text m={3}>{item.label}</Text>
-                        </Item>
-                    ))}
+                    {isLoading
+                        ? Array.from({ length: 4 }).map((_, idx) => (
+                              <Item key={idx}>
+                                  <Skeleton
+                                      height="50px"
+                                      width="100%"
+                                      borderRadius="md"
+                                  />
+                              </Item>
+                          ))
+                        : filteredItems.map((item) => (
+                              <Item
+                                  key={item.id}
+                                  as={NavLink}
+                                  to={`/${item.id}`}
+                              >
+                                  <Text m={3}>{item.label}</Text>
+                              </Item>
+                          ))}
                 </List>
             </DrawerBody>
         </DrawerLayout>
