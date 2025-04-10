@@ -44,7 +44,7 @@
 
 ## 🧩 컴포넌트 구성
 
-![Image](https://github.com/user-attachments/assets/a0a00408-94a2-4d31-87c3-88bdba18c109)
+![Image](https://github.com/user-attachments/assets/8317ab22-68c0-4a9b-8ba1-c82a590159c6)
 
 ## 🚀 실행 방법
 
