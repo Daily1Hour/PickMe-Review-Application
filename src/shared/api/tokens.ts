@@ -11,7 +11,7 @@ let tokens: Tokens = {
 };
 
 try {
-    const TOKEN_URL = import.meta.env.VITE_TOKEN_URL;
+    const TOKEN_URL = import.meta.env.VITE_AUTH_PARCEL_URL;
 
     if (!TOKEN_URL) {
         throw new Error("AUTH_PARCEL_URL is not defined");
