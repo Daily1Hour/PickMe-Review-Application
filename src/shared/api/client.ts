@@ -1,13 +1,14 @@
 import axios from "axios";
 
-import { accessToken } from "./tokens";
+import { idToken, accessToken } from "./tokens";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 export default axios.create({
     baseURL: SERVER_URL,
     headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${idToken}`,
+        "X-Access-Token": `Bearer ${accessToken}`,
         Accept: "application/json",
         "Content-Type": "application/json",
     },
