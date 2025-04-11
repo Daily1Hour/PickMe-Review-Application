@@ -7,7 +7,7 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 export default axios.create({
     baseURL: SERVER_URL,
     headers: {
-        Authorization: `Bearer ${idToken}`,
+        Authorization: `Bearer ${accessToken}`,
         "X-Access-Token": `Bearer ${accessToken}`,
         Accept: "application/json",
         "Content-Type": "application/json",
