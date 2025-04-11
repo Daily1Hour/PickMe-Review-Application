@@ -13,6 +13,6 @@ export default axios.create({
         "Content-Type": "application/json",
     },
     validateStatus: (status) => {
-        return status >= 200 && status < 500; // 500 아래는 따로 처리
+        return status >= 200 && status < 400; // 400 아래는 따로 처리
     },
 });
