@@ -12,6 +12,12 @@ import {
     ReviewDetailDTO,
 } from "../api/reviewDTOList";
 
+/**
+ * 평탄화된 리뷰 데이터를 서버 전송용 생성 DTO 형태로 변환하는 함수입니다.
+ *
+ * @param data - 인터뷰 리뷰의 평탄화된 데이터 객체입니다.
+ * @returns 서버에 인터뷰 리뷰를 생성할 때 사용하는 DTO 객체를 반환합니다.
+ */
 export function reviewToCreateDTO(data: FlattenedReview) {
     return {
         interviewDetail: {
@@ -58,6 +64,12 @@ export function reviewToCreateDTO(data: FlattenedReview) {
     } as PostInterviewReviewsDTO;
 }
 
+/**
+ * 평탄화된 리뷰 데이터를 서버 전송용 수정 DTO 형태로 변환하는 함수입니다.
+ *
+ * @param data - 인터뷰 리뷰의 평탄화된 데이터 객체입니다.
+ * @returns 서버에 인터뷰 리뷰를 수정할 때 사용하는 DTO 객체를 반환합니다.
+ */
 export function reviewToUpdateDTO(data: FlattenedReview) {
     return {
         interviewDetail: {
