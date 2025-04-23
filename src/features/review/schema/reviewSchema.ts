@@ -83,6 +83,15 @@ export const ReviewSchema = z.object({
     interviewReviews: z.array(InterviewReviewsSchema),
 });
 
+/**
+ * 인터뷰 리뷰 폼 데이터를 검증하기 위한 Zod 스키마입니다.
+ *
+ * 이 스키마는 평탄화된 인터뷰 리뷰 객체의 구조를 정의하고, 다음과 같은 검증 규칙을 강제합니다:
+ * - 회사명, 직무, 면접 유형 등은 모두 필수이며 최소 1자 이상이어야 합니다.
+ * - 사전 준비, 면접 과정, 커뮤니케이션, 분석, 다음 준비 항목은 각각 100자 이하로 작성해야 합니다.
+ * - 질의응답(questionsAnswers)은 객체 배열이며, 각 항목의 질문과 답변은 최대 500자, 피드백은 최대 300자까지 허용됩니다.
+ * - 전체 폼 항목에 대해 세부적인 길이 제한과 필수 여부를 검사합니다.
+ */
 export const FlattenedInterviewReviewsSchema = z.object({
     // InterviewDetail
     companyName: z.string().min(1, { message: "화사명은 필수값입니다." }),

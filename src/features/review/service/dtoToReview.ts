@@ -1,5 +1,11 @@
 import { GetResponseDTO } from "../api/reviewDTOList";
 
+/**
+ * 서버에서 전달받은 응답 DTO를 평탄화된 리뷰 객체로 변환하는 함수입니다.
+ *
+ * @param dto - 서버로부터 조회한 인터뷰 리뷰 응답 데이터입니다.
+ * @returns 프론트엔드에서 사용하는 평탄화된 리뷰 데이터 객체를 반환합니다.
+ */
 export function dtoToReview(dto: GetResponseDTO) {
     const interview = dto.interviewReviews[0];
 
