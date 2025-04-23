@@ -52,6 +52,9 @@ jobs:
         run: |
           npm run build:single-spa
 
+      - name: TypeDoc
+        run: npm run docs # TypeDoc 실행
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4 # 아티팩트를 업로드하는 액션
         with:
