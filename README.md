@@ -31,7 +31,7 @@
 
 ## 🎥 데모
 
-![Image](https://github.com/user-attachments/assets/11076ada-0c4c-467f-938b-88a420876383)
+https://github.com/user-attachments/assets/041f1ff0-b27c-4bb3-888b-2bfcc7db620b
 
 ## 💡 주요 기능
 
