@@ -1,5 +1,6 @@
 {
     "entryPoints": ["src"],
+    "readme": "none",
     "entryPointStrategy": "expand",
     "out": "dist/docs",
     "highlightLanguages": [
