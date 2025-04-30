@@ -8,7 +8,8 @@ import { useReviewStore } from "./store/useReviewStore";
 import { initialFormData } from "./api/initialFormData";
 import { useEffect } from "react";
 import ReviewSkeleton from "./ui/ReviewSkeleton";
-import { useLoadingStore } from "@/shared/store/useLoadingStore";
+import SectionBar from "./ui/SectionBar";
+import { Flex, Box } from "@chakra-ui/react";
 
 /**
  * ReviewPage 컴포넌트
@@ -19,7 +20,6 @@ import { useLoadingStore } from "@/shared/store/useLoadingStore";
  * 기능:
  * - `reviewId`를 기준으로 인터뷰 리뷰 데이터를 가져옵니다.
  * - 데이터를 성공적으로 가져오면 Zustand의 `useReviewStore`를 통해 전역 상태에 저장합니다.
- * - 로딩 여부는 `useLoadingStore`를 통해 전역 로딩 상태로 관리됩니다.
  * - 로딩 중일 땐 `ReviewSkeleton`, 로딩 완료 시엔 `ReviewForm`을 렌더링합니다.
  * - `ReviewForm`에는 `key={review.updatedAt}`을 지정하여 데이터가 변경된 경우에만 리렌더링이 일어나도록 제어합니다.
  *
@@ -40,8 +40,6 @@ import { useLoadingStore } from "@/shared/store/useLoadingStore";
 const ReviewPage = () => {
     const { review, setReview } = useReviewStore();
 
-    const { setIsLoading } = useLoadingStore();
-
     // useParams로 url의 reviewId값 가져옴
     const { reviewId } = useParams<{ reviewId: string | undefined }>();
 
@@ -60,14 +58,17 @@ const ReviewPage = () => {
         }
     }, [fetchedReview, setReview]);
 
-    useEffect(() => {
-        setIsLoading(isLoading);
-    }, [isLoading]);
-
     return isLoading ? (
         <ReviewSkeleton />
     ) : (
-        <ReviewForm key={review.updatedAt} />
+        <Flex gap="100px" align="flex-start">
+            <Box flex="3">
+                <ReviewForm key={review.updatedAt} />
+            </Box>
+            <Box flex="1">
+                <SectionBar />
+            </Box>
+        </Flex>
     );
 };
 
