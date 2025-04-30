@@ -48,6 +48,101 @@ https://github.com/user-attachments/assets/041f1ff0-b27c-4bb3-888b-2bfcc7db620b
 
 ![Image](https://github.com/user-attachments/assets/8317ab22-68c0-4a9b-8ba1-c82a590159c6)
 
+### 📊 상태 전이 다이어그램
+
+```mermaid
+stateDiagram-v2
+    state "ReviewPage" as RP {
+        RP/Fetching: Fetching
+        RP/Empty: Empty
+        RP/Loaded: Loaded
+        state if_exist_id <<choice>>
+        state if_fetch <<choice>>
+        state join_state <<join>>
+
+        [*] --> if_exist_id: useParams()
+        if_exist_id --> RP/Fetching: id 있음
+        if_exist_id --> RP/Empty: id 없음
+
+        RP/Fetching --> if_fetch: useQuery()
+        if_fetch --> RP/Empty: fetch 실패
+        if_fetch --> RP/Loaded: fetch 성공
+
+        RP/Empty --> join_state
+        RP/Loaded --> join_state
+
+        note right of RP/Fetching
+            API를 통해 비동기로 데이터를 패칭해 업데이트
+        end note
+    }
+
+    state "Zustand Store" as Store {
+        Store/Updated: Updated
+        Store/Notifier: Notifier
+
+        [*] --> Dispatcher: 상태 초기화<br>setRecord(Empty)
+        Dispatcher --> Reducer: 내부 로직 처리
+        Reducer --> Store/Updated: 상태 갱신
+        Store/Updated --> Store/Notifier: 구독자들에게 알림
+
+
+    }
+    note left of Store
+            Flux 방식의 상태저장소
+            단방향 데이터 구조
+    end note
+
+    state "ReviewForm" as RF {
+        RF/Rendering: Rendering
+        RF/Submitting: Submitting
+        RF/Send: Send
+
+        [*] --> RF/Rendering: 상태 구독<br>useReviewStore()
+        RF/Submitting --> RF/Send: 전송<br>useMutation(review)
+    }
+
+    state "FormProvider" as FP {
+        FP/Updated: Updated
+        FP/Notifier: Notifier
+
+        [*] --> FP/Updated: 상태 초기화
+        FP/Updated --> FP/Notifier: 구독자들에게 알림
+    }
+
+    note left of FP
+        react-hook-form의
+        폼 상태 컨텍스트 전달자
+    end note
+
+    state "ReviewFields" as RFS {
+        RFS/InputField: InputField
+        [*] --> RFS/InputField
+
+        state RFS/InputField {
+            IF/Rendering: Rendering
+            IF/Updated: Updated
+
+            [*] --> IF/Rendering: 상태 구독<br>useFormContext()
+            IF/Rendering --> IF/Updated: 렌더링 완료
+        }
+    }
+
+    state "QuestionsAnswers" as QA {
+        QA/Rendering: Rendering
+        QA/Updated: Updated
+
+        [*] --> QA/Rendering: 상태 구독<br>useFieldArray()
+        QA/Rendering --> QA/Updated: 렌더링 완료
+    }
+
+    join_state --> Dispatcher: 발송<br>setReview(Data)
+    Store/Notifier --> RF/Rendering: 알림<br>review
+    FP/Notifier --> RF/Submitting: 제출<br>onSubmit(review)
+    FP/Notifier --> IF/Rendering: 알림<br>review
+    FP/Notifier --> QA/Rendering: 알림<br>review
+    RF/Rendering --> FP/Updated: 폼 갱신<br>useForm(review)
+```
+
 ## 🚀 실행 방법
 
 ```sh
