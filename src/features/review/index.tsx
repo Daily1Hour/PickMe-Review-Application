@@ -9,6 +9,8 @@ import { initialFormData } from "./api/initialFormData";
 import { useEffect } from "react";
 import ReviewSkeleton from "./ui/ReviewSkeleton";
 import { useLoadingStore } from "@/shared/store/useLoadingStore";
+import SectionBar from "./ui/SectionBar";
+import { Flex, Box } from "@chakra-ui/react";
 
 /**
  * ReviewPage 컴포넌트
@@ -67,7 +69,14 @@ const ReviewPage = () => {
     return isLoading ? (
         <ReviewSkeleton />
     ) : (
-        <ReviewForm key={review.updatedAt} />
+        <Flex gap="100px" align="flex-start">
+            <Box flex="3">
+                <ReviewForm key={review.updatedAt} />
+            </Box>
+            <Box flex="1">
+                <SectionBar />
+            </Box>
+        </Flex>
     );
 };
 
