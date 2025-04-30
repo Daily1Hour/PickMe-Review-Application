@@ -161,6 +161,7 @@ PickMe-Review-Application
 ├─ index.html
 ├─ package-lock.json
 ├─ package.json
+├─ README.md
 ├─ setup.ps1
 ├─ setup.zsh
 ├─ src
@@ -202,6 +203,8 @@ PickMe-Review-Application
 │  │  │  │  ├─ InterviewReviewParts.tsx
 │  │  │  │  ├─ QuestionsAnswers.tsx
 │  │  │  │  ├─ ReviewForm.tsx
+│  │  │  │  ├─ ReviewSkeleton.tsx
+│  │  │  │  ├─ SectionBar.tsx
 │  │  │  │  └─ TextAreaField.tsx
 │  │  │  └─ util
 │  │  │     ├─ getFieldKeyMap.ts
@@ -215,32 +218,31 @@ PickMe-Review-Application
 │  │     │  └─ useSideStore.ts
 │  │     └─ ui
 │  │        ├─ SearchBar.tsx
-│  │        ├─ sectionNav
-│  │        │  └─ SectionBar.tsx
-│  │        └─ side.tsx
+│  │        ├─ side.tsx
+│  │        └─ SideSkeleton.tsx
 │  ├─ pages
 │  │  └─ review
-│  │     ├─ index.tsx
-│  │     └─ ui
-│  │        └─ firstRender.tsx
+│  │     └─ index.tsx
 │  └─ shared
 │     ├─ api
-│     │  └─ router.ts
+│     │  ├─ client.ts
+│     │  ├─ index.ts
+│     │  ├─ router.ts
+│     │  └─ tokens.ts
 │     ├─ chakra-ui
 │     │  ├─ close-button.tsx
 │     │  ├─ color-mode.tsx
 │     │  ├─ drawer.tsx
 │     │  ├─ field.tsx
 │     │  └─ provider.tsx
-│     ├─ data
-│     │  └─ ReviewDict.ts
-│     └─ store
-│        └─ useReviewIdStore.ts
+│     └─ data
+│        └─ ReviewDict.ts
 ├─ steiger.config.ts
 ├─ styleguide-types.d.ts
 ├─ tsconfig.app.json
 ├─ tsconfig.json
 ├─ tsconfig.node.json
+├─ typedoc.json
 ├─ vite-env.d.ts
 └─ vite.config.ts
 
