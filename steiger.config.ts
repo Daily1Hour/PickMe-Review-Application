@@ -9,6 +9,7 @@ export default defineConfig([
             "fsd/no-public-api-sidestep": "off",
             "fsd/public-api": "off",
             "fsd/insignificant-slice": "off",
+            "fsd/no-segmentless-slices": "off",
         },
     },
 ]);
